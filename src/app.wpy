@@ -1,0 +1,148 @@
+<style lang="less">
+    .container {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        box-sizing: border-box;
+    }
+    @import './style/weui.less';
+    .page{
+        background-color: #F8F8F8;
+        font-size: 16px;
+        font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
+    }
+    .page__hd {
+        padding: 40px;
+    }
+    .page__bd_spacing {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .page__ft{
+        padding-bottom: 10px;
+        text-align: center;
+    }
+
+    .page__title {
+        text-align: left;
+        font-size: 20px;
+        font-weight: 400;
+    }
+
+    .page__desc {
+        margin-top: 5px;
+        color: #888888;
+        text-align: left;
+        font-size: 14px;
+    }
+</style>
+
+<script>
+  import wepy from 'wepy'
+  import 'wepy-async-function'
+
+  import { setStore } from 'wepy-redux'
+  import configStore from './store'
+  import api from './api/api'
+  import {
+    SYSTEM_INFO,
+    SEL_CLASS_CODE
+  } from './utils/constant'
+  const store = configStore()
+  setStore(store)
+
+  export default class extends wepy.app {
+    config = {
+      pages: [
+        'pages/index'
+      ],
+      window: {
+        backgroundTextStyle: 'dark',
+        navigationBarBackgroundColor: '#FFFFFF',
+        navigationBarTitleText: 'WeChat',
+        navigationBarTextStyle: 'black',
+        enablePullDownRefresh: false,
+        backgroundColor: '#373C38'
+
+      },
+      "tabBar": {
+        "color": "#838683",
+        "selectedColor": "#FFFFFF",
+        "backgroundColor": "#373C38",
+        "borderStyle": "black",
+        "list": [{
+          "pagePath": "pages/index",
+          "text": "預約",
+          "iconPath": "images/index/date.png",
+          "selectedIconPath": "images/index/date_hover.png"
+        }, {
+          "pagePath": "pages/index",
+          "text": "用戶",
+          "iconPath": "images/index/me.png",
+          "selectedIconPath": "images/index/me.png"
+        }, {
+          "pagePath": "pages/index",
+          "text": "個人",
+          "iconPath": "images/index/discover.png",
+          "selectedIconPath": "images/index/discover_hover.png"
+        }]
+      }
+    }
+
+    globalData = {
+      userInfo: null
+    }
+
+    constructor () {
+      super()
+      this.use('requestfix')
+      this.use('promisify')
+    }
+
+    async onLaunch() {
+      //存储系统信息 
+      let systemInfo = wepy.getSystemInfoSync();
+      wepy.setStorageSync(SYSTEM_INFO, systemInfo);
+
+      let res = await wepy.login();
+      let code = res.code
+      if (res.code){
+        let res = await wepy.getUserInfo()
+        wepy.setStorageSync('user_info', res.userInfo);
+      }
+    }
+
+    sleep (s) {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve('promise resolved')
+        }, s * 1000)
+      })
+    }
+
+
+    async getUserInfo(cb) {
+      const that = this
+      if (this.globalData.userInfo) {
+        return this.globalData.userInfo
+      }
+      let res = await wepy.getUserInfo()
+      cb && cb(res.userInfo)
+    }
+
+    doPrint(){
+      wepy.login({
+        success: function (data) {
+          wepy.getUserInfo({
+            success: function (userinfo) {
+            }
+          });
+        }
+      });
+    }
+
+  }
+</script>
