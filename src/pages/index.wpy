@@ -4,6 +4,7 @@
     color: #FFFFFF;
     .list{
       margin-top: 16rpx;
+      margin-bottom: 32rpx;
       .list-item{
         width:688rpx;
         height:192rpx;
@@ -71,15 +72,61 @@
           }
         }
       }
+      &.admin{
+        .list-item{
+          padding-top: 24rpx;
+          height: 264rpx;
+          .newapp{
+            height:32rpx;
+            font-size:28rpx;
+            line-height:32rpx;
+            color: #373C38;
+          }
+        }
+        .admin-name{
+          color: #373C38;
+          height:48rpx;
+          font-size:28rpx;
+          line-height:48rpx;
+          padding-left: 32rpx;
+          padding-top: 16rpx;
+        }
+      }
     }
   }
 </style>
 <template>
   <view class="page">
     <!--頂部-->
-    <search></search>
-    <view class="list">
+
+    <view class="list admin">
       <view class="list-item">
+        <view class="admin-name">
+          上午好 xxxx
+        </view>
+        <view class="top" style="margin-top: -16rpx">
+          <view class="right" style="padding-left: 32rpx">
+            <view class="one">
+              今日预约：6单
+            </view>
+            <view class="two">
+              本周预约：36单
+            </view>
+          </view>
+          <view class="left">
+            <image class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"/>
+          </view>
+        </view>
+        <view class="foot" style="padding-left: 32rpx">
+          <view class="btn newapp">
+            今天 上午 8:30
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="list">
+      <navigator url="/pages/order-detail" hover-class="none" class="list-item">
         <view class="top">
           <view class="left">
             <image class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"/>
@@ -88,29 +135,29 @@
             <view class="one">
               用戶名
             </view>
-            <view class="two">
-              账户余额: ¥ 5000
+          </view>
+          <view class="right">
+            <view class="one" style="text-align: right;padding-right: 32rpx">
+              車牌號
             </view>
           </view>
         </view>
         <view class="foot">
-          <view class="btn">
-            設置餘額
-          </view>
-          <view class="btn">
-            設置會員等級
+          <view class="btn" @tap="recharge">
+            今天 上午 8:30
           </view>
         </view>
-      </view>
+      </navigator>
     </view>
   </view>
-  <rate @change.user="callbackStart"></rate>
+  <recharge :recharge_active.sync="recharge_active"></recharge>
 </template>
 
 <script>
   import wepy from 'wepy'
   import util from '../utils/util'
   import Search from '../components/search'
+  import Recharge from '../components/recharge'
   import {
     SYSTEM_INFO,
     SEL_CLASS_CODE
@@ -120,7 +167,8 @@
       navigationBarTitleText: 'about'
     }
     components = {
-      search:Search
+      search:Search,
+      recharge:Recharge
     }
 
     data = {
@@ -129,6 +177,7 @@
         nickName: '加载中...'
       },
       count: 0,
+      recharge_active: 0,
       dateList: [],
       windowHeight: 0,
       timeList: [],
@@ -157,6 +206,9 @@
       },
       callbackStart(count){
         console.log(count)
+      },
+      recharge (e) {
+        this.recharge_active = 1
       }
     }
 
@@ -172,7 +224,6 @@
 //      const json = await api.getDateList({
 //        query: {}
 //      });
-      console.log(2222)
       if (1) {
         for (var i=0;i<=20;i++){
           this.dateList.push({code:i,name:"tese"+i})

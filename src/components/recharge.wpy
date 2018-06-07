@@ -1,0 +1,200 @@
+<style type="less">
+    .wepy-api-dialog_bind{
+        .wepy-api-dialog__mask_bind{
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.6);
+        }
+        .wepy-api-dialog__main_bind{
+            position: fixed;
+            z-index: 5000;
+            max-width: 560rpx;
+            width: 560rpx;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            background:#FFFFFF;
+            text-align: center;
+            overflow: hidden;
+            border-radius: 32rpx;
+            font-weight: bold;
+            .wepy-api-dialog__hd_bind{
+                padding:48rpx;
+                padding-bottom: 16rpx;
+                text-align: left;
+                .wepy-api-dialog__title_bind{
+                    width:496rpx;
+                    font-size: 32rpx;
+                    height:56rpx;
+                    color:rgba(0,0,0,0.6);
+                    line-height:56rpx;
+                }
+            }
+            .weui-cell{
+                &.weui_bind{
+                    height: 110rpx;
+                    padding-top: 0;
+                    padding-bottom: 0;
+                    .weui-cell__bd{
+                        text-align: left;
+                        padding-left: 32rpx;
+                        font-size: 28rpx;
+                        color:rgba(0,0,0,0.87);
+                    }
+                }
+            }
+            .main{
+                .font-red{
+                    font-size: 24rpx;
+                    height:32rpx;
+                    color:rgba(176,0,32,1);
+                    line-height:32rpx;
+                    text-align: left;
+                    padding-left: 48rpx;
+                    padding-bottom: 16rpx;
+                }
+                .mobile{
+                    width:464rpx;
+                    height: 88rpx;
+                    border-radius:8rpx;
+                    border:2rpx solid rgba(25,25,25,0.32);
+                    margin: auto;
+                    margin-top: 32rpx;
+                    margin-bottom: 16rpx;
+                    font-size: 28rox;
+                    .number{
+                        display: inline-block;
+                        font-size: 28rpx;
+                        width: 256rpx;
+                        height: 88rpx;
+                        line-height: 88rpx;
+                        text-align: left;
+                    }
+                    .doSend{
+                        display: inline-block;
+                        font-size: 28rpx;
+                        height: 88rpx;
+                        line-height: 88rpx;
+                        position: relative;
+                        top:-34rpx;
+                    }
+                }
+                .code{
+                    width:464rpx;
+                    height: 112rpx;
+                    border-radius:8rpx;
+                    border:2rpx solid rgba(25,25,25,0.32);
+                    margin: auto;
+                    margin-bottom: 16rpx;
+                    .number{
+                        display: inline-block;
+                        font-size: 32rpx;
+                        height: 112rpx;
+                        line-height: 112rpx;
+                        text-align: left;
+                        color:rgba(0,0,0,0.87);
+                    }
+                }
+            }
+            .foot{
+                width:464rpx;
+                margin: auto;
+                margin-top: 32rpx;
+                margin-bottom: 16rpx;
+                .btn{
+                    display: inline-block;
+                    width: 192rpx;
+                    height: 72rpx;
+                    line-height: 72rpx;
+                    font-size: 32rpx;
+                    text-align: right;
+                }
+            }
+        }
+    }
+</style>
+<template>
+    <view class="wepy-api-dialog_bind" wx:if="{{ recharge_active }}">
+        <view class="wepy-api-dialog__mask_bind" @tap="hide"></view>
+        <view class="wepy-api-dialog__main_bind">
+            <view class="wepy-api-dialog__hd_bind">
+                <view class="wepy-api-dialog__title_bind">
+                    为用户：xxxxx 充值余额
+                </view>
+                <view class="wepy-api-dialog__title_bind">充值金额</view>
+            </view>
+            <view class="main">
+                <view class="font-red">*请确认好充值金额</view>
+                <view class="code">
+                    <input type="number" maxlength="4" placeholder="请输入验证码" class="number" value="{{ code }}" />
+                </view>
+            </view>
+            <view class="foot">
+                <view class="btn" @tap="bind">
+                    確認充值
+                </view>
+                <view class="btn" @tap="hide">
+                    取消
+                </view>
+            </view>
+        </view>
+    </view>
+</template>
+<script>
+  import wepy from 'wepy'
+  import tip from '../utils/tip'
+
+  export default class Recharge extends wepy.component {
+
+    data = {
+      number: 13760264461,
+      code: '',
+    }
+
+    props = {
+      // 静态传值
+      title: {
+        type:String,
+        default: ''
+      },
+
+      msg: {
+        type:String,
+        default: ''
+      },
+
+      // 父向子单向动态传值
+      recharge_active: {
+        type: Number,
+        default: 0,
+        twoWay: true
+      },
+
+      confirmText: {
+        type:String,
+        default: '確認'
+      }
+    };
+
+
+    methods = {
+      hide () {
+        this.recharge_active = 0
+      },
+      bind (e) {
+        tip.toast("绑定成功")
+      }
+
+    }
+
+    onload () {
+      console.log(this.title);
+    }
+
+  }
+</script>

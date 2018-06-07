@@ -1,0 +1,238 @@
+<style lang="less">
+    .page{
+        background: #FFFFFF;
+        color: #FFFFFF;
+        .list{
+            margin-top: 16rpx;
+            .list-item{
+                width:688rpx;
+                height:192rpx;
+                background:rgba(255,255,255,1);
+                box-shadow: 0px 2rpx 10rpx 0px rgba(0,0,0,0.5);
+                margin: auto;
+                border-radius: 20rpx;
+                .top{
+                    display: -webkit-box;
+                    display: -webkit-flex;
+                    display: flex;
+                    -webkit-box-align: center;
+                    -webkit-align-items: center;
+                    align-items: center;
+                    .left{
+                        text-align: center;
+                        width: 80rpx;
+                        height: 80rpx;
+                        padding: 32rpx;
+                        image{
+                            width: 100%;
+                            max-height: 100%;
+                            vertical-align: top;
+                            border-radius: 50%;
+                        }
+                    }
+                    .right{
+                        color: red;
+                        -webkit-box-flex: 1;
+                        -webkit-flex: 1;
+                        flex: 1;
+                        min-width: 0;
+                        .one{
+                            width: auto;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            height:40rpx;
+                            font-size:28rpx;
+                            color:#373C38;
+                            line-height:40rpx;
+                        }
+                        .two{
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            display: -webkit-box;
+                            -webkit-box-orient: vertical;
+                            -webkit-line-clamp: 2;
+                            height:40rpx;
+                            font-size:28rpx;
+                            color:#373C38;
+                            line-height:40rpx;
+                        }
+                    }
+                }
+                .foot{
+                    padding-left: 144rpx;
+                    margin-top: -16rpx;
+                    .btn{
+                        display: inline-block;
+                        height:32rpx;
+                        font-size:28rpx;
+                        color:#373C38;
+                        line-height:32rpx;
+                        width: 192rpx;
+                    }
+                }
+            }
+        }
+    }
+</style>
+<template>
+    <view class="page">
+        <!--頂部-->
+        <search></search>
+        <view class="list">
+            <view class="list-item">
+                <view class="top">
+                    <view class="left">
+                        <image class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"/>
+                    </view>
+                    <view class="right">
+                        <view class="one">
+                            用戶名
+                        </view>
+                        <view class="two">
+                            账户余额: ¥ 5000
+                        </view>
+                    </view>
+                </view>
+                <view class="foot">
+                    <view class="btn" @tap="recharge">
+                        設置餘額
+                    </view>
+                    <view class="btn">
+                        設置會員等級
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <recharge :recharge_active.sync="recharge_active"></recharge>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import util from '../utils/util'
+  import Search from '../components/search'
+  import Recharge from '../components/recharge'
+  import {
+    SYSTEM_INFO,
+    SEL_CLASS_CODE
+  } from '../utils/constant';
+  export default class Index extends wepy.page {
+    config = {
+      navigationBarTitleText: 'user'
+    }
+    components = {
+      search:Search,
+      recharge:Recharge
+    }
+
+    data = {
+      mynum: 20,
+      userInfo: {
+        nickName: '加载中...'
+      },
+      count: 0,
+      recharge_active: 0,
+      dateList: [],
+      windowHeight: 0,
+      timeList: [],
+      currentDate: wx.getStorageSync(SEL_CLASS_CODE)
+    }
+
+    computed = {
+      now () {
+        return +new Date()
+      }
+    }
+
+    methods = {
+      changeCate (e) {
+        let code = e.currentTarget.dataset.code;
+        this.getTimeList(code);
+        wepy.setStorageSync(SEL_CLASS_CODE, code);
+        //设置一级分类的选中状态
+        for (var i = 0; i < this.dateList.length; i++) {
+          var rootCate = this.dateList[i];
+          rootCate.active = false;
+          if (rootCate.code == code) {
+            rootCate.active = true;
+          }
+        }
+      },
+      callbackStart(count){
+        console.log(count)
+      },
+      recharge (e) {
+        this.recharge_active = 1
+      }
+    }
+
+    events = {
+      'index-emit': (...args) => {
+        let $event = args[args.length - 1]
+        console.log(`${this.$name} receive ${$event.name} from ${$event.source.$name}`)
+      }
+    }
+
+    //获取日期列表
+    async getDateList() {
+//      const json = await api.getDateList({
+//        query: {}
+//      });
+      if (1) {
+        for (var i=0;i<=20;i++){
+          this.dateList.push({code:i,name:"tese"+i})
+        }
+        if (this.dateList.length > 0) {
+          let selCode = wx.getStorageSync(SEL_CLASS_CODE);
+          var selRottCateCode = this.dateList[0].code;
+
+          if (selCode.length==0) {
+            this.dateList[0].active = true;
+          } else {
+            for (var i = 0; i < this.dateList.length; i++) {
+              if (selCode == this.dateList[i].code) {
+                selRottCateCode = this.dateList[i].code;
+                this.dateList[i].active = true;
+              }
+            }
+          }
+
+          this.getTimeList(selRottCateCode);
+        }
+      } else {
+        tip.error(json.data.msg);
+      }
+      this.$apply();
+    }
+    //获取某个日期的某个时间段
+    async getTimeList(rootCateCode) {
+//      const json = await api.childGoodsCatetoryList({
+//        query: {
+//          rootCategoryCode: rootCateCode
+//        }
+//      });
+      const TIMESTAMP = util.getCurrentTime()
+      if (1) {
+        for (var i=0;i<=20;i++){
+          this.timeList.push({code:i,name:TIMESTAMP + i})
+        }
+      } else {
+        tip.error(json.data.msg);
+      }
+      this.$apply();
+    }
+
+    onLoad() {
+      let systemInfo = wx.getStorageSync(SYSTEM_INFO);
+      this.windowHeight = systemInfo.windowHeight;
+      let self = this
+      self.userInfo = wepy.getStorageSync('user_info')
+    }
+
+    onShow() {
+      this.getDateList()
+    }
+
+
+  }
+</script>

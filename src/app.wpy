@@ -57,7 +57,9 @@
   export default class extends wepy.app {
     config = {
       pages: [
-        'pages/index'
+        'pages/index',
+        'pages/users-list',
+        'pages/order-detail'
       ],
       window: {
         backgroundTextStyle: 'dark',
@@ -79,7 +81,7 @@
           "iconPath": "images/index/date.png",
           "selectedIconPath": "images/index/date_hover.png"
         }, {
-          "pagePath": "pages/index",
+          "pagePath": "pages/users-list",
           "text": "用戶",
           "iconPath": "images/index/me.png",
           "selectedIconPath": "images/index/me.png"
