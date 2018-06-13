@@ -1,13 +1,15 @@
 @import "../../base/fn.less";
 
-@weuiNavBarColor: #1AAD19;
+@weuiNavBarColor: #111612;
 .weui-navbar {
     display: flex;
     position: absolute;
     z-index: 500;
     top: 0;
     width: 100%;
-    border-bottom: 1rpx solid #CCCCCC;
+    //border-bottom: 1rpx solid #CCCCCC;
+    box-shadow: 0px 2rpx 10rpx 0px rgba(0,0,0,0.5);
+
 }
 
 .weui-navbar__item {
@@ -17,6 +19,7 @@
     padding: 13px 0;
     text-align: center;
     font-size: 0;
+    font-weight: bold;
 
     &.weui-bar__item_on {
         color: @weuiNavBarColor;

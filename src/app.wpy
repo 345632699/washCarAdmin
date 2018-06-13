@@ -59,7 +59,9 @@
       pages: [
         'pages/index',
         'pages/users-list',
-        'pages/order-detail'
+        'pages/order-detail',
+        'pages/classify',
+        'pages/me'
       ],
       window: {
         backgroundTextStyle: 'dark',
@@ -83,13 +85,13 @@
         }, {
           "pagePath": "pages/users-list",
           "text": "用戶",
-          "iconPath": "images/index/me.png",
-          "selectedIconPath": "images/index/me.png"
+          "iconPath": "images/index/user.png",
+          "selectedIconPath": "images/index/user_hover.png"
         }, {
-          "pagePath": "pages/index",
+          "pagePath": "pages/me",
           "text": "個人",
-          "iconPath": "images/index/discover.png",
-          "selectedIconPath": "images/index/discover_hover.png"
+          "iconPath": "images/index/me.png",
+          "selectedIconPath": "images/index/me_hover.png"
         }]
       }
     }
@@ -108,13 +110,15 @@
       //存储系统信息 
       let systemInfo = wepy.getSystemInfoSync();
       wepy.setStorageSync(SYSTEM_INFO, systemInfo);
-
+      console.log(systemInfo)
       let res = await wepy.login();
       let code = res.code
       if (res.code){
         let res = await wepy.getUserInfo()
+        console.log(res)
         wepy.setStorageSync('user_info', res.userInfo);
       }
+      this.doPrint()
     }
 
     sleep (s) {

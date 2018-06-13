@@ -68,7 +68,6 @@
             font-size:28rpx;
             color:#373C38;
             line-height:32rpx;
-            width: 192rpx;
           }
         }
       }
@@ -138,17 +137,18 @@
           </view>
           <view class="right">
             <view class="one" style="text-align: right;padding-right: 32rpx">
-              車牌號
+              車牌號111
             </view>
           </view>
         </view>
         <view class="foot">
-          <view class="btn" @tap="recharge">
+          <view class="btn">
             今天 上午 8:30
           </view>
         </view>
       </navigator>
     </view>
+    <button open-type="getUserInfo">用戶授權</button>
   </view>
   <recharge :recharge_active.sync="recharge_active"></recharge>
 </template>

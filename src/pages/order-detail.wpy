@@ -254,13 +254,13 @@
                     </view>
                     <view class="weui-cell__bd">車型</view>
                 </view>
-                <view class="weui-cell input-text">
+                <navigator url="/pages/classify" hover-class="none" class="weui-cell input-text">
                     <view class="font-gray">请选择车型</view>
-                </view>
+                </navigator>
             </view>
 
             <view class="weui-cells weui-cells_after-title last" style="padding-top: 64rpx;padding-bottom: 100px;">
-                <button class="weui-btn mybtn" type="primary" plain="true" @tap="uploadimg">完成洗車</button>
+                <button class="weui-btn mybtn" type="primary" plain="true" @tap="upload">完成洗車</button>
                 <button class="weui-btn mybtn" type="primary" plain="true" style="background: #818181" @tap="cancelOrder">取消訂單</button>
             </view>
         </scroll-view>
@@ -379,16 +379,56 @@
         })
       },
       //上傳圖片
-      uploadimg () {
+      upload () {
         var imgs=this.data.imgs;
-        wepy.uploadimg({
+        this.uploadimg({
           url:'https://........',//这里是你图片上传的接口
           path:imgs//这里是选取的图片的地址数组
+        });
+      },
+      uploadimg (data) {
+        var that=this,
+            i=data.i?data.i:0,//当前上传的哪张图片
+            success=data.success?data.success:0,//上传成功的个数
+            fail=data.fail?data.fail:0;//上传失败的个数
+        wx.uploadFile({
+          url: data.url,
+          filePath: data.path[i],
+          name: 'file',//这里根据自己的实际情况改
+          formData:null,//这里是上传图片时一起上传的数据
+          success: (resp) => {
+            success++;//图片上传成功，图片上传成功的变量+1
+            console.log(resp)
+            console.log(i);
+            //这里可能有BUG，失败也会执行这里,所以这里应该是后台返回过来的状态码为成功时，这里的success才+1
+          },
+          fail: (res) => {
+            fail++;//图片上传失败，图片上传失败的变量+1
+            console.log('fail:'+i+"fail:"+fail);
+          },
+          complete: () => {
+            console.log(i);
+            i++;//这个图片执行完上传后，开始上传下一张
+            if(i==data.path.length){   //当图片传完时，停止调用
+              console.log('执行完毕');
+              console.log('成功：'+success+" 失败："+fail);
+            }else{//若图片还没有传完，则继续调用函数
+              console.log(i);
+              data.i=i;
+              data.success=success;
+              data.fail=fail;
+              that.uploadimg(data);
+            }
+
+          }
         });
       },
 
       async cancelOrder () {
         this.is_active = 1
+        wepy.switchTab({
+          url: './index',   //注意switchTab只能跳转到带有tab的页面，不能跳转到不带tab的页面
+        })
       },
 
       doWash() {

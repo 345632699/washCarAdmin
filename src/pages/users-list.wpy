@@ -132,9 +132,7 @@
       },
       count: 0,
       recharge_active: 0,
-      dateList: [],
       windowHeight: 0,
-      timeList: [],
       currentDate: wx.getStorageSync(SEL_CLASS_CODE)
     }
 
@@ -173,55 +171,6 @@
       }
     }
 
-    //获取日期列表
-    async getDateList() {
-//      const json = await api.getDateList({
-//        query: {}
-//      });
-      if (1) {
-        for (var i=0;i<=20;i++){
-          this.dateList.push({code:i,name:"tese"+i})
-        }
-        if (this.dateList.length > 0) {
-          let selCode = wx.getStorageSync(SEL_CLASS_CODE);
-          var selRottCateCode = this.dateList[0].code;
-
-          if (selCode.length==0) {
-            this.dateList[0].active = true;
-          } else {
-            for (var i = 0; i < this.dateList.length; i++) {
-              if (selCode == this.dateList[i].code) {
-                selRottCateCode = this.dateList[i].code;
-                this.dateList[i].active = true;
-              }
-            }
-          }
-
-          this.getTimeList(selRottCateCode);
-        }
-      } else {
-        tip.error(json.data.msg);
-      }
-      this.$apply();
-    }
-    //获取某个日期的某个时间段
-    async getTimeList(rootCateCode) {
-//      const json = await api.childGoodsCatetoryList({
-//        query: {
-//          rootCategoryCode: rootCateCode
-//        }
-//      });
-      const TIMESTAMP = util.getCurrentTime()
-      if (1) {
-        for (var i=0;i<=20;i++){
-          this.timeList.push({code:i,name:TIMESTAMP + i})
-        }
-      } else {
-        tip.error(json.data.msg);
-      }
-      this.$apply();
-    }
-
     onLoad() {
       let systemInfo = wx.getStorageSync(SYSTEM_INFO);
       this.windowHeight = systemInfo.windowHeight;
@@ -230,7 +179,6 @@
     }
 
     onShow() {
-      this.getDateList()
     }
 
 

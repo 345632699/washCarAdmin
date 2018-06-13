@@ -1,0 +1,249 @@
+<style lang="less">
+    .page{
+        background: #FFFFFF;
+        color: #373C38;
+        .list{
+            margin-top: 32rpx;
+            margin-bottom: 16rpx;
+            .list-item{
+                width:688rpx;
+                height:192rpx;
+                background:rgba(255,255,255,1);
+                box-shadow: 0px 2rpx 10rpx 0px rgba(0,0,0,0.5);
+                margin: auto;
+                border-radius: 20rpx;
+                margin-bottom: 16rpx;
+                &.verify{
+                    height:136rpx;
+                    .btn{
+                        display: inline-block;
+                        padding:0 16rpx 0 16rpx;
+                    }
+                }
+                .top{
+                    display: -webkit-box;
+                    display: -webkit-flex;
+                    display: flex;
+                    -webkit-box-align: center;
+                    -webkit-align-items: center;
+                    align-items: center;
+                    .left{
+                        text-align: center;
+                        width: 80rpx;
+                        height: 80rpx;
+                        padding: 32rpx;
+                        image{
+                            width: 100%;
+                            max-height: 100%;
+                            vertical-align: top;
+                            border-radius: 50%;
+                        }
+                    }
+                    .right{
+                        color: red;
+                        -webkit-box-flex: 1;
+                        -webkit-flex: 1;
+                        flex: 1;
+                        min-width: 0;
+                        .one{
+                            width: auto;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            height:40rpx;
+                            font-size:28rpx;
+                            color:#373C38;
+                            line-height:40rpx;
+                        }
+                        .two{
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            display: -webkit-box;
+                            -webkit-box-orient: vertical;
+                            -webkit-line-clamp: 2;
+                            height:40rpx;
+                            font-size:28rpx;
+                            color:#373C38;
+                            line-height:40rpx;
+                        }
+                    }
+                }
+                .foot{
+                    padding-left: 144rpx;
+                    margin-top: -16rpx;
+                    .btn{
+                        display: inline-block;
+                        height:32rpx;
+                        font-size:28rpx;
+                        color:#373C38;
+                        line-height:32rpx;
+                        width: 192rpx;
+                    }
+                }
+            }
+        }
+    }
+</style>
+<template>
+    <view class="navbar page">
+        <view class="page__bd">
+            <view class="weui-tab">
+                <view class="weui-navbar" style="color: #111612">
+                    <view wx:for="{{tabs}}" wx:key="*this" id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" @tap="tabClick">
+                        <view class="weui-navbar__title">{{item}}</view>
+                    </view>
+                    <view class="weui-navbar__slider" style="background:#111612;left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+                </view>
+                <view class="weui-tab__panel">
+                    <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
+                        <view class="list">
+                            <view class="list-item">
+                                <view class="top">
+                                    <view class="left">
+                                        <image class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"/>
+                                        <view style="font-size: 22rpx;text-align: center">
+                                            店长
+                                        </view>
+                                    </view>
+                                    <view class="right">
+                                        <view class="one">
+                                            姓名
+                                        </view>
+                                        <view class="two">
+                                            职位
+                                        </view>
+                                    </view>
+                                </view>
+                                <view class="foot">
+                                    <view class="btn" @tap="recharge">
+                                        修改资料
+                                    </view>
+                                    <view class="btn">
+                                        删除员工
+                                    </view>
+                                </view>
+                            </view>
+                            <view class="list-item">
+                                <view class="top">
+                                    <view class="left">
+                                        <image class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"/>
+                                        <view style="font-size: 22rpx;text-align: center">
+                                            管理员
+                                        </view>
+                                    </view>
+                                    <view class="right">
+                                        <view class="one">
+                                            姓名1
+                                        </view>
+                                        <view class="two">
+                                            职位
+                                        </view>
+                                    </view>
+                                </view>
+                                <view class="foot">
+                                    <view class="btn" @tap="recharge">
+                                        修改资料
+                                    </view>
+                                    <view class="btn">
+                                        删除员工
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+                        <view class="list">
+                            <view class="list-item verify">
+                                <view class="top">
+                                    <view class="left">
+                                        <image class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"/>
+                                    </view>
+                                    <view class="right">
+                                        <view class="one">
+                                            用戶名1
+                                        </view>
+                                    </view>
+                                    <view class="right">
+                                        <view class="one" style="text-align: right;padding-right: 32rpx">
+                                            <view class="btn">拒绝</view>
+                                            <view class="btn">通过</view>
+                                        </view>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import util from '../utils/util'
+  import {
+    SYSTEM_INFO,
+    SEL_CLASS_CODE
+  } from '../utils/constant';
+  const sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
+  export default class Index extends wepy.page {
+    config = {
+      navigationBarTitleText: 'user'
+    }
+    components = {
+    }
+
+    data = {
+      mynum: 20,
+      userInfo: {
+        nickName: '加载中...'
+      },
+      count: 0,
+      windowHeight: 0,
+      currentDate: wx.getStorageSync(SEL_CLASS_CODE),
+      //navbar
+      tabs: ['员工列表', '审核列表'],
+      activeIndex: 0,
+      sliderOffset: 0,
+      sliderLeft: 0
+
+    }
+
+    computed = {
+      now () {
+        return +new Date()
+      }
+    }
+
+    methods = {
+      tabClick (e) {
+        this.sliderOffset = e.currentTarget.offsetLeft;
+        this.activeIndex = e.currentTarget.id;
+      }
+    }
+
+    events = {
+      'index-emit': (...args) => {
+        let $event = args[args.length - 1]
+        console.log(`${this.$name} receive ${$event.name} from ${$event.source.$name}`)
+      }
+    }
+
+    async onLoad() {
+      let systemInfo = wx.getStorageSync(SYSTEM_INFO);
+      this.windowHeight = systemInfo.windowHeight;
+      let self = this
+      self.userInfo = wepy.getStorageSync('user_info')
+      //navbar
+      let res = await wepy.getSystemInfo();
+
+      this.sliderLeft = (res.windowWidth / this.tabs.length - sliderWidth) / 2;
+      this.sliderOffset = res.windowWidth / this.tabs.length * this.activeIndex;
+    }
+
+    onShow() {
+    }
+
+
+  }
+</script>
