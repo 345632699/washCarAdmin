@@ -106,18 +106,35 @@
       this.use('promisify')
     }
 
+    async getUnionId (code,res) {
+      const json = await api.getUnionId({
+        query: {
+          code: code,
+          iv: res.iv,
+          encryptedData: res.encryptedData
+        },
+        method: 'POST'
+      });
+      console.log(json)
+    }
+
+
     async onLaunch() {
       //存储系统信息 
       let systemInfo = wepy.getSystemInfoSync();
       wepy.setStorageSync(SYSTEM_INFO, systemInfo);
-      console.log(systemInfo)
-      let res = await wepy.login();
-      let code = res.code
-      if (res.code){
-        let res = await wepy.getUserInfo()
-        console.log(res)
-        wepy.setStorageSync('user_info', res.userInfo);
+
+      if (token){
+        let res = await wepy.login();
+        let code = res.code
+        if (res.code){
+          let res = await wepy.getUserInfo()
+          console.log(res)
+          await this.getUnionId(code,res)
+        }
       }
+
+
       this.doPrint()
     }
 

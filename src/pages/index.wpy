@@ -137,7 +137,7 @@
           </view>
           <view class="right">
             <view class="one" style="text-align: right;padding-right: 32rpx">
-              車牌號111
+              車牌號
             </view>
           </view>
         </view>
@@ -162,6 +162,7 @@
     SYSTEM_INFO,
     SEL_CLASS_CODE
   } from '../utils/constant';
+  import api from '../api/api'
   export default class Index extends wepy.page {
     config = {
       navigationBarTitleText: 'about'
@@ -268,10 +269,9 @@
       this.$apply();
     }
 
-    onLoad() {
+    async onLoad() {
       let systemInfo = wx.getStorageSync(SYSTEM_INFO);
       this.windowHeight = systemInfo.windowHeight;
-      let self = this
       self.userInfo = wepy.getStorageSync('user_info')
     }
 
