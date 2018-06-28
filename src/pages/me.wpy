@@ -186,7 +186,7 @@
     SEL_CLASS_CODE
   } from '../utils/constant';
   const sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
-  export default class Index extends wepy.page {
+  export default class Me extends wepy.page {
     config = {
       navigationBarTitleText: 'user'
     }

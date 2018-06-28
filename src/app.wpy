@@ -57,11 +57,13 @@
   export default class extends wepy.app {
     config = {
       pages: [
-        'pages/index',
-        'pages/users-list',
-        'pages/order-detail',
+        'pages/home',
+        'pages/users_list',
+        'pages/order_detail',
         'pages/classify',
-        'pages/me'
+        'pages/car_type',
+        'pages/me',
+        'pages/identify'
       ],
       window: {
         backgroundTextStyle: 'dark',
@@ -78,12 +80,12 @@
         "backgroundColor": "#373C38",
         "borderStyle": "black",
         "list": [{
-          "pagePath": "pages/index",
+          "pagePath": "pages/home",
           "text": "預約",
           "iconPath": "images/index/date.png",
           "selectedIconPath": "images/index/date_hover.png"
         }, {
-          "pagePath": "pages/users-list",
+          "pagePath": "pages/identify",
           "text": "用戶",
           "iconPath": "images/index/user.png",
           "selectedIconPath": "images/index/user_hover.png"
@@ -106,35 +108,16 @@
       this.use('promisify')
     }
 
-    async getUnionId (code,res) {
-      const json = await api.getUnionId({
-        query: {
-          code: code,
-          iv: res.iv,
-          encryptedData: res.encryptedData
-        },
-        method: 'POST'
-      });
-      console.log(json)
-    }
-
-
     async onLaunch() {
       //存储系统信息 
       let systemInfo = wepy.getSystemInfoSync();
       wepy.setStorageSync(SYSTEM_INFO, systemInfo);
-
-      if (token){
-        let res = await wepy.login();
-        let code = res.code
-        if (res.code){
-          let res = await wepy.getUserInfo()
-          console.log(res)
-          await this.getUnionId(code,res)
-        }
+      let res = await wepy.login();
+      let code = res.code
+      if (res.code){
+        let res = await wepy.getUserInfo()
+        wepy.setStorageSync('user_info', res.rawData);
       }
-
-
       this.doPrint()
     }
 

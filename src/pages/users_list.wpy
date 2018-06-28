@@ -6,7 +6,6 @@
             margin-top: 16rpx;
             .list-item{
                 width:688rpx;
-                height:192rpx;
                 background:rgba(255,255,255,1);
                 box-shadow: 0px 2rpx 10rpx 0px rgba(0,0,0,0.5);
                 margin: auto;
@@ -61,6 +60,7 @@
                 .foot{
                     padding-left: 144rpx;
                     margin-top: -16rpx;
+                    padding-bottom: 16rpx;
                     .btn{
                         display: inline-block;
                         height:32rpx;
@@ -116,7 +116,7 @@
     SYSTEM_INFO,
     SEL_CLASS_CODE
   } from '../utils/constant';
-  export default class Index extends wepy.page {
+  export default class UsersList extends wepy.page {
     config = {
       navigationBarTitleText: 'user'
     }

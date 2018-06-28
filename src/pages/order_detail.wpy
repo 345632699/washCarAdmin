@@ -254,7 +254,7 @@
                     </view>
                     <view class="weui-cell__bd">車型</view>
                 </view>
-                <navigator url="/pages/classify" hover-class="none" class="weui-cell input-text">
+                <navigator url="/pages/car_type" hover-class="none" class="weui-cell input-text">
                     <view class="font-gray">请选择车型</view>
                 </navigator>
             </view>
@@ -277,7 +277,7 @@
     SEL_CLASS_CODE
   } from '../utils/constant';
   import Alert from '../components/myAlert'
-  export default class Index extends wepy.page {
+  export default class OrderDetail extends wepy.page {
     config = {
       navigationBarTitleText: '订单预览'
     }
@@ -311,7 +311,6 @@
 
     methods = {
       previewImage (e) {
-        console.log(e)
         var current = e.target.dataset.src;
         wepy.previewImage({
           current: current, // 当前显示图片的http链接

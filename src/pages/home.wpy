@@ -4,7 +4,6 @@
     color: #FFFFFF;
     .list{
       margin-top: 16rpx;
-      margin-bottom: 32rpx;
       .list-item{
         width:688rpx;
         height:192rpx;
@@ -73,14 +72,14 @@
       }
       &.admin{
         .list-item{
-          padding-top: 24rpx;
-          height: 264rpx;
+          height: 172rpx;
           .newapp{
             height:32rpx;
             font-size:28rpx;
             line-height:32rpx;
             color: #373C38;
           }
+          box-shadow: none;
         }
         .admin-name{
           color: #373C38;
@@ -113,42 +112,67 @@
             </view>
           </view>
           <view class="left">
-            <image class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"/>
-          </view>
-        </view>
-        <view class="foot" style="padding-left: 32rpx">
-          <view class="btn newapp">
-            今天 上午 8:30
+            <image class="userinfo-avatar" src="../images/all/hot@2x.png" background-size="cover"/>
           </view>
         </view>
       </view>
     </view>
-
-    <view class="list">
-      <navigator url="/pages/order-detail" hover-class="none" class="list-item">
-        <view class="top">
-          <view class="left">
-            <image class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"/>
-          </view>
-          <view class="right">
-            <view class="one">
-              用戶名
+    <tap :activeIndex.sync="activeIndex"></tap>
+    <view class="weui-tab__panel">
+      <view class="weui-tab__content" wx:if="{{ 0 == activeIndex }}" style="padding: 16rpx">
+        <view class="list">
+          <navigator url="/pages/order_detail" hover-class="none" class="list-item">
+            <view class="top">
+              <view class="left">
+                <image class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"/>
+              </view>
+              <view class="right">
+                <view class="one">
+                  用戶名
+                </view>
+              </view>
+              <view class="right">
+                <view class="one" style="text-align: right;padding-right: 32rpx">
+                  車牌號
+                </view>
+              </view>
             </view>
-          </view>
-          <view class="right">
-            <view class="one" style="text-align: right;padding-right: 32rpx">
-              車牌號
+            <view class="foot">
+              <view class="btn">
+                今天 上午 8:30
+              </view>
             </view>
-          </view>
+          </navigator>
         </view>
-        <view class="foot">
-          <view class="btn">
-            今天 上午 8:30
-          </view>
+      </view>
+      <view class="weui-tab__content" wx:else style="padding: 16rpx">
+        <view class="list">
+          <navigator url="/pages/order_detail" hover-class="none" class="list-item">
+            <view class="top">
+              <view class="left">
+                <image class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"/>
+              </view>
+              <view class="right">
+                <view class="one">
+                  用戶名1
+                </view>
+              </view>
+              <view class="right">
+                <view class="one" style="text-align: right;padding-right: 32rpx">
+                  車牌號
+                </view>
+              </view>
+            </view>
+            <view class="foot">
+              <view class="btn">
+                今天 上午 8:30
+              </view>
+            </view>
+          </navigator>
         </view>
-      </navigator>
+      </view>
     </view>
-    <button open-type="getUserInfo">用戶授權</button>
+    <!--<button open-type="getUserInfo">用戶授權</button>-->
   </view>
   <recharge :recharge_active.sync="recharge_active"></recharge>
 </template>
@@ -162,14 +186,16 @@
     SYSTEM_INFO,
     SEL_CLASS_CODE
   } from '../utils/constant';
+  import Tap from '../components/tap'
   import api from '../api/api'
-  export default class Index extends wepy.page {
+  export default class Home extends wepy.page {
     config = {
       navigationBarTitleText: 'about'
     }
     components = {
       search:Search,
-      recharge:Recharge
+      recharge:Recharge,
+      tap:Tap,
     }
 
     data = {
@@ -177,13 +203,17 @@
       userInfo: {
         nickName: '加载中...'
       },
+      title: "333",
       count: 0,
       recharge_active: 0,
       dateList: [],
       windowHeight: 0,
       timeList: [],
-      currentDate: wx.getStorageSync(SEL_CLASS_CODE)
-    }
+      currentDate: wx.getStorageSync(SEL_CLASS_CODE),
+      tabs:["未完成","已完成"],
+
+      activeIndex: 0
+  }
 
     computed = {
       now () {
@@ -206,19 +236,12 @@
         }
       },
       callbackStart(count){
-        console.log(count)
       },
       recharge (e) {
         this.recharge_active = 1
       }
     }
 
-    events = {
-      'index-emit': (...args) => {
-        let $event = args[args.length - 1]
-        console.log(`${this.$name} receive ${$event.name} from ${$event.source.$name}`)
-      }
-    }
 
     //获取日期列表
     async getDateList() {
@@ -272,7 +295,7 @@
     async onLoad() {
       let systemInfo = wx.getStorageSync(SYSTEM_INFO);
       this.windowHeight = systemInfo.windowHeight;
-      self.userInfo = wepy.getStorageSync('user_info')
+      this.userInfo = wepy.getStorageSync('user_info')
     }
 
     onShow() {
