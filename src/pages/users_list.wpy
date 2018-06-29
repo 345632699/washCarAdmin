@@ -22,7 +22,7 @@
                         width: 80rpx;
                         height: 80rpx;
                         padding: 32rpx;
-                        image{
+                        .userinfo-avatar{
                             width: 100%;
                             max-height: 100%;
                             vertical-align: top;
@@ -97,7 +97,7 @@
                     <view class="btn" @tap="recharge">
                         設置餘額
                     </view>
-                    <view class="btn">
+                    <view class="btn" @tap="vipChange">
                         設置會員等級
                     </view>
                 </view>
@@ -105,6 +105,7 @@
         </view>
     </view>
     <recharge :recharge_active.sync="recharge_active"></recharge>
+    <vip :vip_active.sync="vip_active"></vip>
 </template>
 
 <script>
@@ -112,6 +113,7 @@
   import util from '../utils/util'
   import Search from '../components/search'
   import Recharge from '../components/recharge'
+  import VipAlert from '../components/vipAlert'
   import {
     SYSTEM_INFO,
     SEL_CLASS_CODE
@@ -122,7 +124,8 @@
     }
     components = {
       search:Search,
-      recharge:Recharge
+      recharge:Recharge,
+      vip:VipAlert,
     }
 
     data = {
@@ -132,6 +135,7 @@
       },
       count: 0,
       recharge_active: 0,
+      vip_active: 0,
       windowHeight: 0,
       currentDate: wx.getStorageSync(SEL_CLASS_CODE)
     }
@@ -161,6 +165,9 @@
       },
       recharge (e) {
         this.recharge_active = 1
+      },
+      vipChange (e) {
+        this.vip_active = 1
       }
     }
 

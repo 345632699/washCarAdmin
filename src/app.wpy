@@ -85,7 +85,7 @@
           "iconPath": "images/index/date.png",
           "selectedIconPath": "images/index/date_hover.png"
         }, {
-          "pagePath": "pages/identify",
+          "pagePath": "pages/users_list",
           "text": "用戶",
           "iconPath": "images/index/user.png",
           "selectedIconPath": "images/index/user_hover.png"
@@ -112,43 +112,33 @@
       //存储系统信息 
       let systemInfo = wepy.getSystemInfoSync();
       wepy.setStorageSync(SYSTEM_INFO, systemInfo);
+    }
+
+    async getAuth () {
       let res = await wepy.login();
       let code = res.code
+      let resUser = await wepy.getUserInfo()
+      wepy.setStorageSync('user_info', resUser.userInfo);
       if (res.code){
-        let res = await wepy.getUserInfo()
-        wepy.setStorageSync('user_info', res.rawData);
-      }
-      this.doPrint()
-    }
-
-    sleep (s) {
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve('promise resolved')
-        }, s * 1000)
-      })
-    }
-
-
-    async getUserInfo(cb) {
-      const that = this
-      if (this.globalData.userInfo) {
-        return this.globalData.userInfo
-      }
-      let res = await wepy.getUserInfo()
-      cb && cb(res.userInfo)
-    }
-
-    doPrint(){
-      wepy.login({
-        success: function (data) {
-          wepy.getUserInfo({
-            success: function (userinfo) {
-            }
+        if (!wepy.getStorageSync('userid')){
+          const json = await api.getOpenId({
+            query: {
+              appid: "wxf1017d0c13e86f43",
+              code: code,
+              rawData: resUser.rawData,
+              signature: resUser.signature
+            },
+            method: 'POST'
           });
+          wepy.setStorageSync('userid', json.data.data[0].userid);
+          wepy.setStorageSync('merchant_id', json.data.data[0].merchant_id);
         }
-      });
+      }
     }
+
+
+
+
 
   }
 </script>

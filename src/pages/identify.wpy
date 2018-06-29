@@ -129,6 +129,9 @@
     .margin-format{
         margin-top: -5px;
     }
+    .right{
+        padding-top: 7rpx;padding-left: 4rpx;
+    }
     .text-format{
         overflow:hidden;
         text-overflow:ellipsis;
@@ -172,17 +175,17 @@
                     <view class="weui-cell__hd margin-format" style="padding-top: 7rpx;padding-left: 4rpx">
                         <image class="img-format" style="width: 15rpx;height: 15rpx;padding: 8rpx;" src="" ></image>
                     </view>
-                    <view style="width: 28%" >
-                        <input class="weui-input" maxlength="5" value="{{ carInfo.carNum }}" placeholder="请输入姓名" />
+                    <view style="width: 30%" >
+                        <input class="weui-input" maxlength="5" placeholder="请输入姓名" />
                     </view>
 
-                    <view class="weui-cell__hd margin-format" style="padding-top: 7rpx;padding-left: 4rpx">
+                    <view class="weui-cell__hd margin-format right">
                         <image class="img-format" style="width: 15rpx;height: 15rpx;padding: 8rpx;" src="../images/all/down.svg" ></image>
                     </view>
-                    <view style="padding-left: 0">
-                        <picker mode="multiSelector" @change="bindProvinceChange" value="{{multiIndex}}" range="{{province}}">
+                    <view style="padding-left: 0;width: 80%">
+                        <picker @change="bindSexChange" value="{{sexIndex}}" range="{{sexList}}">
                             <view class="picker">
-                                请选择性别
+                                {{ employee.sex }}
                             </view>
                         </picker>
                     </view>
@@ -217,17 +220,29 @@
                     <view class="weui-cell__hd">
                         <image class="img-format" src="" ></image>
                     </view>
-                    <view class="brightGrey">请选择分店</view>
+                    <view class="brightGrey">{{ branch.name }}</view>
                     <view class="weui-cell__bd">
-                        <picker @change="bindCarChange" value="{{ carInfo.carNumIndex }}" range="{{ carInfo.carNumList }}">
+                        <picker @change="bindBranchChange" value="{{ branchIndex }}" range="{{ branchList }}">
                             <view class="carNum weui-select"></view>
                         </picker>
                     </view>
                 </view>
             </view>
+
+            <view class="weui-cells weui-cells_after-title" style="padding-bottom: 32rpx">
+                <view class="weui-cell">
+                    <view class="weui-cell__hd">
+                        <image class="img-format" src="" ></image>
+                    </view>
+                    <view class="weui-cell__bd">设为管理员</view>
+                    <view class="weui-cell__ft">
+                        <switch @change="setAdmin"></switch>
+                    </view>
+                </view>
+            </view>
             
             <view class="weui-cells weui-cells_after-title last" style="padding-top: 64rpx;padding-bottom: 100px;">
-                <button class="weui-btn mybtn" type="primary" plain="true" @tap="doWash">開始洗車</button>
+                <button class="weui-btn mybtn" type="primary" plain="true" @tap="validate">身份认证</button>
             </view>
         </scroll-view>
         <alert :is_active.sync="is_active" :title.sync="alert_title" :msg="msg" :confirmText.sync="confirmText"></alert>
@@ -251,11 +266,39 @@
       alert:Alert
     }
     data = {
+      sexList: ['男','女'],
+      sexIndex: 0,
+      branchList:['未选择分店'],
+      branchIndex: 0,
+      //门店信息
+      branch: {
+        name: "请选择分店"
+      },
+      //员工信息
+      employee:{
+        name: '',
+        sex:'请选择性别',
+      },
     }
 
 
     methods = {
+      bindSexChange (e) {
+        this.sexIndex = e.detail.value
+        this.employee.sex = this.sexList[this.sexIndex]
+        this.$apply()
+      },
+      bindBranchChange (e) {
+        this.branchIndex = e.detail.value
+        this.branch.name = this.branchList[this.branchIndex]
+        this.$apply()
+      },
+      validate () {
 
+      },
+      setAdmin (e) {
+        console.log('switch1 发生 change 事件，携带值为', e.detail.value)
+      }
     }
 
     onLoad(option) {

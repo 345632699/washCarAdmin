@@ -84,6 +84,19 @@
                         top:-34rpx;
                     }
                 }
+
+                .selectOption{
+                    .number{
+                        width:464rpx;
+                        height:88rpx;
+                        border-radius:8rpx;
+                        border:1px solid rgba(25,25,25,0.32);
+                        line-height: 88rpx;
+                        margin-left: 40rpx;
+                        font-weight: normal;
+                    }
+                }
+
                 .code{
                     width:464rpx;
                     height: 112rpx;
@@ -98,6 +111,10 @@
                         line-height: 112rpx;
                         text-align: left;
                         color:rgba(0,0,0,0.87);
+                    }
+                    .icon_down{
+                        width: 30rpx;
+                        height: 30rpx;
                     }
                 }
             }
@@ -117,22 +134,35 @@
             }
         }
     }
+    .icon_down{
+        width: 20rpx;
+        height: 20rpx;
+        float: right;
+        position: relative;
+        top:32rpx;
+        margin-right: 16rpx;
+    }
 </style>
 <template>
-    <view class="wepy-api-dialog_bind" wx:if="{{ recharge_active }}">
+    <view class="wepy-api-dialog_bind" wx:if="{{ vip_active }}">
         <view class="wepy-api-dialog__mask_bind" @tap="hide"></view>
         <view class="wepy-api-dialog__main_bind">
             <view class="wepy-api-dialog__hd_bind">
                 <view class="wepy-api-dialog__title_bind">
-                    为用户：xxxxx 充值余额
+                    为用户：xxxxx 设置会员等级
                 </view>
-                <view class="wepy-api-dialog__title_bind">充值金额</view>
             </view>
             <view class="main">
-                <view class="font-red">*请确认好充值金额</view>
-                <view class="code">
-                    <input type="number" maxlength="4" placeholder="请输入充值金额" class="number" value="{{ code }}" />
-                </view>
+                <view class="font-red">*请确认好选择的等级</view>
+                <!--<view class="code">-->
+                    <!--<input type="number" maxlength="4" placeholder="请输入充值金额" class="number" value="{{ code }}" />-->
+                <!--</view>-->
+                <picker class="selectOption" @change="changeVip" value="{{ vipIndex }}" range="{{ vipList }}">
+                    <view class="number">
+                        {{ vipName }}
+                        <image class="icon_down" src="../images/order/down.svg"></image>
+                    </view>
+                </picker>
             </view>
             <view class="foot">
                 <view class="btn" @tap="bind">
@@ -149,11 +179,13 @@
   import wepy from 'wepy'
   import tip from '../utils/tip'
 
-  export default class Recharge extends wepy.component {
+  export default class VipAlert extends wepy.component {
 
     data = {
-      number: 13760264461,
-      code: '',
+      vipList: ['1','2','3'],
+      vipIndex:0,
+      vipName: "请选择会员等级"
+
     }
 
     props = {
@@ -169,7 +201,7 @@
       },
 
       // 父向子单向动态传值
-      recharge_active: {
+      vip_active: {
         type: Number,
         default: 0,
         twoWay: true
@@ -184,10 +216,15 @@
 
     methods = {
       hide () {
-        this.recharge_active = 0
+        this.vip_active = 0
       },
       bind (e) {
         tip.toast("绑定成功")
+      },
+      changeVip (e) {
+        this.vipIndex = e.detail.value
+        this.vipName = this.vipList[this.vipIndex]
+        this.$apply()
       }
 
     }
