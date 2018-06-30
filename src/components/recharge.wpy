@@ -131,11 +131,11 @@
             <view class="main">
                 <view class="font-red">*请确认好充值金额</view>
                 <view class="code">
-                    <input type="number" maxlength="4" placeholder="请输入充值金额" class="number" value="{{ code }}" />
+                    <input type="number" @input="watchMoney" maxlength="4" placeholder="请输入充值金额" class="number" />
                 </view>
             </view>
             <view class="foot">
-                <view class="btn" @tap="bind">
+                <view class="btn" @tap="comfirmRecharge">
                     確認充值
                 </view>
                 <view class="btn" @tap="hide">
@@ -148,12 +148,12 @@
 <script>
   import wepy from 'wepy'
   import tip from '../utils/tip'
+  import api from '../api/api'
 
   export default class Recharge extends wepy.component {
 
     data = {
-      number: 13760264461,
-      code: '',
+      recharge:0,
     }
 
     props = {
@@ -175,19 +175,37 @@
         twoWay: true
       },
 
-      confirmText: {
-        type:String,
-        default: '確認'
+      user_id: {
+        type:Number,
+        default: 0
       }
     };
 
 
     methods = {
+      watchMoney (e) {
+        this.recharge = e.detail.value
+      },
       hide () {
         this.recharge_active = 0
       },
-      bind (e) {
-        tip.toast("绑定成功")
+      async comfirmRecharge (e) {
+        const res = await api.updatebalance({
+          query: {
+            user_id: this.user_id,
+            merchant_id:wepy.getStorageSync("merchant_id"),
+            balance:this.recharge,
+          },
+          method: 'POST'
+        });
+        if (res.data.status){
+          this.recharge_active = 0
+          this.$apply()
+          this.$emit('updateUserList')
+        }else{
+          tip.error("充值失败")
+        }
+
       }
 
     }

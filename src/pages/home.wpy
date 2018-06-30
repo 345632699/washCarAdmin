@@ -11,6 +11,7 @@
         box-shadow: 0px 2rpx 10rpx 0px rgba(0,0,0,0.5);
         margin: auto;
         border-radius: 20rpx;
+        margin-bottom: 16rpx;
         .top{
           display: -webkit-box;
           display: -webkit-flex;
@@ -100,15 +101,15 @@
     <view class="list admin">
       <view class="list-item">
         <view class="admin-name">
-          上午好 xxxx
+          {{time}} {{ employee.name }}
         </view>
         <view class="top" style="margin-top: -16rpx">
           <view class="right" style="padding-left: 32rpx">
             <view class="one">
-              今日预约：6单
+              今日预约：{{ homeInfo.today_number }}单
             </view>
             <view class="two">
-              本周预约：36单
+              本周预约：{{ homeInfo.week_number }}单
             </view>
           </view>
           <view class="left">
@@ -121,25 +122,25 @@
     <view class="weui-tab__panel">
       <view class="weui-tab__content" wx:if="{{ 0 == activeIndex }}" style="padding: 16rpx">
         <view class="list">
-          <navigator url="/pages/order_detail" hover-class="none" class="list-item">
+          <navigator wx:for="{{ orderList }}" wx:key="item" url="/pages/order_detail?order_id={{ item.order_id }}" hover-class="none" class="list-item">
             <view class="top">
               <view class="left">
-                <image class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"/>
+                <image class="userinfo-avatar" src="{{ item.avatarUrl }}" background-size="cover"/>
               </view>
               <view class="right">
                 <view class="one">
-                  用戶名
+                  {{ item.name }}
                 </view>
               </view>
               <view class="right">
                 <view class="one" style="text-align: right;padding-right: 32rpx">
-                  車牌號
+                  {{ item.car_number }}
                 </view>
               </view>
             </view>
             <view class="foot">
               <view class="btn">
-                今天 上午 8:30
+                {{ item.time }}
               </view>
             </view>
           </navigator>
@@ -147,34 +148,33 @@
       </view>
       <view class="weui-tab__content" wx:else style="padding: 16rpx">
         <view class="list">
-          <navigator url="/pages/order_detail" hover-class="none" class="list-item">
+          <navigator wx:for="{{ orderList }}" wx:key="item" url="/pages/order_detail?order_id={{ item.order_id }}" hover-class="none" class="list-item">
             <view class="top">
               <view class="left">
-                <image class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"/>
+                <image class="userinfo-avatar" src="{{ item.avatarUrl }}" background-size="cover"/>
               </view>
               <view class="right">
                 <view class="one">
-                  用戶名1
+                  {{ item.name }}
                 </view>
               </view>
               <view class="right">
                 <view class="one" style="text-align: right;padding-right: 32rpx">
-                  車牌號
+                  {{ item.car_number }}
                 </view>
               </view>
             </view>
             <view class="foot">
               <view class="btn">
-                今天 上午 8:30
+                {{ item.time }}
               </view>
             </view>
           </navigator>
         </view>
       </view>
     </view>
-    <!--<button open-type="getUserInfo">用戶授權</button>-->
+    <button open-type="getUserInfo">用戶授權</button>
   </view>
-  <recharge :recharge_active.sync="recharge_active"></recharge>
 </template>
 
 <script>
@@ -190,7 +190,7 @@
   import api from '../api/api'
   export default class Home extends wepy.page {
     config = {
-      navigationBarTitleText: 'about'
+      navigationBarTitleText: '预约列表'
     }
     components = {
       search:Search,
@@ -199,18 +199,18 @@
     }
 
     data = {
-      mynum: 20,
       userInfo: {
         nickName: '加载中...'
       },
-      title: "333",
-      count: 0,
-      recharge_active: 0,
-      dateList: [],
-      windowHeight: 0,
-      timeList: [],
-      currentDate: wx.getStorageSync(SEL_CLASS_CODE),
       tabs:["未完成","已完成"],
+      time:"上午好",
+
+      orderList: [],
+      homeInfo:{},
+
+      employee: {
+        name:wepy.getStorageSync('user_info').nickName
+      },
 
       activeIndex: 0
   }
@@ -242,54 +242,38 @@
       }
     }
 
-
-    //获取日期列表
-    async getDateList() {
-//      const json = await api.getDateList({
-//        query: {}
-//      });
-      if (1) {
-        for (var i=0;i<=20;i++){
-          this.dateList.push({code:i,name:"tese"+i})
-        }
-        if (this.dateList.length > 0) {
-          let selCode = wx.getStorageSync(SEL_CLASS_CODE);
-          var selRottCateCode = this.dateList[0].code;
-
-          if (selCode.length==0) {
-            this.dateList[0].active = true;
-          } else {
-            for (var i = 0; i < this.dateList.length; i++) {
-              if (selCode == this.dateList[i].code) {
-                selRottCateCode = this.dateList[i].code;
-                this.dateList[i].active = true;
-              }
-            }
-          }
-
-          this.getTimeList(selRottCateCode);
-        }
-      } else {
-        tip.error(json.data.msg);
+    async getorderoverview (employee_id) {
+      let myDate = new Date();
+      let hour = myDate.getHours();
+      if (hour > 12){
+        this.time = "下午好"
+        this.$apply()
       }
-      this.$apply();
+      const res = await api.getorderoverview({
+        query: {
+          employee_id: employee_id,
+        },
+        method: 'POST'
+      });
+      this.homeInfo = res.data.data[0]
+      wepy.setStorageSync('is_root',this.homeInfo.is_root)
+      this.orderList = this.homeInfo.order_list
+      this.$apply()
     }
-    //获取某个日期的某个时间段
-    async getTimeList(rootCateCode) {
-//      const json = await api.childGoodsCatetoryList({
-//        query: {
-//          rootCategoryCode: rootCateCode
-//        }
-//      });
-      const TIMESTAMP = util.getCurrentTime()
-      if (1) {
-        for (var i=0;i<=20;i++){
-          this.timeList.push({code:i,name:TIMESTAMP + i})
-        }
-      } else {
-        tip.error(json.data.msg);
-      }
-      this.$apply();
+
+    events = {
+      //type 0 未完成 1已完成
+      'getorderlist': async (type) => {
+        const res = await api.getorderlist({
+          query: {
+            employee_id: wepy.getStorageSync('userid'),
+            order_status:type
+          },
+          method: 'POST'
+        });
+        this.orderList = res.data.data
+        this.$apply()
+      },
     }
 
     async onLoad() {
@@ -298,8 +282,12 @@
       this.userInfo = wepy.getStorageSync('user_info')
     }
 
-    onShow() {
-      this.getDateList()
+    async onShow() {
+      await  this.$parent.getAuth()
+      let employee_id = wepy.getStorageSync('userid')
+      let merchant_id = wepy.getStorageSync('merchant_id')
+      this.userInfo = wepy.getStorageSync('user_info')
+      await this.getorderoverview(employee_id)
     }
 
 

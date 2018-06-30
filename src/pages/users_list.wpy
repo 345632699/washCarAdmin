@@ -10,6 +10,7 @@
                 box-shadow: 0px 2rpx 10rpx 0px rgba(0,0,0,0.5);
                 margin: auto;
                 border-radius: 20rpx;
+                margin-bottom: 16rpx;
                 .top{
                     display: -webkit-box;
                     display: -webkit-flex;
@@ -79,33 +80,33 @@
         <!--頂部-->
         <search></search>
         <view class="list">
-            <view class="list-item">
+            <view class="list-item" wx:for="{{ user_list }}" wx:key="item">
                 <view class="top">
                     <view class="left">
                         <image class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"/>
                     </view>
                     <view class="right">
                         <view class="one">
-                            用戶名
+                            {{ item.username }} ({{ item.vip_name }})
                         </view>
                         <view class="two">
-                            账户余额: ¥ 5000
+                            账户余额: ¥ {{ item.balance }}
                         </view>
                     </view>
                 </view>
-                <view class="foot">
-                    <view class="btn" @tap="recharge">
-                        設置餘額
+                <view class="foot" wx:if="{{ is_root }}">
+                    <view class="btn" data-id="{{ item.user_id }}" @tap="recharge">
+                        设置余额
                     </view>
-                    <view class="btn" @tap="vipChange">
-                        設置會員等級
+                    <view class="btn" data-id="{{ item.user_id }}" @tap="vipChange">
+                        设置会员等級
                     </view>
                 </view>
             </view>
         </view>
     </view>
-    <recharge :recharge_active.sync="recharge_active"></recharge>
-    <vip :vip_active.sync="vip_active"></vip>
+    <recharge :recharge_active.sync="recharge_active" :user_id.sync="selectUserId"></recharge>
+    <vip :vip_active.sync="vip_active" :user_id.sync="selectUserId"></vip>
 </template>
 
 <script>
@@ -118,9 +119,11 @@
     SYSTEM_INFO,
     SEL_CLASS_CODE
   } from '../utils/constant';
+  import api from '../api/api'
+  import tip from '../utils/tip'
   export default class UsersList extends wepy.page {
     config = {
-      navigationBarTitleText: 'user'
+      navigationBarTitleText: '用户列表'
     }
     components = {
       search:Search,
@@ -136,8 +139,10 @@
       count: 0,
       recharge_active: 0,
       vip_active: 0,
-      windowHeight: 0,
-      currentDate: wx.getStorageSync(SEL_CLASS_CODE)
+      employee_id: 0,
+      user_list:[],
+      selectUserId:0,
+      is_root:wepy.getStorageSync('is_root')
     }
 
     computed = {
@@ -147,45 +152,43 @@
     }
 
     methods = {
-      changeCate (e) {
-        let code = e.currentTarget.dataset.code;
-        this.getTimeList(code);
-        wepy.setStorageSync(SEL_CLASS_CODE, code);
-        //设置一级分类的选中状态
-        for (var i = 0; i < this.dateList.length; i++) {
-          var rootCate = this.dateList[i];
-          rootCate.active = false;
-          if (rootCate.code == code) {
-            rootCate.active = true;
-          }
-        }
-      },
-      callbackStart(count){
-        console.log(count)
-      },
       recharge (e) {
+        this.selectUserId = e.currentTarget.dataset.id
         this.recharge_active = 1
       },
       vipChange (e) {
+        this.selectUserId = e.currentTarget.dataset.id
         this.vip_active = 1
       }
     }
 
     events = {
-      'index-emit': (...args) => {
-        let $event = args[args.length - 1]
-        console.log(`${this.$name} receive ${$event.name} from ${$event.source.$name}`)
+      'updateUserList': async () => {
+        await this.getuserlist(wepy.getStorageSync("userid"))
+        tip.success("充值成功")
       }
     }
 
-    onLoad() {
-      let systemInfo = wx.getStorageSync(SYSTEM_INFO);
-      this.windowHeight = systemInfo.windowHeight;
+    async getuserlist (employee_id) {
+      const res = await api.getuserlist({
+        query: {
+          employee_id: employee_id,
+        },
+        method: 'POST'
+      });
+      this.user_list = res.data.data
+      this.$apply()
+    }
+
+    async onLoad() {
       let self = this
       self.userInfo = wepy.getStorageSync('user_info')
     }
 
-    onShow() {
+    async onShow() {
+      this.employee_id = wepy.getStorageSync('userid')
+      await this.getuserlist(this.employee_id)
+      this.$apply()
     }
 
 

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="6px" height="4px" viewBox="0 0 6 4" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>Icon / Arrow Drop Down / Rounded</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M6.52967458,8.5603125 L8.47217458,10.5028125 C8.76467458,10.7953125 9.23717458,10.7953125 9.52967458,10.5028125 L11.4721746,8.5603125 C11.9446746,8.0878125 11.6071746,7.2778125 10.9396746,7.2778125 L7.05467458,7.2778125 C6.38717458,7.2778125 6.05717458,8.0878125 6.52967458,8.5603125 Z" id="path-1"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="预约页Cells纵览" transform="translate(-34.000000, -262.000000)">
+            <g id="Icon-/-Arrow-Drop-Down-/-Rounded" transform="translate(28.000000, 255.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="icon/navigation/arrow_drop_down_24px" fill-rule="nonzero"></g>
+                <g id="✱-/-Color-/-Icons-/-Selected-/-On-Surface-/-Inactive" mask="url(#mask-2)" fill="#000000" fill-opacity="0.54" fill-rule="evenodd">
+                    <rect id="Rectangle" x="0" y="0" width="18" height="18"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

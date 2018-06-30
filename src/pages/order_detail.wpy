@@ -171,7 +171,7 @@
                     <view class="weui-cell__hd">
                         <image class="img-format" src="" ></image>
                     </view>
-                    <view>2017.5.15 下午 3:30</view>
+                    <view>{{ order_detail.time }}</view>
                 </view>
             </view>
 
@@ -187,7 +187,7 @@
                         <image class="img-format"></image>
                     </view>
                     <view>
-                        粵B XXXXX
+                        {{ order_detail.car_number }}
                     </view>
                 </view>
             </view>
@@ -203,7 +203,7 @@
                     <view class="weui-cell__hd">
                         <image class="img-format" src="" ></image>
                     </view>
-                    <view >13760264461</view>
+                    <view >{{ order_detail.phone_number }}</view>
                 </view>
             </view>
 
@@ -218,7 +218,7 @@
                     <view class="weui-cell__hd">
                         <image class="img-format" src="" ></image>
                     </view>
-                    <view class="font-gray">168元套餐</view>
+                    <view class="font-gray">{{ order_detail.product_name }}</view>
                 </view>
             </view>
             <view class="weui-cells weui-cells_after-title last" style="padding-top: 64rpx;padding-bottom: 100px;">
@@ -241,7 +241,7 @@
                     </view>
                     <view class="img" @tap="choose" wx:if="{{ (imgs.length > 8) ? false : true }}">
                         <view class="weui-uploader__input-box" style="display: inline-block;margin-bottom: 20rpx">
-                            <view class="weui-uploader__input" @tap="chooseImage"></view>
+                            <view class="weui-uploader__input"></view>
                         </view>
                     </view>
 
@@ -277,41 +277,25 @@
     SEL_CLASS_CODE
   } from '../utils/constant';
   import Alert from '../components/myAlert'
+  import api from '../api/api'
   export default class OrderDetail extends wepy.page {
     config = {
-      navigationBarTitleText: '订单预览'
+      navigationBarTitleText: '预约详情'
     }
     components = {
       alert:Alert
     }
     data = {
-      province: ['粤A', '粤B', '粤C', '粤D'],
-      carNumbers: ['粤B XXX0', '粤B XXX1', '粤C XXX2', '粤B XXX3'],
-      provinceIndex: 0,
-      carNumIndex: 0,
-      date: '2016-09-01',
-      time: '12:01',
-      icon: "../images/icon_home.png",
-      currentCarNum: "",
-      currentProvince: "粤B",
-      carNum: "", //輸入框内的字符串
-      pacakge_id: 0,
-      package_detail: "",
-      package_name:"请选择套餐",
-      is_active: 0,
-      pay_active: 0, //是否限制支付選項
-      alert_title: "取消訂單",
-      msg: "确认要取消预约吗？取消后可能无法选择同一时间\n",
-      comfirm: 0,
-      confirmText: '確認取消',
+      order_id: 0,
+      order_detail: {},
       imgs:[],
-      has_done:false
+      has_done:false,
     }
 
 
     methods = {
       previewImage (e) {
-        var current = e.target.dataset.src;
+        let current = e.target.dataset.src;
         wepy.previewImage({
           current: current, // 当前显示图片的http链接
           urls: [current] // 需要预览的图片http链接列表
@@ -320,8 +304,8 @@
 
       // 上传图片
       choose (e) {
-        var that = this;
-        var imgs = this.data.imgs;
+        let that = this;
+        let imgs = this.data.imgs;
         if (imgs.length >= 9) {
           this.setData({
             lenMore: 1
@@ -339,10 +323,10 @@
           sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
           success: function (res) {
             // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-            var tempFilePaths = res.tempFilePaths;
-            var imgs = that.data.imgs;
+            let tempFilePaths = res.tempFilePaths;
+            let imgs = that.data.imgs;
             // console.log(tempFilePaths + '----');
-            for (var i = 0; i < tempFilePaths.length; i++) {
+            for (let i = 0; i < tempFilePaths.length; i++) {
               if (imgs.length >= 9) {
                 that.imgs = imgs
                 return false;
@@ -359,17 +343,17 @@
       },
       // 删除图片
       deleteImg (e) {
-        var imgs = this.data.imgs;
-        var index = e.currentTarget.dataset.index;
+        let imgs = this.data.imgs;
+        let index = e.currentTarget.dataset.index;
         imgs.splice(index, 1);
         this.imgs = imgs
       },
       // 预览图片
       previewImg (e) {
         //获取当前图片的下标
-        var index = e.currentTarget.dataset.index;
+        let index = e.currentTarget.dataset.index;
         //所有图片
-        var imgs = this.data.imgs;
+        let imgs = this.data.imgs;
         wx.previewImage({
           //当前显示图片
           current: imgs[index],
@@ -379,22 +363,26 @@
       },
       //上傳圖片
       upload () {
-        var imgs=this.data.imgs;
+        let imgs=this.data.imgs;
         this.uploadimg({
-          url:'https://........',//这里是你图片上传的接口
+          url:'https://wxapp.mqphp.com/cy1993_app/uploadcarimage/',//这里是你图片上传的接口
           path:imgs//这里是选取的图片的地址数组
         });
       },
       uploadimg (data) {
-        var that=this,
+        let that=this,
             i=data.i?data.i:0,//当前上传的哪张图片
             success=data.success?data.success:0,//上传成功的个数
             fail=data.fail?data.fail:0;//上传失败的个数
         wx.uploadFile({
           url: data.url,
           filePath: data.path[i],
-          name: 'file',//这里根据自己的实际情况改
-          formData:null,//这里是上传图片时一起上传的数据
+          name: 'carImage',//这里根据自己的实际情况改
+          formData:{
+            number: i,
+            carModel: 'test',
+            orderId: 1,
+          },//这里是上传图片时一起上传的数据
           success: (resp) => {
             success++;//图片上传成功，图片上传成功的变量+1
             console.log(resp)
@@ -436,6 +424,17 @@
 
     }
 
+    async getorderdetails (order_id) {
+      const res = await api.getorderdetails({
+        query: {
+          order_id: parseInt(order_id),
+        },
+        method: 'POST'
+      });
+      this.order_detail = res.data.data[0]
+      this.$apply()
+    }
+
     // events对象中所声明的函数为用于监听组件之间的通信与交互事件的事件处理函数
     events = {
       'comfirmAction': (comfirm) => {
@@ -446,11 +445,10 @@
       }
     };
 
-    onLoad(option) {
-      console.log(option)
-      this.pacakge_id = option.pacakge_id
-      this.package_detail = option.package_detail
-      this.package_name = option.package_name
+    async onLoad(option) {
+      this.order_id = option.order_id
+      await this.getorderdetails(this.order_id)
+      this.$apply()
     }
   }
 </script>

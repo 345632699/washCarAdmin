@@ -7,12 +7,13 @@
             margin-bottom: 16rpx;
             .list-item{
                 width:688rpx;
-                height:192rpx;
+                /*height:192rpx;*/
                 background:rgba(255,255,255,1);
                 box-shadow: 0px 2rpx 10rpx 0px rgba(0,0,0,0.5);
                 margin: auto;
                 border-radius: 20rpx;
                 margin-bottom: 16rpx;
+                padding-bottom:16rpx;
                 &.verify{
                     height:136rpx;
                     .btn{
@@ -82,9 +83,41 @@
             }
         }
     }
+    .classifyPage{
+        background: #FFFFFF;
+        font-size: 32rpx;
+        color:#373C38;
+        text-align: center;
+        .identify{
+            .head{
+                button{
+                    width:654rpx;
+                    height:96rpx;
+                    background:rgba(255,255,255,1);
+                    box-shadow: 0px 4rpx 5rpx 0px rgba(0,0,0,0.5);
+                    border:none;
+                    border-radius: 32rpx;
+                    font-size: 28rpx;
+                    line-height: 96rpx;
+                    color:#373C38;
+                    font-weight: bold;
+                }
+            }
+            .context{
+                padding-top: 80rpx;
+                image{
+                    width: 134rpx;
+                    height: 134rpx;
+                }
+                .text{
+                    font-weight: bold;
+                }
+            }
+        }
+    }
 </style>
 <template>
-    <view class="navbar page">
+    <view class="navbar page" wx:if="{{ 'none'==auth_status }}">
         <view class="page__bd">
             <view class="weui-tab">
                 <view class="weui-navbar" style="color: #111612">
@@ -94,84 +127,71 @@
                     <view class="weui-navbar__slider" style="background:#111612;left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
                 </view>
                 <view class="weui-tab__panel">
-                    <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
+                    <view class="weui-tab__content" wx:if="{{ 0 == activeIndex }}">
                         <view class="list">
-                            <view class="list-item">
+                            <view class="list-item" wx:for="{{ employee_list }}" wx:key="item">
                                 <view class="top">
                                     <view class="left">
-                                        <image class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"/>
-                                        <view style="font-size: 22rpx;text-align: center">
-                                            店长
+                                        <image class="userinfo-avatar" src="{{ item.avatar_url }}" background-size="cover"/>
+                                        <view style="font-size: 22rpx;text-align: center" hidden="true">
+                                            {{ item.position }}
                                         </view>
                                     </view>
                                     <view class="right">
                                         <view class="one">
-                                            姓名
+                                            {{ item.name }}
                                         </view>
                                         <view class="two">
-                                            职位
+                                            {{ item.position }}
                                         </view>
                                     </view>
                                 </view>
-                                <view class="foot">
-                                    <view class="btn" @tap="recharge">
+                                <view class="foot" wx:if="{{ is_root }}">
+                                    <navigator  url="/pages/identify?employee_id={{ item.employee_id }}" hover-class="none" class="btn">
                                         修改资料
-                                    </view>
-                                    <view class="btn">
-                                        删除员工
-                                    </view>
-                                </view>
-                            </view>
-                            <view class="list-item">
-                                <view class="top">
-                                    <view class="left">
-                                        <image class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"/>
-                                        <view style="font-size: 22rpx;text-align: center">
-                                            管理员
-                                        </view>
-                                    </view>
-                                    <view class="right">
-                                        <view class="one">
-                                            姓名1
-                                        </view>
-                                        <view class="two">
-                                            职位
-                                        </view>
-                                    </view>
-                                </view>
-                                <view class="foot">
-                                    <view class="btn" @tap="recharge">
-                                        修改资料
-                                    </view>
-                                    <view class="btn">
+                                    </navigator>
+                                    <view data-id="{{ item.employee_id }}" @tap="deleteStaff" class="btn">
                                         删除员工
                                     </view>
                                 </view>
                             </view>
                         </view>
                     </view>
-                    <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+                    <view class="weui-tab__content" wx:if="{{ 1 == activeIndex }}">
                         <view class="list">
-                            <view class="list-item verify">
+                            <view wx:for="{{ staff_auth_list }}" wx:key="item" class="list-item verify">
                                 <view class="top">
                                     <view class="left">
-                                        <image class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"/>
+                                        <image class="userinfo-avatar" src="{{ item.avatar_url }}" background-size="cover"/>
                                     </view>
                                     <view class="right">
                                         <view class="one">
-                                            用戶名1
+                                            {{ item.name }}
                                         </view>
                                     </view>
                                     <view class="right">
                                         <view class="one" style="text-align: right;padding-right: 32rpx">
-                                            <view class="btn">拒绝</view>
-                                            <view class="btn">通过</view>
+                                            <view data-id="{{ item.employee_id }}" @tap="reject" class="btn">拒绝</view>
+                                            <view data-id="{{ item.employee_id }}" @tap="agree" class="btn">通过</view>
                                         </view>
                                     </view>
                                 </view>
                             </view>
                         </view>
                     </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="classifyPage" wx:else>
+        <view class="identify">
+            <vie class="head">
+                <button @tap="doVerify">身份验证</button>
+            </vie>
+            <view class="context">
+                <image src="../images/all/verify@2x.png"></image>
+                <view class="text">
+                    验证身份之后才可以使用所有功能
                 </view>
             </view>
         </view>
@@ -185,10 +205,12 @@
     SYSTEM_INFO,
     SEL_CLASS_CODE
   } from '../utils/constant';
+  import api from '../api/api'
+  import tip from '../utils/tip'
   const sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
   export default class Me extends wepy.page {
     config = {
-      navigationBarTitleText: 'user'
+      navigationBarTitleText: '个人中心'
     }
     components = {
     }
@@ -205,7 +227,13 @@
       tabs: ['员工列表', '审核列表'],
       activeIndex: 0,
       sliderOffset: 0,
-      sliderLeft: 0
+      sliderLeft: 0,
+
+      employee_list: [],
+      staff_auth_list: [],
+      auth_status:"none",
+
+      is_root:wepy.getStorageSync('is_root')
 
     }
 
@@ -216,10 +244,91 @@
     }
 
     methods = {
-      tabClick (e) {
+      async tabClick (e) {
         this.sliderOffset = e.currentTarget.offsetLeft;
         this.activeIndex = e.currentTarget.id;
+        let employee_id = wepy.getStorageSync("userid")
+        if (this.activeIndex == 1){
+          await this.getstaffauthlist(employee_id)
+        }else{
+          await this.getstafflist(employee_id)
+        }
+      },
+      async deleteStaff (e) {
+        let employee_id = e.currentTarget.dataset.id
+        const res = await api.updatestaffauth({
+          query: {
+            employee_id: employee_id,
+            auth_status: 0,
+          },
+          method: 'POST'
+        });
+        if (res.data.status){
+          tip.success("删除成功")
+        }
+      },
+      async agree (e) {
+        let employee_id = e.currentTarget.dataset.id
+        await this.updatestaffauth(employee_id,1)
+      },
+      async reject (e) {
+        let employee_id = e.currentTarget.dataset.id
+        await this.updatestaffauth(employee_id,0)
+      },
+      doVerify () {
+        wepy.navigateTo({
+          url: './classify'
+        })
       }
+    }
+
+    async updatestaffauth (employee_id,auth_status) {
+      const res = await api.updatestaffauth({
+        query: {
+          employee_id: employee_id,
+          auth: auth_status,
+        },
+        method: 'POST'
+      });
+      if (res.data.status){
+        tip.success("通过审核")
+      }else{
+        tip.error("系统错误")
+      }
+    }
+
+    async getstafflist (employee_id) {
+      const res = await api.getstafflist({
+        query: {
+          employee_id: employee_id,
+        },
+        method: 'POST'
+      });
+      this.employee_list = res.data.data
+      this.$apply()
+    }
+
+    async getstaffauthlist (employee_id) {
+      const res = await api.getstaffauthlist({
+        query: {
+          employee_id: employee_id,
+        },
+        method: 'POST'
+      });
+      this.staff_auth_list = res.data.data
+      this.$apply()
+    }
+
+    async getstaffinfo (employee_id) {
+      const res = await api.getstaffinfo({
+        query: {
+          employee_id: employee_id,
+        },
+        method: 'POST'
+      });
+      this.auth_status = res.data.data[0].auth_status
+      console.log(this.auth_status)
+      this.$apply()
     }
 
     events = {
@@ -230,8 +339,6 @@
     }
 
     async onLoad() {
-      let systemInfo = wx.getStorageSync(SYSTEM_INFO);
-      this.windowHeight = systemInfo.windowHeight;
       let self = this
       self.userInfo = wepy.getStorageSync('user_info')
       //navbar
@@ -241,7 +348,10 @@
       this.sliderOffset = res.windowWidth / this.tabs.length * this.activeIndex;
     }
 
-    onShow() {
+    async onShow() {
+      let employee_id = wepy.getStorageSync("userid")
+      await this.getstafflist(employee_id)
+      await this.getstaffinfo(employee_id)
     }
 
 

@@ -176,7 +176,7 @@
                         <image class="img-format" style="width: 15rpx;height: 15rpx;padding: 8rpx;" src="" ></image>
                     </view>
                     <view style="width: 30%" >
-                        <input class="weui-input" maxlength="5" placeholder="请输入姓名" />
+                        <input class="weui-input" @input="changeName"  value="{{ employee.real_name }}" placeholder="请输入姓名" />
                     </view>
 
                     <view class="weui-cell__hd margin-format right">
@@ -204,7 +204,7 @@
                         <image class="img-format"></image>
                     </view>
                     <view>
-                        <input style="height: 16rpx" class="weui-input" maxlength="5" value="{{ carInfo.carNum }}" placeholder="请输入手机号" />
+                        <input style="height: 16rpx" class="weui-input" @input="changePhone" maxlength="11" value="{{ employee.phone_number }}" placeholder="请输入手机号" />
                     </view>
                 </view>
             </view>
@@ -220,7 +220,7 @@
                     <view class="weui-cell__hd">
                         <image class="img-format" src="" ></image>
                     </view>
-                    <view class="brightGrey">{{ branch.name }}</view>
+                    <view class="brightGrey">{{ branch.branch_name }}</view>
                     <view class="weui-cell__bd">
                         <picker @change="bindBranchChange" value="{{ branchIndex }}" range="{{ branchList }}">
                             <view class="carNum weui-select"></view>
@@ -236,7 +236,7 @@
                     </view>
                     <view class="weui-cell__bd">设为管理员</view>
                     <view class="weui-cell__ft">
-                        <switch @change="setAdmin"></switch>
+                        <switch checked @change="setAdmin"></switch>
                     </view>
                 </view>
             </view>
@@ -245,7 +245,6 @@
                 <button class="weui-btn mybtn" type="primary" plain="true" @tap="validate">身份认证</button>
             </view>
         </scroll-view>
-        <alert :is_active.sync="is_active" :title.sync="alert_title" :msg="msg" :confirmText.sync="confirmText"></alert>
     </view>
 </template>
 
@@ -258,6 +257,7 @@
     SEL_CLASS_CODE
   } from '../utils/constant';
   import Alert from '../components/myAlert'
+  import api from "../api/api"
   export default class Identify extends wepy.page {
     config = {
       navigationBarTitleText: '身份验证'
@@ -266,7 +266,7 @@
       alert:Alert
     }
     data = {
-      sexList: ['男','女'],
+      sexList: ['未知','男','女'],
       sexIndex: 0,
       branchList:['未选择分店'],
       branchIndex: 0,
@@ -279,6 +279,11 @@
         name: '',
         sex:'请选择性别',
       },
+
+      branchListResource:[],
+
+      employee_id:0,
+      branch_id: 0,
     }
 
 
@@ -288,21 +293,90 @@
         this.employee.sex = this.sexList[this.sexIndex]
         this.$apply()
       },
-      bindBranchChange (e) {
+      async bindBranchChange (e) {
         this.branchIndex = e.detail.value
-        this.branch.name = this.branchList[this.branchIndex]
+        this.branch.branch_name = this.branchList[this.branchIndex]
+        this.branch_id = this.branchListResource[this.branchIndex].branch_id
         this.$apply()
       },
-      validate () {
-
+      async validate () {
+        const res = await api.updatestaffinfo({
+          query: {
+            employee_id: parseInt(this.employee_id),
+            gender: parseInt(this.sexIndex),
+            phone_number: parseInt(this.employee.phone_number),
+            branch_id: parseInt(this.branch_id),
+            name: this.employee.real_name,
+            is_root: this.is_root ,
+          },
+          method: 'POST'
+        });
+        if (res.data.status){
+          wx.navigateBack({ changed: true });
+          tip.success("更新成功")
+        }
       },
       setAdmin (e) {
-        console.log('switch1 发生 change 事件，携带值为', e.detail.value)
+        console.log(e)
+        this.is_root =  e.detail.value
+        this.$apply()
+      },
+      changeName (e) {
+        this.employee.real_name = e.detail.value
+        this.$apply()
+      },
+      changePhone (e) {
+        this.employee.phone_number = e.detail.value
+        this.$apply()
       }
     }
 
-    onLoad(option) {
 
+    async getbranchlist () {
+      const res = await api.getbranchlist({
+        query: {
+          merchant_id: wepy.getStorageSync("merchant_id"),
+        },
+        method: 'POST'
+      });
+      this.branchListResource = res.data.data
+      for (let p in res.data.data){
+        this.branchList[p] = res.data.data[p].branch_name
+      }
+      this.$apply()
+
+    }
+
+    async getstaffinfo(employee_id) {
+      const res = await api.getstaffinfo({
+        query: {
+          employee_id: employee_id,
+        },
+        method: 'POST'
+      });
+      this.employee = res.data.data[0]
+      if (this.employee.gender == 0){
+        this.employee.sex = "未知"
+        this.sexIndex = 0
+      }else if((this.employee.gender == 1)){
+        this.employee.sex = "男"
+        this.sexIndex = 1
+      }else{
+        this.employee.sex = "女"
+        this.sexIndex = 2
+      }
+      this.branch = this.employee.branch_list[0]
+      this.branch_id = this.branch.branch_id
+      this.$apply()
+
+    }
+
+    async onLoad(option) {
+      let employee_id = option.employee_id
+      this.employee_id = employee_id
+      await this.getstaffinfo(employee_id)
+      await this.getbranchlist()
+      this.$apply()
     }
   }
 </script>

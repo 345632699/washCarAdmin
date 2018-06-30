@@ -165,7 +165,7 @@
                 </picker>
             </view>
             <view class="foot">
-                <view class="btn" @tap="bind">
+                <view class="btn" @tap="comfirmRecharge">
                     確認充值
                 </view>
                 <view class="btn" @tap="hide">
@@ -178,11 +178,12 @@
 <script>
   import wepy from 'wepy'
   import tip from '../utils/tip'
+  import api from '../api/api'
 
   export default class VipAlert extends wepy.component {
 
     data = {
-      vipList: ['1','2','3'],
+      vipList: [],
       vipIndex:0,
       vipName: "请选择会员等级"
 
@@ -207,10 +208,16 @@
         twoWay: true
       },
 
+      user_id: {
+        type: Number,
+        default: 0
+      },
+
       confirmText: {
         type:String,
         default: '確認'
-      }
+      },
+      vipListResource:[],
     };
 
 
@@ -218,8 +225,22 @@
       hide () {
         this.vip_active = 0
       },
-      bind (e) {
-        tip.toast("绑定成功")
+      async comfirmRecharge (e) {
+        const res = await api.updateviplevel({
+          query: {
+            merchant_id: wepy.getStorageSync('merchant_id'),
+            user_id: this.user_id,
+            vipsetting_id: this.vipListResource[this.vipIndex].vipsetting_id,
+          },
+          method: 'POST'
+        });
+        if (res.data.status){
+          this.vip_active = 0
+          this.$apply()
+          this.$emit('updateUserList')
+        }else{
+          tip.error("充值失败")
+        }
       },
       changeVip (e) {
         this.vipIndex = e.detail.value
@@ -229,8 +250,23 @@
 
     }
 
-    onload () {
-      console.log(this.title);
+    async getviplevel() {
+      const res = await api.getviplevel({
+        query: {
+          merchant_id: wepy.getStorageSync('merchant_id'),
+        },
+        method: 'POST'
+      });
+      this.vipListResource = res.data.data
+      for(let p in this.vipListResource){//遍历json数组时，这么写p为索引，0,1
+        this.vipList.push(this.vipListResource[p].vip_name)
+      }
+      this.$apply()
+
+    }
+
+    async onLoad () {
+      await this.getviplevel()
     }
 
   }
