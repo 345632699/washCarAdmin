@@ -231,7 +231,7 @@
                 <view class="weui-cell">
                     <view class="weui-cell__bd" style="font-size: 24rpx">请选择洗车效果图</view>
                     <view class="weui-cell__bd" style="font-size: 24rpx;text-align: right">
-                        0/9
+                        {{ number }}/9
                     </view>
                 </view>
                 <view style="width: 100%;padding-top: 16rpx;">
@@ -254,9 +254,13 @@
                     </view>
                     <view class="weui-cell__bd">車型</view>
                 </view>
-                <navigator url="/pages/car_type" hover-class="none" class="weui-cell input-text">
-                    <view class="font-gray">请选择车型</view>
-                </navigator>
+                <view class="weui-cell input-text">
+                    <!--<view class="font-gray">请选择车型</view>-->
+                    <input @input="getCarModel" style="padding-right: 16rpx;padding-bottom: 16rpx" type="text" placeholder="输入车型号">
+                </view>
+                <!--<view url="/pages/car_type" hover-class="none" class="weui-cell input-text">-->
+                    <!--<view class="font-gray">请选择车型</view>-->
+                <!--</view>-->
             </view>
 
             <view class="weui-cells weui-cells_after-title last" style="padding-top: 64rpx;padding-bottom: 100px;">
@@ -290,6 +294,8 @@
       order_detail: {},
       imgs:[],
       has_done:false,
+      carModel:"",
+      number:0,
     }
 
 
@@ -300,6 +306,11 @@
           current: current, // 当前显示图片的http链接
           urls: [current] // 需要预览的图片http链接列表
         })
+      },
+
+      getCarModel (e) {
+        this.carModel = e.detail.value
+        this.$apply()
       },
 
       // 上传图片
@@ -332,12 +343,15 @@
                 return false;
               } else {
                 imgs.push(tempFilePaths[i]);
+                that.number += 1
+                that.$apply()
               }
             }
             // console.log(imgs);
             that.setData({
               imgs: imgs
             });
+
           }
         });
       },
@@ -362,66 +376,98 @@
         })
       },
       //上傳圖片
-      upload () {
+      async upload () {
         let imgs=this.data.imgs;
-        this.uploadimg({
-          url:'https://wxapp.mqphp.com/cy1993_app/uploadcarimage/',//这里是你图片上传的接口
+        await this.uploadimg({
+          url:'https://wx.cy1993.cn/cy1993_app/uploadcarimage/',//这里是你图片上传的接口
           path:imgs//这里是选取的图片的地址数组
-        });
-      },
-      uploadimg (data) {
-        let that=this,
-            i=data.i?data.i:0,//当前上传的哪张图片
-            success=data.success?data.success:0,//上传成功的个数
-            fail=data.fail?data.fail:0;//上传失败的个数
-        wx.uploadFile({
-          url: data.url,
-          filePath: data.path[i],
-          name: 'carImage',//这里根据自己的实际情况改
-          formData:{
-            number: i,
-            carModel: 'test',
-            orderId: 1,
-          },//这里是上传图片时一起上传的数据
-          success: (resp) => {
-            success++;//图片上传成功，图片上传成功的变量+1
-            console.log(resp)
-            console.log(i);
-            //这里可能有BUG，失败也会执行这里,所以这里应该是后台返回过来的状态码为成功时，这里的success才+1
-          },
-          fail: (res) => {
-            fail++;//图片上传失败，图片上传失败的变量+1
-            console.log('fail:'+i+"fail:"+fail);
-          },
-          complete: () => {
-            console.log(i);
-            i++;//这个图片执行完上传后，开始上传下一张
-            if(i==data.path.length){   //当图片传完时，停止调用
-              console.log('执行完毕');
-              console.log('成功：'+success+" 失败："+fail);
-            }else{//若图片还没有传完，则继续调用函数
-              console.log(i);
-              data.i=i;
-              data.success=success;
-              data.fail=fail;
-              that.uploadimg(data);
-            }
+        })
 
-          }
-        });
       },
-
       async cancelOrder () {
         this.is_active = 1
         wepy.switchTab({
-          url: './index',   //注意switchTab只能跳转到带有tab的页面，不能跳转到不带tab的页面
+          url: './home',   //注意switchTab只能跳转到带有tab的页面，不能跳转到不带tab的页面
         })
       },
 
-      doWash() {
-        this.has_done = true
+      async doWash() {
+        const res = await api.updateorderstatus({
+          query: {
+            order_id: parseInt(this.order_id),
+            order_status:2,
+          },
+          method: 'POST'
+        });
+        if (res.data.status){
+          this.has_done = true
+          this.$apply()
+        }else{
+          tip.error(res.data.errmsg)
+        }
       }
 
+    }
+
+    async uploadimg (data) {
+      let that=this,
+        i=data.i?data.i:0,//当前上传的哪张图片
+        success=data.success?data.success:0,//上传成功的个数
+        fail=data.fail?data.fail:0;//上传失败的个数
+      wx.uploadFile({
+        url: data.url,
+        filePath: data.path[i],
+        name: 'carImage',//这里根据自己的实际情况改
+        formData:{
+          number: i,
+          carModel: this.carModel,
+          orderId: this.order_id,
+        },//这里是上传图片时一起上传的数据
+        success: (resp) => {
+          success++;//图片上传成功，图片上传成功的变量+1
+          console.log(resp)
+          console.log(i);
+          //这里可能有BUG，失败也会执行这里,所以这里应该是后台返回过来的状态码为成功时，这里的success才+1
+        },
+        fail: (res) => {
+          fail++;//图片上传失败，图片上传失败的变量+1
+          console.log('fail:'+i+"fail:"+fail);
+        },
+        complete: () => {
+          console.log(i);
+          i++;//这个图片执行完上传后，开始上传下一张
+          if(i==data.path.length){   //当图片传完时，停止调用
+            console.log('执行完毕');
+            console.log('成功：'+success+" 失败："+fail);
+            //完成订单
+            this.servicedone()
+
+          }else{//若图片还没有传完，则继续调用函数
+            console.log(i);
+            data.i=i;
+            data.success=success;
+            data.fail=fail;
+            that.uploadimg(data);
+          }
+
+        }
+      });
+    }
+    async servicedone () {
+      const res = await api.servicedone({
+        query: {
+          orderId: parseInt(this.order_id),
+          carModel: this. carModel,
+          appId:APPID
+        },
+        method: 'POST'
+      })
+      if (res.data.status){
+        tip.success("确认完成")
+        wepy.navigateBack()
+      }else{
+        tip.error(res.data.errmsg)
+      }
     }
 
     async getorderdetails (order_id) {
@@ -430,8 +476,12 @@
           order_id: parseInt(order_id),
         },
         method: 'POST'
-      });
+      })
       this.order_detail = res.data.data[0]
+      let order_status = this.order_detail.order_status
+      if ( order_status > 1 && order_status < 5){
+        this.has_done = true
+      }
       this.$apply()
     }
 

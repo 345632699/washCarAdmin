@@ -36,8 +36,13 @@ const getstaffauthlist = (params) => wxRequest(params, apiMall + "getstaffauthli
 const updatestaffauth = (params) => wxRequest(params, apiMall + "updatestaffauth/");
 //更新员工职位
 const updatestaffposition = (params) => wxRequest(params, apiMall + "updatestaffposition/");
-
+//获取商户列表
 const getbranchlist = (params) => wxRequest(params, api + "getbranchlist/");
+//更新订单状态
+const updateorderstatus = (params) => wxRequest(params, apiMall + "updateorderstatus/");
+//完成洗车
+const servicedone = (params) => wxRequest(params, api + "servicedone/");
+
 
 
 
@@ -58,4 +63,6 @@ module.exports = {
   getstaffauthlist,
   updatestaffauth,
   getbranchlist,
+  updateorderstatus,
+  servicedone,
 }

@@ -145,7 +145,6 @@
 
     changeUrl (url) {
       this.config.tabBar.list[2].pagePath = 'pages/classify'
-      this.c]
     }
 
 

@@ -117,7 +117,7 @@
     }
 </style>
 <template>
-    <view class="navbar page" wx:if="{{ 'none'==auth_status }}">
+    <view class="navbar page" wx:if="{{ 'authed'==auth_status }}">
         <view class="page__bd">
             <view class="weui-tab">
                 <view class="weui-navbar" style="color: #111612">

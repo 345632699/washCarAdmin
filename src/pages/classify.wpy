@@ -260,7 +260,7 @@
       branchIndex: 0,
       //门店信息
       branch: {
-        name: "请选择分店"
+        branch_name: "请选择分店"
       },
       //员工信息
       employee:{
@@ -352,8 +352,10 @@
         this.employee.sex = "女"
         this.sexIndex = 2
       }
-      this.branch = this.employee.branch_list[0]
-      this.branch_id = this.branch.branch_id
+      if (this.employee.branch_list[0]){
+        this.branch = this.employee.branch_list[0]
+        this.branch_id = this.branch.branch_id
+      }
       this.$apply()
 
     }
