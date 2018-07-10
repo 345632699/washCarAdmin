@@ -222,14 +222,15 @@
                 </view>
             </view>
             <view class="weui-cells weui-cells_after-title last" style="padding-top: 64rpx;padding-bottom: 100px;">
-                <button class="weui-btn mybtn" type="primary" plain="true" @tap="doWash">開始洗車</button>
+                <button class="weui-btn mybtn" type="primary" plain="true" @tap="doWash">开始洗车</button>
                 <button class="weui-btn mybtn" type="primary" plain="true" style="background: #818181" @tap="cancelOrder">取消訂單</button>
             </view>
         </scroll-view>
         <scroll-view scroll-y scroll-with-animation="true" class="page__bd" wx:if="{{ has_done }}">
             <view class="weui-cells weui-cells_after-title last">
                 <view class="weui-cell">
-                    <view class="weui-cell__bd" style="font-size: 24rpx">请选择洗车效果图</view>
+                    <view class="weui-cell__bd" wx:if="{{ 4 == order_detail.order_status }}" style="font-size: 24rpx">查看效果图</view>
+                    <view class="weui-cell__bd" wx:else style="font-size: 24rpx">请选择洗车效果图</view>
                     <view class="weui-cell__bd" style="font-size: 24rpx;text-align: right">
                         {{ number }}/9
                     </view>
@@ -237,7 +238,7 @@
                 <view style="width: 100%;padding-top: 16rpx;">
                     <view class="img" wx:for="{{imgs}}" wx:for-item="item" wx:key="*this">
                         <image style="width: 160rpx;height: 160rpx;wrap;padding-right: 16rpx;padding-bottom: 16rpx" src="{{item}}" data-index="{{index}}" mode="aspectFill" bindtap="previewImg"></image>
-                        <view class="delete-btn" data-index="{{index}}" catchtap="deleteImg"></view>
+                        <!--<view class="delete-btn" data-index="{{index}}" catchtap="deleteImg"></view>-->
                     </view>
                     <view class="img" @tap="choose" wx:if="{{ (imgs.length > 8) ? false : true }}">
                         <view class="weui-uploader__input-box" style="display: inline-block;margin-bottom: 20rpx">
@@ -255,17 +256,18 @@
                     <view class="weui-cell__bd">車型</view>
                 </view>
                 <view class="weui-cell input-text">
-                    <view class="font-gray" wx:if="{{ 4 == order_detail.order_status }}">{{  }}</view>
-                    <input @input="getCarModel" wx:else style="padding-right: 16rpx;padding-bottom: 16rpx" type="text" placeholder="输入车型号">
+                    <view class="font-gray" wx:if="{{ 4 == order_detail.order_status }}">test</view>
+                    <input @input="getCarModel" wx:else style="padding-right: 16rpx;padding-bottom: 16rpx" type="text" placeholder="输入车型号" />
                 </view>
                 <!--<view url="/pages/car_type" hover-class="none" class="weui-cell input-text">-->
-                    <!--<view class="font-gray">请选择车型</view>-->
+                <!--<view class="font-gray">请选择车型</view>-->
                 <!--</view>-->
             </view>
 
             <view class="weui-cells weui-cells_after-title last" style="padding-top: 64rpx;padding-bottom: 100px;">
-                <button class="weui-btn mybtn" type="primary" plain="true" @tap="upload">完成洗車</button>
-                <button class="weui-btn mybtn" type="primary" plain="true" style="background: #818181" @tap="cancelOrder">取消訂單</button>
+                <button class="weui-btn mybtn" type="primary" plain="true" wx:if="{{ 2 == order_detail.order_status }}" @tap="upload">完成洗車</button>
+                <button class="weui-btn mybtn" type="primary" plain="true" wx:if="{{ 2 == order_detail.order_status }}" style="background: #818181" @tap="cancelOrder">取消訂單</button>
+                <button class="weui-btn mybtn" type="primary" plain="true" wx:if="{{ 4 == order_detail.order_status }}" @tap="returnBack" >返回</button>
             </view>
         </scroll-view>
         <alert :is_active.sync="is_active" :title.sync="alert_title" :msg="msg" :confirmText.sync="confirmText"></alert>
@@ -315,6 +317,9 @@
         this.$apply()
       },
 
+      returnBack () {
+        wepy.navigateBack()
+      },
       // 上传图片
       choose (e) {
         let that = this;
@@ -345,13 +350,13 @@
                 return false;
               } else {
                 imgs.push(tempFilePaths[i]);
-                that.number += 1
                 that.$apply()
               }
             }
             // console.log(imgs);
             that.setData({
-              imgs: imgs
+              imgs: imgs,
+              number: imgs.length
             });
 
           }
@@ -403,6 +408,7 @@
         });
         if (res.data.status){
           this.has_done = true
+          await this.getorderdetails(this.order_id)
           this.$apply()
         }else{
           tip.error(res.data.errmsg)
@@ -485,8 +491,9 @@
         method: 'POST'
       })
       this.order_detail = res.data.data[0]
-      console.log(this.order_detail)
-      this.imgs = this.order_detail.image_list
+      if (this.order_detail.image_list.length >= 9){
+        this.imgs = this.order_detail.image_list
+      }
       let order_status = this.order_detail.order_status
       if ( order_status > 1 && order_status < 5){
         this.has_done = true
@@ -497,7 +504,6 @@
     // events对象中所声明的函数为用于监听组件之间的通信与交互事件的事件处理函数
     events = {
       'comfirmAction': (comfirm) => {
-        console.log(comfirm)
         if (comfirm == 1){
           tip.toast("取消成功")
         }
@@ -507,6 +513,11 @@
     async onLoad(option) {
       this.order_id = option.order_id
       await this.getorderdetails(this.order_id)
+      this.$apply()
+    }
+
+    async onShow () {
+      this.number = this.imgs.length
       this.$apply()
     }
   }

@@ -113,7 +113,7 @@
             </view>
           </view>
           <view class="left">
-            <image class="userinfo-avatar" src="../images/all/hot@2x.png" background-size="cover"/>
+            <image class="userinfo-avatar" src="" background-size="cover"/>
           </view>
         </view>
       </view>
@@ -173,7 +173,6 @@
         </view>
       </view>
     </view>
-    <button open-type="getUserInfo">用戶授權</button>
   </view>
 </template>
 
@@ -279,15 +278,20 @@
     async onLoad() {
       let systemInfo = wx.getStorageSync(SYSTEM_INFO);
       this.windowHeight = systemInfo.windowHeight;
+      await this.$parent.getAuth()
       this.userInfo = wepy.getStorageSync('user_info')
-    }
-
-    async onShow() {
-      await  this.$parent.getAuth()
       let employee_id = wepy.getStorageSync('userid')
       let merchant_id = wepy.getStorageSync('merchant_id')
       this.userInfo = wepy.getStorageSync('user_info')
       await this.getorderoverview(employee_id)
+    }
+
+    async onShow() {
+      if (!wepy.getStorageSync('user_info')){
+        await this.$parent.getAuth()
+        let employee_id = wepy.getStorageSync('userid')
+        await this.getorderoverview(employee_id)
+      }
     }
 
 
