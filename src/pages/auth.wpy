@@ -1,0 +1,65 @@
+<style lang="less">
+    .btn{
+        background: #373C38;
+        width:610rpx;
+        height:72rpx;
+        line-height: 72rpx;
+        color: #fff;
+        font-size: 32rpx;
+    }
+    .content{
+        padding: 32rpx;
+        font-size: 28rpx;
+        text-align: center;
+    }
+</style>
+<template>
+    <view class="content">
+        请允许授权我们，获取你的公开信息(头像，昵称)
+    </view>
+    <view class="page">
+        <button class="btn" open-type="getUserInfo" @getuserinfo="bindGetUserInfo">用戶授权</button>
+    </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  export default class Auth extends wepy.page {
+    config = {
+      navigationBarTitleText: '用户授权'
+    }
+    components = {
+
+    }
+
+    data = {
+    }
+
+    computed = {
+    }
+
+    methods = {
+      bindGetUserInfo (e) {
+        if (e.detail.userInfo){
+          //用户按了允许授权按钮
+          wepy.switchTab({
+            url: './index'
+          })
+        } else {
+          //用户按了拒绝按钮
+          console.log(3333)
+        }
+      }
+    }
+
+
+    onLoad() {
+
+    }
+
+    onShow() {
+    }
+
+
+  }
+</script>
