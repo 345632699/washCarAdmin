@@ -256,7 +256,7 @@
                     <view class="weui-cell__bd">車型</view>
                 </view>
                 <view class="weui-cell input-text">
-                    <view class="font-gray" wx:if="{{ 4 == order_detail.order_status }}">test</view>
+                    <view class="font-gray" wx:if="{{ 3 == order_detail.order_status }}">{{ order_detail.car_model }}</view>
                     <input @input="getCarModel" wx:else style="padding-right: 16rpx;padding-bottom: 16rpx" type="text" placeholder="输入车型号" />
                 </view>
                 <!--<view url="/pages/car_type" hover-class="none" class="weui-cell input-text">-->
@@ -493,6 +493,7 @@
       this.order_detail = res.data.data[0]
       if (this.order_detail.image_list.length >= 9){
         this.imgs = this.order_detail.image_list
+        this.number = 9
       }
       let order_status = this.order_detail.order_status
       if ( order_status > 1 && order_status < 5){
