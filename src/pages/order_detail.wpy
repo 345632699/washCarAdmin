@@ -236,9 +236,10 @@
                     </view>
                 </view>
                 <view style="width: 100%;padding-top: 16rpx;">
-                    <view class="img" wx:for="{{imgs}}" wx:for-item="item" wx:key="*this">
+                    <view class="img" wx:for="{{imgs}}" wx:for-item="item" wx:key="*this" style="position:relative">
                         <image style="width: 160rpx;height: 160rpx;wrap;padding-right: 16rpx;padding-bottom: 16rpx" src="{{item}}" data-index="{{index}}" mode="aspectFill" bindtap="previewImg"></image>
                         <!--<view class="delete-btn" data-index="{{index}}" catchtap="deleteImg"></view>-->
+                        <view class="weui-badge" data-index="{{index}}" @tap="deleteImg" style="margin-left: 5px;position: absolute;left:160rpx;top:-8rpx;">x</view>
                     </view>
                     <view class="img" @tap="choose" wx:if="{{ (imgs.length > 8) ? false : true }}">
                         <view class="weui-uploader__input-box" style="display: inline-block;margin-bottom: 20rpx">
@@ -368,6 +369,7 @@
         let index = e.currentTarget.dataset.index;
         imgs.splice(index, 1);
         this.imgs = imgs
+        this.$apply()
       },
       // 预览图片
       previewImg (e) {
@@ -385,6 +387,10 @@
       //上傳圖片
       async upload () {
         let imgs=this.data.imgs;
+        if (imgs.length < 9){
+          tip.error('上传图片小于9张')
+          return
+        }
         await this.uploadimg({
           url:'https://wx.cy1993.cn/cy1993_app/uploadcarimage/',//这里是你图片上传的接口
           path:imgs//这里是选取的图片的地址数组
