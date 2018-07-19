@@ -21,4 +21,4 @@ export const ADDRESS_ID = "addressId";
 
 export const SEL_CLASS_CODE = "selClassCode";
 
-export const APPID = "wx234f1e50c0aeb853"
+export const APPID = "wxd2b1f049d88ddca4"

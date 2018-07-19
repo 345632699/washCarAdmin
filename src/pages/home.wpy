@@ -101,7 +101,7 @@
     <view class="list admin">
       <view class="list-item">
         <view class="admin-name">
-          {{time}} {{ employee.name }}
+          {{time}} {{ userInfo.nickName }}
         </view>
         <view class="top" style="margin-top: -16rpx">
           <view class="right" style="padding-left: 32rpx">
@@ -255,6 +255,7 @@
         method: 'POST'
       });
       this.homeInfo = res.data.data[0]
+      console.log(this.homeInfo)
       wepy.setStorageSync('is_root',this.homeInfo.is_root)
       this.orderList = this.homeInfo.order_list
       this.$apply()
@@ -278,19 +279,21 @@
     async onLoad() {
       let systemInfo = wx.getStorageSync(SYSTEM_INFO);
       this.windowHeight = systemInfo.windowHeight;
-      await this.$parent.getAuth()
-      this.userInfo = wepy.getStorageSync('user_info')
-      let employee_id = wepy.getStorageSync('userid')
-      let merchant_id = wepy.getStorageSync('merchant_id')
-      this.userInfo = wepy.getStorageSync('user_info')
-      await this.getorderoverview(employee_id)
+      if (wepy.getStorageSync('user_info')){
+        this.userInfo = wepy.getStorageSync('user_info')
+        await this.getorderoverview(wepy.getStorageSync('userid'))
+        this.$apply()
+      }
     }
 
     async onShow() {
       if (!wepy.getStorageSync('user_info')){
         await this.$parent.getAuth()
+        this.userInfo = wepy.getStorageSync('user_info')
         let employee_id = wepy.getStorageSync('userid')
-        await this.getorderoverview(employee_id)
+        let merchant_id = wepy.getStorageSync('merchant_id')
+        if (employee_id)
+          await this.getorderoverview(employee_id)
       }
     }
 
