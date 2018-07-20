@@ -255,10 +255,11 @@
         method: 'POST'
       });
       this.homeInfo = res.data.data[0]
-      console.log(this.homeInfo)
-      wepy.setStorageSync('is_root',this.homeInfo.is_root)
-      this.orderList = this.homeInfo.order_list
-      this.$apply()
+      if (this.homeInfo){
+        wepy.setStorageSync('is_root',this.homeInfo.is_root)
+        this.orderList = this.homeInfo.order_list
+        this.$apply()
+      }
     }
 
     events = {
@@ -279,7 +280,7 @@
     async onLoad() {
       let systemInfo = wx.getStorageSync(SYSTEM_INFO);
       this.windowHeight = systemInfo.windowHeight;
-      if (wepy.getStorageSync('user_info')){
+      if (wepy.getStorageSync('userid')){
         this.userInfo = wepy.getStorageSync('user_info')
         await this.getorderoverview(wepy.getStorageSync('userid'))
         this.$apply()
@@ -287,13 +288,11 @@
     }
 
     async onShow() {
-      if (!wepy.getStorageSync('user_info')){
+      if (!wepy.getStorageSync('userid')){
         await this.$parent.getAuth()
         this.userInfo = wepy.getStorageSync('user_info')
-        let employee_id = wepy.getStorageSync('userid')
-        let merchant_id = wepy.getStorageSync('merchant_id')
-        if (employee_id)
-          await this.getorderoverview(employee_id)
+        await this.getorderoverview(wepy.getStorageSync('userid'))
+        this.$apply()
       }
     }
 

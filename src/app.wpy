@@ -123,6 +123,7 @@
       try{
         let resUser = await wepy.getUserInfo()
         wepy.setStorageSync('user_info', resUser.userInfo)
+        console.log(res.code)
         if (res.code){
           if (!wepy.getStorageSync('userid')){
             const json = await api.login({
@@ -134,12 +135,14 @@
               },
               method: 'POST'
             });
+            console.log("用户信息"+ json.data.data[0].userid)
             wepy.setStorageSync('userid', json.data.data[0].userid)
             wepy.setStorageSync('merchant_id', json.data.data[0].merchant_id)
           }
         }
       } catch (e){
         tip.error('请先进行授权')
+        console.log(e)
         wepy.navigateTo({
           url: './auth'
         })
