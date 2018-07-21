@@ -326,45 +326,28 @@
       // 上传图片
       choose (e) {
         let that = this;
-        let imgs = this.data.imgs;
-        if (imgs.length >= 9) {
-          this.setData({
-            lenMore: 1
-          });
-          setTimeout(function () {
-            that.setData({
-              lenMore: 0
-            });
-          }, 2500);
-          return false;
-        }
         wx.chooseImage({
           // count: 1, // 默认9
           sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
           sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
           success: function (res) {
             // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-            let tempFilePaths = res.tempFilePaths;
-            let imgs = that.data.imgs;
-            // console.log(tempFilePaths + '----');
+            let tempFilePaths = res.tempFilePaths
+            let img_list = that.imgs
             for (let i = 0; i < tempFilePaths.length; i++) {
-              if (imgs.length >= 9) {
-                that.imgs = imgs
-                return false;
+              if (img_list.length >= 9) {
+                that.imgs = img_list
+                return false
               } else {
-                imgs.push(tempFilePaths[i]);
+                img_list.push(tempFilePaths[i])
                 that.$apply()
               }
             }
-            // console.log(imgs);
-            that.setData({
-              imgs: imgs,
-              number: imgs.length
-            });
-            console.log(imgs.length)
-
+            that.imgs = img_list
+            that.number = img_list.length
+            that.$apply()
           }
-        });
+        })
       },
       // 删除图片
       deleteImg (e) {
@@ -446,18 +429,17 @@
         },
         fail: (res) => {
           fail++;//图片上传失败，图片上传失败的变量+1
-          console.log('fail:'+i+"fail:"+fail);
+//          console.log('fail:'+i+"fail:"+fail);
         },
         complete: () => {
           i++;//这个图片执行完上传后，开始上传下一张
           if(i==data.path.length){   //当图片传完时，停止调用
-            console.log('执行完毕');
-            console.log('成功：'+success+" 失败："+fail);
+//            console.log('执行完毕');
+//            console.log('成功：'+success+" 失败："+fail);
             //完成订单
             this.servicedone()
 
           }else{//若图片还没有传完，则继续调用函数
-            console.log(i);
             data.i=i;
             data.success=success;
             data.fail=fail;
@@ -525,7 +507,6 @@
 
     async onShow () {
       this.number = this.imgs.length
-      console.log(this.number)
       this.$apply()
     }
   }
