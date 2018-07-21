@@ -229,7 +229,7 @@
         <scroll-view scroll-y scroll-with-animation="true" class="page__bd" wx:if="{{ has_done }}">
             <view class="weui-cells weui-cells_after-title last">
                 <view class="weui-cell">
-                    <view class="weui-cell__bd" wx:if="{{ 4 == order_detail.order_status }}" style="font-size: 24rpx">查看效果图</view>
+                    <view class="weui-cell__bd" wx:if="{{ 3 == order_detail.order_status }}" style="font-size: 24rpx">查看效果图</view>
                     <view class="weui-cell__bd" wx:else style="font-size: 24rpx">请选择洗车效果图</view>
                     <view class="weui-cell__bd" style="font-size: 24rpx;text-align: right">
                         {{ number }}/9
@@ -299,6 +299,7 @@
       order_id: 0,
       order_detail: {},
       imgs:[],
+      source_imgs:[], //原图
       has_done:false,
       carModel:"",
       number:0,
@@ -362,7 +363,7 @@
         //获取当前图片的下标
         let index = e.currentTarget.dataset.index;
         //所有图片
-        let imgs = this.data.imgs;
+        let imgs = this.data.source_imgs;
         wx.previewImage({
           //当前显示图片
           current: imgs[index],
@@ -480,7 +481,8 @@
       })
       this.order_detail = res.data.data[0]
       if (this.order_detail.image_list.length >= 9){
-        this.imgs = this.order_detail.image_list
+        this.imgs = this.order_detail.thumbnail_image_list
+        this.source_imgs = this.order_detail.image_list
         this.number = 9
       }
       let order_status = this.order_detail.order_status
