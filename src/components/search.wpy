@@ -3,11 +3,11 @@
         <view class="search">
             <view class="serch_content">
                 <i class="iconfont icon-search"></i>
-                <input type="text" name="search_input" bindinput="searchInput" class="search_input" focus="true" value="{{search_input_value}}" confirm-type="search" placeholder="搜索商品" />
+                <input type="text" name="search_input" bindinput="searchInput" class="search_input" focus="true" value="{{search_input_value}}" confirm-type="search" placeholder="搜索用户" />
                 <i wx:if="{{search_input_value!=''}}" @tap="delText" class="iconfont icon-del"></i>
             </view>
-            <button class="btn btn_cancel" @tap="goBack()" wx:if="{{search_input_value==''}}">取消</button>
-            <button class="btn btn_search" @tap="search()" wx:else>搜索</button>
+            <!--<button class="btn btn_cancel" @tap="goBack()" wx:if="{{search_input_value==''}}">取消</button>-->
+            <button class="btn btn_cancel" @tap="search()" >搜索</button>
         </view>
     </view>
 </template>
@@ -30,7 +30,6 @@
       goBack() {
         wepy.navigateBack({
           delta: 1 // 回退前 delta(默认为1) 页面
-
         })
       },
       search() {

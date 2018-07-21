@@ -223,7 +223,7 @@
             </view>
             <view class="weui-cells weui-cells_after-title last" style="padding-top: 64rpx;padding-bottom: 100px;">
                 <button class="weui-btn mybtn" type="primary" plain="true" @tap="doWash">开始洗车</button>
-                <button class="weui-btn mybtn" type="primary" plain="true" style="background: #818181" @tap="cancelOrder">取消訂單</button>
+                <button class="weui-btn mybtn" type="primary" plain="true" style="background: #818181" @tap="cancelOrder">取消订单</button>
             </view>
         </scroll-view>
         <scroll-view scroll-y scroll-with-animation="true" class="page__bd" wx:if="{{ has_done }}">
@@ -239,7 +239,7 @@
                     <view class="img" wx:for="{{imgs}}" wx:for-item="item" wx:key="*this" style="position:relative">
                         <image style="width: 160rpx;height: 160rpx;wrap;padding-right: 16rpx;padding-bottom: 16rpx" src="{{item}}" data-index="{{index}}" mode="aspectFill" bindtap="previewImg"></image>
                         <!--<view class="delete-btn" data-index="{{index}}" catchtap="deleteImg"></view>-->
-                        <view class="weui-badge" data-index="{{index}}" @tap="deleteImg" style="margin-left: 5px;position: absolute;left:160rpx;top:-8rpx;">x</view>
+                        <view wx:if="{{ order_detail.order_status < 3 }}" class="weui-badge" data-index="{{index}}" @tap="deleteImg" style="margin-left: 5px;position: absolute;left:160rpx;top:-8rpx;">x</view>
                     </view>
                     <view class="img" @tap="choose" wx:if="{{ (imgs.length > 8) ? false : true }}">
                         <view class="weui-uploader__input-box" style="display: inline-block;margin-bottom: 20rpx">
@@ -252,13 +252,13 @@
             <view class="weui-cells weui-cells_after-title" style="margin-top: -32rpx">
                 <view class="weui-cell">
                     <view class="weui-cell__hd">
-                        <image class="img-format" src="../images/order/select.png" ></image>
+                        <image class="img-format" src="../images/order/bus.png" ></image>
                     </view>
-                    <view class="weui-cell__bd">車型</view>
+                    <view class="weui-cell__bd">车型</view>
                 </view>
                 <view class="weui-cell input-text">
                     <view class="font-gray" wx:if="{{ 3 == order_detail.order_status }}">{{ order_detail.car_model }}</view>
-                    <input @input="getCarModel" wx:else style="padding-right: 16rpx;padding-bottom: 16rpx" type="text" placeholder="输入车型号" />
+                    <input @input="getCarModel" wx:else style="padding-right: 16rpx;padding-bottom: 16rpx" type="text" placeholder="输入车型" />
                 </view>
                 <!--<view url="/pages/car_type" hover-class="none" class="weui-cell input-text">-->
                 <!--<view class="font-gray">请选择车型</view>-->
@@ -266,8 +266,9 @@
             </view>
 
             <view class="weui-cells weui-cells_after-title last" style="padding-top: 64rpx;padding-bottom: 100px;">
-                <button class="weui-btn mybtn" type="primary" plain="true" wx:if="{{ 2 == order_detail.order_status }}" @tap="upload">完成洗車</button>
-                <button class="weui-btn mybtn" type="primary" plain="true" wx:if="{{ 2 == order_detail.order_status }}" style="background: #818181" @tap="cancelOrder">取消訂單</button>
+                <button class="weui-btn mybtn" type="primary" plain="true" wx:if="{{ 2 == order_detail.order_status }}" @tap="upload">完成洗车</button>
+                <button class="weui-btn mybtn" type="primary" plain="true" wx:if="{{ 2 == order_detail.order_status }}" style="background: #818181" @tap="cancelOrder">取消订单</button>
+                <button class="weui-btn mybtn" type="primary" plain="true" wx:if="{{ 3 == order_detail.order_status }}">待支付尾款</button>
                 <button class="weui-btn mybtn" type="primary" plain="true" wx:if="{{ 4 == order_detail.order_status }}" @tap="returnBack" >返回</button>
             </view>
         </scroll-view>
@@ -288,7 +289,8 @@
   import api from '../api/api'
   export default class OrderDetail extends wepy.page {
     config = {
-      navigationBarTitleText: '预约详情'
+      navigationBarTitleText: '预约详情',
+      "disableScroll": true
     }
     components = {
       alert:Alert
@@ -359,6 +361,7 @@
               imgs: imgs,
               number: imgs.length
             });
+            console.log(imgs.length)
 
           }
         });
@@ -439,8 +442,6 @@
         },//这里是上传图片时一起上传的数据
         success: (resp) => {
           success++;//图片上传成功，图片上传成功的变量+1
-          console.log(resp)
-          console.log(i);
           //这里可能有BUG，失败也会执行这里,所以这里应该是后台返回过来的状态码为成功时，这里的success才+1
         },
         fail: (res) => {
@@ -448,7 +449,6 @@
           console.log('fail:'+i+"fail:"+fail);
         },
         complete: () => {
-          console.log(i);
           i++;//这个图片执行完上传后，开始上传下一张
           if(i==data.path.length){   //当图片传完时，停止调用
             console.log('执行完毕');
@@ -525,6 +525,7 @@
 
     async onShow () {
       this.number = this.imgs.length
+      console.log(this.number)
       this.$apply()
     }
   }
