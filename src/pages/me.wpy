@@ -115,9 +115,12 @@
             }
         }
     }
+    .greyColor{
+        color:rgba(0,0,0,0.38);
+    }
 </style>
 <template>
-    <view class="navbar page" wx:if="{{ 'authed'==auth_status }}">
+    <view class="navbar page" wx:if="{{ 'authed'==auth_status && is_root>0 }}">
         <view class="page__bd">
             <view class="weui-tab">
                 <view class="weui-navbar" style="color: #111612">
@@ -186,16 +189,26 @@
     <view class="classifyPage" wx:else>
         <view class="identify">
             <vie class="head">
-                <button @tap="doVerify">身份验证</button>
+                <button @tap="doVerify" wx:if="{{ 'none'==auth_status }}">身份验证</button>
+                <button @tap="doVerify" wx:if="{{ 'authed'==auth_status }}">资料修改</button>
+                <button style="color:rgba(0,0,0,0.38);" wx:if="{{ 'processing'==auth_status }}">身份验证</button>
             </vie>
             <view class="context">
-                <image src="../images/all/verify@2x.png"></image>
-                <view class="text">
+                <image src="../images/all/verifying@2x.png" wx:if="{{ 'processing'==auth_status }}"></image>
+                <image src="../images/all/verify@2x.png" wx:else></image>
+                <view class="text" wx:if="{{ 'none'==auth_status }}">
                     验证身份之后才可以使用所有功能
+                </view>
+                <view class="text greyColor" wx:if="{{ 'processing'==auth_status }}">
+                    正在审核中
+                </view>
+                <view class="text" wx:if="{{ 'authed'==auth_status }}">
+                    您已通过审核 接下来您可以用所有的功能了
                 </view>
             </view>
         </view>
     </view>
+    <alert :is_active.sync="is_active" :alertInfo.sync="alertInfo"></alert>
 </template>
 
 <script>
@@ -207,12 +220,14 @@
   } from '../utils/constant';
   import api from '../api/api'
   import tip from '../utils/tip'
+  import Alert from '../components/myAlert'
   const sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
   export default class Me extends wepy.page {
     config = {
       navigationBarTitleText: '个人中心'
     }
     components = {
+      alert:Alert
     }
 
     data = {
@@ -233,7 +248,15 @@
       staff_auth_list: [],
       auth_status:"none",
 
-      is_root:wepy.getStorageSync('is_root')
+      is_root:wepy.getStorageSync('is_root'),
+
+      alertInfo: {
+        alert_title: "删除用户",
+        msg: "确认删除用户吗，该操作将不可逆？\n",
+        comfirm: 0,
+        confirmText: '确认删除',
+      },
+      is_active:0
 
     }
 
@@ -255,25 +278,17 @@
         }
       },
       async deleteStaff (e) {
+        this.is_active = 1
         let employee_id = e.currentTarget.dataset.id
-        const res = await api.updatestaffauth({
-          query: {
-            employee_id: employee_id,
-            auth_status: 0,
-          },
-          method: 'POST'
-        });
-        if (res.data.status){
-          tip.success("删除成功")
-        }
+        this.alertInfo.employee_id = employee_id
       },
       async agree (e) {
         let employee_id = e.currentTarget.dataset.id
-        await this.updatestaffauth(employee_id,1)
+        await this.updatestaffauth(employee_id,0)
       },
       async reject (e) {
         let employee_id = e.currentTarget.dataset.id
-        await this.updatestaffauth(employee_id,0)
+        await this.updatestaffauth(employee_id,1)
       },
       doVerify () {
         wepy.navigateTo({
@@ -286,7 +301,7 @@
       const res = await api.updatestaffauth({
         query: {
           employee_id: employee_id,
-          auth: auth_status,
+          auth_status: auth_status,
         },
         method: 'POST'
       });
@@ -327,14 +342,26 @@
         method: 'POST'
       });
       this.auth_status = res.data.data[0].auth_status
-      console.log(this.auth_status)
+      this.is_root = res.data.data[0].is_root
       this.$apply()
     }
 
     events = {
-      'index-emit': (...args) => {
-        let $event = args[args.length - 1]
-        console.log(`${this.$name} receive ${$event.name} from ${$event.source.$name}`)
+      'comfirmAction': async  (comfirm,employee_id) => {
+        console.log(employee_id)
+        if (comfirm == 1) {
+          const res = await api.updatestaffauth({
+            query: {
+              employee_id: employee_id,
+              auth_status: 2,
+            },
+            method: 'POST'
+          })
+          if (res.data.status) {
+            tip.success("删除成功")
+            await this.getstafflist(wepy.getStorageSync("userid"))
+          }
+        }
       }
     }
 

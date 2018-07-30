@@ -49,6 +49,10 @@
         type:Number,
         default: 0
       },
+      sliderLeft: {
+        type:Number,
+        default: 0
+      },
       activeIndex: {
         type:Number,
         default: 0,
@@ -61,6 +65,7 @@
       tabClick (e) {
         this.sliderOffset = e.currentTarget.offsetLeft;
         this.activeIndex = e.currentTarget.id;
+        wepy.setStorageSync('activeIndex',this.activeIndex)
         this.$emit("getorderlist", this.activeIndex)
       }
     }
@@ -70,8 +75,9 @@
       this.windowHeight = systemInfo.windowHeight;
       //navbar
       let res = await wepy.getSystemInfo();
-      this.sliderLeft = (res.windowWidth / this.tabs.length - sliderWidth) / 2;
-      this.sliderOffset = res.windowWidth / this.tabs.length * this.activeIndex;
+      this.sliderLeft = (res.windowWidth / this.tabs.length - sliderWidth) / 2
+      this.sliderOffset = res.windowWidth / this.tabs.length * this.activeIndex
+
       this.$apply()
     }
 

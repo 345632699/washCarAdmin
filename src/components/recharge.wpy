@@ -124,7 +124,7 @@
         <view class="wepy-api-dialog__main_bind">
             <view class="wepy-api-dialog__hd_bind">
                 <view class="wepy-api-dialog__title_bind">
-                    为用户：xxxxx 充值余额
+                    为用户：{{ username }} 充值余额
                 </view>
                 <view class="wepy-api-dialog__title_bind">充值金额</view>
             </view>
@@ -136,7 +136,7 @@
             </view>
             <view class="foot">
                 <view class="btn" @tap="comfirmRecharge">
-                    確認充值
+                    确认充值
                 </view>
                 <view class="btn" @tap="hide">
                     取消
@@ -178,6 +178,10 @@
       user_id: {
         type:Number,
         default: 0
+      },
+      username: {
+        type:String,
+        default:"游客",
       }
     };
 

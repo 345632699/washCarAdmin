@@ -42,6 +42,8 @@ const getbranchlist = (params) => wxRequest(params, api + "getbranchlist/");
 const updateorderstatus = (params) => wxRequest(params, apiMall + "updateorderstatus/");
 //完成洗车
 const servicedone = (params) => wxRequest(params, api + "servicedone/");
+//取消订单
+const cancelorder = (params) => wxRequest(params, api + "cancelorder/");
 
 
 
@@ -65,4 +67,5 @@ module.exports = {
   getbranchlist,
   updateorderstatus,
   servicedone,
+  cancelorder,
 }

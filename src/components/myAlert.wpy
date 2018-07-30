@@ -68,11 +68,11 @@
     <view class="wepy-api-dialog" wx:if="{{ is_active }}">
         <view class="wepy-api-dialog__mask"></view>
         <view class="wepy-api-dialog__main">
-            <view class="wepy-api-dialog__hd"><view class="wepy-api-dialog__title">{{ title }}</view></view>
-            <view class="wepy-api-dialog__bd">{{ msg }}</view>
+            <view class="wepy-api-dialog__hd"><view class="wepy-api-dialog__title">{{ alertInfo.alert_title }}</view></view>
+            <view class="wepy-api-dialog__bd">{{ alertInfo.msg }}</view>
             <view class="wepy-api-dialog__ft">
-                <view class="wepy-api-dialog__btn wepy-api-dialog__btn_default" @tap="comfirmCancel">{{ confirmText }}</view>
-                <view class="wepy-api-dialog__btn wepy-api-dialog__btn_primary" @tap="closeTap">關閉</view>
+                <view class="wepy-api-dialog__btn wepy-api-dialog__btn_default" @tap="comfirmCancel">{{ alertInfo.confirmText }}</view>
+                <view class="wepy-api-dialog__btn wepy-api-dialog__btn_primary" @tap="closeTap">关闭</view>
             </view>
         </view>
     </view>
@@ -106,7 +106,18 @@
 
       confirmText: {
         type:String,
-        default: '確認'
+        default: '确认'
+      },
+
+      alertInfo: {
+        type:Object,
+        default: {
+          alert_title: "取消订单",
+          msg: "确认要取消预约吗？取消后可能无法选择同一时间\n",
+          comfirm: 0,
+          confirmText: '确认取消',
+          employee_id: 0
+        }
       }
     };
 
@@ -118,7 +129,7 @@
       },
       comfirmCancel () {
         this.is_active = 0
-        this.$emit('comfirmAction',1)
+        this.$emit('comfirmAction',1,this.alertInfo.employee_id)
       }
     }
 

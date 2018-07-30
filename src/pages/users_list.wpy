@@ -78,16 +78,16 @@
 <template>
     <view class="page">
         <!--頂部-->
-        <search></search>
+        <!--<search></search>-->
         <view class="list">
             <view class="list-item" wx:for="{{ user_list }}" wx:key="item">
                 <view class="top">
                     <view class="left">
-                        <image class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"/>
+                        <image class="userinfo-avatar" src="{{ item.avatarUrl }}" background-size="cover"/>
                     </view>
                     <view class="right">
                         <view class="one">
-                            {{ item.username }} ({{ item.vip_name }})
+                            {{ item.username }} {{ item.vip_name  ?  ( item.vip_name ) : "" }}
                         </view>
                         <view class="two">
                             账户余额: ¥ {{ item.balance }}
@@ -95,18 +95,18 @@
                     </view>
                 </view>
                 <view class="foot" wx:if="{{ is_root }}">
-                    <view class="btn" data-id="{{ item.user_id }}" @tap="recharge">
+                    <view class="btn" data-id="{{ item.user_id }}" data-username="{{ item.username }}" @tap="recharge">
                         设置余额
                     </view>
-                    <view class="btn" data-id="{{ item.user_id }}" @tap="vipChange">
+                    <view class="btn" data-id="{{ item.user_id }}" data-username="{{ item.username }}" @tap="vipChange">
                         设置会员等級
                     </view>
                 </view>
             </view>
         </view>
     </view>
-    <recharge :recharge_active.sync="recharge_active" :user_id.sync="selectUserId"></recharge>
-    <vip :vip_active.sync="vip_active" :user_id.sync="selectUserId"></vip>
+    <recharge :recharge_active.sync="recharge_active" :username.sync="selectUserName" :user_id.sync="selectUserId"></recharge>
+    <vip :vip_active.sync="vip_active" :username.sync="selectUserName" :user_id.sync="selectUserId"></vip>
 </template>
 
 <script>
@@ -142,6 +142,7 @@
       employee_id: 0,
       user_list:[],
       selectUserId:0,
+      selectUserName:'',
       is_root:wepy.getStorageSync('is_root')
     }
 
@@ -155,10 +156,12 @@
       recharge (e) {
         this.selectUserId = e.currentTarget.dataset.id
         this.recharge_active = 1
+        this.selectUserName = e.currentTarget.dataset.username
       },
       vipChange (e) {
         this.selectUserId = e.currentTarget.dataset.id
         this.vip_active = 1
+        this.selectUserName = e.currentTarget.dataset.username
       }
     }
 

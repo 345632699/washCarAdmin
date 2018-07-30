@@ -272,7 +272,7 @@
                 <button class="weui-btn mybtn" type="primary" plain="true" wx:if="{{ 4 == order_detail.order_status }}" @tap="returnBack" >返回</button>
             </view>
         </scroll-view>
-        <alert :is_active.sync="is_active" :title.sync="alert_title" :msg="msg" :confirmText.sync="confirmText"></alert>
+        <alert :is_active.sync="is_active" :alertInfo.sync="alertInfo"></alert>
     </view>
 </template>
 
@@ -304,6 +304,13 @@
       carModel:"",
       number:0,
       title:'加载中',
+      alertInfo: {
+        alert_title: "取消订单",
+        msg: "确认要取消预约吗？取消后可能无法选择同一时间\n",
+        comfirm: 0,
+        confirmText: '确认取消',
+      },
+      is_active: 0,
     }
 
 
@@ -356,6 +363,7 @@
         let index = e.currentTarget.dataset.index;
         imgs.splice(index, 1);
         this.imgs = imgs
+        this.number = imgs.length
         this.$apply()
       },
       // 预览图片
@@ -375,9 +383,12 @@
       async upload () {
         let imgs=this.data.imgs;
         if (imgs.length < 9){
-          tip.error('上传图片小于9张')
+          tip.error('图片少于9张')
           return
         }
+        wx.showLoading({
+          title: '程序加载中',
+        })
         await this.uploadimg({
           url:'https://wx.cy1993.cn/cy1993_app/uploadcarimage/',//这里是你图片上传的接口
           path:imgs//这里是选取的图片的地址数组
@@ -386,9 +397,6 @@
       },
       async cancelOrder () {
         this.is_active = 1
-        wepy.switchTab({
-          url: './home',   //注意switchTab只能跳转到带有tab的页面，不能跳转到不带tab的页面
-        })
       },
 
       async doWash() {
@@ -419,36 +427,60 @@
         url: data.url,
         filePath: data.path[i],
         name: 'carImage',//这里根据自己的实际情况改
+        header: {
+          'content-type': 'application/json'
+        },// 设置请求的 header
         formData:{
           number: i,
           carModel: this.carModel,
           orderId: this.order_id,
         },//这里是上传图片时一起上传的数据
         success: (resp) => {
-          success++;//图片上传成功，图片上传成功的变量+1
+          //这个图片执行完上传后，开始上传下一张
+          i++;
+          //需要对返回的数据进行json序列化处理
+          let res = JSON.parse(resp.data)
+          if(resp.statusCode == 200 && res.status > 0 ){
+            success++//图片上传成功，图片上传成功的变量+1
+          }else{
+            fail++
+            console.log('第'+ i + "张上传失败")
+            tip.error("图片上传出错")
+            return
+          }
           //这里可能有BUG，失败也会执行这里,所以这里应该是后台返回过来的状态码为成功时，这里的success才+1
         },
         fail: (res) => {
           fail++;//图片上传失败，图片上传失败的变量+1
+          console.log('第'+ i + "上传失败")
 //          console.log('fail:'+i+"fail:"+fail);
         },
         complete: () => {
-          i++;//这个图片执行完上传后，开始上传下一张
           if(i==data.path.length){   //当图片传完时，停止调用
 //            console.log('执行完毕');
 //            console.log('成功：'+success+" 失败："+fail);
             //完成订单
-            this.servicedone()
-
+            if(success == 9){
+              this.servicedone()
+            }
           }else{//若图片还没有传完，则继续调用函数
-            data.i=i;
-            data.success=success;
-            data.fail=fail;
-            wx.showLoading({
-              title:  '正在上传'+i+'/9张',
-              mask: true
-            });
-            that.uploadimg(data);
+            if (!fail){
+              data.i=i;
+              data.success=success;
+              data.fail=fail;
+              wx.showLoading({
+                title:  '正在上传'+i+'/9张',
+                mask: true
+              });
+              that.uploadimg(data);
+            }else{
+              wx.showLoading({
+                title: '上传图片出错',
+              })
+              setTimeout(function(){
+                wx.hideLoading()
+              },2000)
+            }
           }
 
         }
@@ -494,11 +526,23 @@
 
     // events对象中所声明的函数为用于监听组件之间的通信与交互事件的事件处理函数
     events = {
-      'comfirmAction': (comfirm) => {
+      'comfirmAction': async  (comfirm) => {
         if (comfirm == 1){
-          tip.toast("取消成功")
+          const res = await api.cancelorder({
+            query: {
+              orderId: parseInt(this.order_id),
+              appid:APPID,
+            },
+            method: 'POST'
+          });
+          if (res.data.status){
+            this.cancel = 1
+            this.$apply()
+            wepy.navigateBack()
+            tip.toast("取消成功")
+          }
         }
-      }
+      },
     };
 
     async onLoad(option) {

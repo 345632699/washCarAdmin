@@ -80,7 +80,7 @@
     &.input-text{
       padding-bottom: 32rpx;
       padding-top: 16rpx;
-      color:rgba(0,0,0,0.38);
+      /*color:rgba(0,0,0,0.38);*/
       &:before {
         display: none;
       }
@@ -176,7 +176,7 @@
             <image class="img-format" style="width: 15rpx;height: 15rpx;padding: 8rpx;" src="" ></image>
           </view>
           <view style="width: 30%" >
-            <input class="weui-input" @input="changeName"  value="{{ employee.real_name }}" placeholder="请输入姓名" />
+            <input @input="changeName"  value="{{ employee.real_name }}" placeholder="请输入姓名" />
           </view>
 
           <view class="weui-cell__hd margin-format right">
@@ -204,12 +204,12 @@
             <image class="img-format"></image>
           </view>
           <view>
-            <input style="height: 16rpx" class="weui-input" @input="changePhone" maxlength="11" value="{{ employee.phone_number }}" placeholder="请输入手机号" />
+            <input style="height: 16rpx" @input="changePhone" maxlength="11" value="{{ employee.phone_number }}" placeholder="请输入手机号" />
           </view>
         </view>
       </view>
 
-      <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cells weui-cells_after-title" wx:if="{{ 'authed' != employee.auth_status }}">
         <view class="weui-cell">
           <view class="weui-cell__hd">
             <image class="img-format" src="../images/all/car@2x.png" ></image>

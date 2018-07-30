@@ -176,7 +176,7 @@
                         <image class="img-format" style="width: 15rpx;height: 15rpx;padding: 8rpx;" src="" ></image>
                     </view>
                     <view style="width: 30%" >
-                        <input class="weui-input" @input="changeName"  value="{{ employee.real_name }}" placeholder="请输入姓名" />
+                        <input @input="changeName"  value="{{ employee.real_name }}" placeholder="请输入姓名" />
                     </view>
 
                     <view class="weui-cell__hd margin-format right">
@@ -204,7 +204,7 @@
                         <image class="img-format"></image>
                     </view>
                     <view>
-                        <input style="height: 16rpx" class="weui-input" @input="changePhone" maxlength="11" value="{{ employee.phone_number }}" placeholder="请输入手机号" />
+                        <input style="height: 16rpx" @input="changePhone" maxlength="11" value="{{ employee.phone_number }}" placeholder="请输入手机号" />
                     </view>
                 </view>
             </view>
@@ -284,6 +284,7 @@
 
       employee_id:0,
       branch_id: 0,
+      is_root:1,
     }
 
 
@@ -307,7 +308,7 @@
             phone_number: parseInt(this.employee.phone_number),
             branch_id: parseInt(this.branch_id),
             name: this.employee.real_name,
-            is_root: this.is_root ,
+            is_root: parseInt(this.is_root) ,
           },
           method: 'POST'
         });

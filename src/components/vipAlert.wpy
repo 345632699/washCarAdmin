@@ -149,7 +149,7 @@
         <view class="wepy-api-dialog__main_bind">
             <view class="wepy-api-dialog__hd_bind">
                 <view class="wepy-api-dialog__title_bind">
-                    为用户：xxxxx 设置会员等级
+                    为用户：{{ username }} 设置会员等级
                 </view>
             </view>
             <view class="main">
@@ -166,7 +166,7 @@
             </view>
             <view class="foot">
                 <view class="btn" @tap="comfirmRecharge">
-                    確認充值
+                    确认
                 </view>
                 <view class="btn" @tap="hide">
                     取消
@@ -211,6 +211,11 @@
       user_id: {
         type: Number,
         default: 0
+      },
+
+      username: {
+        type:String,
+        default:"游客",
       },
 
       confirmText: {

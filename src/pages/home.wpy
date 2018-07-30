@@ -205,7 +205,10 @@
       time:"上午好",
 
       orderList: [],
-      homeInfo:{},
+      homeInfo:{
+        today_number:0,
+        week_number:0
+      },
 
       employee: {
         name:wepy.getStorageSync('user_info').nickName
@@ -248,9 +251,12 @@
         this.time = "下午好"
         this.$apply()
       }
+      let order_status = wepy.getStorageSync('activeIndex') ? wepy.getStorageSync('activeIndex') : 0;
+      console.log(order_status)
       const res = await api.getorderoverview({
         query: {
           employee_id: employee_id,
+          order_status:order_status
         },
         method: 'POST'
       });
@@ -258,8 +264,8 @@
       if (this.homeInfo){
         wepy.setStorageSync('is_root',this.homeInfo.is_root)
         this.orderList = this.homeInfo.order_list
-        this.$apply()
       }
+      this.$apply()
     }
 
     events = {
@@ -280,16 +286,15 @@
     async onLoad() {
       let systemInfo = wx.getStorageSync(SYSTEM_INFO);
       this.windowHeight = systemInfo.windowHeight;
-      if (wepy.getStorageSync('userid')){
-        this.userInfo = wepy.getStorageSync('user_info')
-        await this.getorderoverview(wepy.getStorageSync('userid'))
-        this.$apply()
-      }
     }
 
     async onShow() {
       if (!wepy.getStorageSync('userid')){
         await this.$parent.getAuth()
+        this.userInfo = wepy.getStorageSync('user_info')
+        await this.getorderoverview(wepy.getStorageSync('userid'))
+        this.$apply()
+      }else{
         this.userInfo = wepy.getStorageSync('user_info')
         await this.getorderoverview(wepy.getStorageSync('userid'))
         this.$apply()
