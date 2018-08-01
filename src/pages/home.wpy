@@ -286,6 +286,8 @@
     async onLoad() {
       let systemInfo = wx.getStorageSync(SYSTEM_INFO);
       this.windowHeight = systemInfo.windowHeight;
+      //初始化页面的参数
+      wepy.setStorageSync('activeIndex',0)
     }
 
     async onShow() {

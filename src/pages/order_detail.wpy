@@ -257,7 +257,7 @@
                     <view class="weui-cell__bd">车型</view>
                 </view>
                 <view class="weui-cell input-text">
-                    <view class="font-gray" wx:if="{{ 3 == order_detail.order_status }}">{{ order_detail.car_model }}</view>
+                    <view class="font-gray" wx:if="{{ order_detail.order_status >= 3 }}">{{ order_detail.car_model }}</view>
                     <input @input="getCarModel" wx:else style="padding-right: 16rpx;padding-bottom: 16rpx" type="text" placeholder="输入车型" />
                 </view>
                 <!--<view url="/pages/car_type" hover-class="none" class="weui-cell input-text">-->
