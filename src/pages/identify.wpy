@@ -318,8 +318,12 @@
         }
       },
       setAdmin (e) {
-        console.log(e)
-        this.is_root =  e.detail.value
+        console.log(e.detail.value)
+        if (e.detail.value){
+          this.is_root =  1
+        }else{
+          this.is_root =  0
+        }
         this.$apply()
       },
       changeName (e) {

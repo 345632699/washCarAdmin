@@ -143,7 +143,7 @@
       user_list:[],
       selectUserId:0,
       selectUserName:'',
-      is_root:wepy.getStorageSync('is_root')
+      is_root:0
     }
 
     computed = {
@@ -190,6 +190,7 @@
 
     async onShow() {
       this.employee_id = wepy.getStorageSync('userid')
+      this.is_root = wepy.getStorageSync('is_root')
       await this.getuserlist(this.employee_id)
       this.$apply()
     }

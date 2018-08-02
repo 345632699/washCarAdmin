@@ -260,6 +260,10 @@
         },
         method: 'POST'
       });
+      if (!res.data.status > 0){
+        wepy.setStorageSync('userid','')
+        await this.$parent.getAuth()
+      }
       this.homeInfo = res.data.data[0]
       if (this.homeInfo){
         wepy.setStorageSync('is_root',this.homeInfo.is_root)
