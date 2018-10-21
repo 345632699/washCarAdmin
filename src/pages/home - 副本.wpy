@@ -1,0 +1,313 @@
+<style lang="less">
+  .page{
+    background: #FFFFFF;
+    color: #FFFFFF;
+    .list{
+      margin-top: 16rpx;
+      .list-item{
+        width:688rpx;
+        height:192rpx;
+        background:rgba(255,255,255,1);
+        box-shadow: 0px 2rpx 10rpx 0px rgba(0,0,0,0.5);
+        margin: auto;
+        border-radius: 20rpx;
+        margin-bottom: 16rpx;
+        .top{
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: flex;
+          -webkit-box-align: center;
+          -webkit-align-items: center;
+          align-items: center;
+          .left{
+            text-align: center;
+            width: 80rpx;
+            height: 80rpx;
+            padding: 32rpx;
+            image{
+              width: 100%;
+              max-height: 100%;
+              vertical-align: top;
+              border-radius: 50%;
+            }
+          }
+          .right{
+            color: red;
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            min-width: 0;
+            .one{
+              width: auto;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              height:40rpx;
+              font-size:28rpx;
+              color:#373C38;
+              line-height:40rpx;
+            }
+            .two{
+              overflow: hidden;
+              text-overflow: ellipsis;
+              display: -webkit-box;
+              -webkit-box-orient: vertical;
+              -webkit-line-clamp: 2;
+              height:40rpx;
+              font-size:28rpx;
+              color:#373C38;
+              line-height:40rpx;
+            }
+          }
+        }
+        .foot{
+          padding-left: 144rpx;
+          margin-top: -16rpx;
+          .btn{
+            display: inline-block;
+            height:32rpx;
+            font-size:28rpx;
+            color:#373C38;
+            line-height:32rpx;
+          }
+        }
+      }
+      &.admin{
+        .list-item{
+          height: 172rpx;
+          .newapp{
+            height:32rpx;
+            font-size:28rpx;
+            line-height:32rpx;
+            color: #373C38;
+          }
+          box-shadow: none;
+        }
+        .admin-name{
+          color: #373C38;
+          height:48rpx;
+          font-size:28rpx;
+          line-height:48rpx;
+          padding-left: 32rpx;
+          padding-top: 16rpx;
+        }
+      }
+    }
+  }
+</style>
+<template>
+  <view class="page">
+    <!--頂部-->
+
+    <view class="list admin">
+      <view class="list-item">
+        <view class="admin-name">
+          {{time}} {{ userInfo.nickName }}
+        </view>
+        <view class="top" style="margin-top: -16rpx">
+          <view class="right" style="padding-left: 32rpx">
+            <view class="one">
+              今日预约：{{ homeInfo.today_number }}单
+            </view>
+            <view class="two">
+              本周预约：{{ homeInfo.week_number }}单
+            </view>
+          </view>
+          <view class="left">
+            <image class="userinfo-avatar" src="" background-size="cover"/>
+          </view>
+        </view>
+      </view>
+    </view>
+    <tap :activeIndex.sync="activeIndex"></tap>
+    <view class="weui-tab__panel">
+      <view class="weui-tab__content" wx:if="{{ 0 == activeIndex }}" style="padding: 16rpx">
+        <view class="list">
+          <navigator wx:for="{{ orderList }}" wx:key="item" url="/pages/order_detail?order_id={{ item.order_id }}" hover-class="none" class="list-item">
+            <view class="top">
+              <view class="left">
+                <image class="userinfo-avatar" src="{{ item.avatarUrl }}" background-size="cover"/>
+              </view>
+              <view class="right">
+                <view class="one">
+                  {{ item.name }}
+                </view>
+              </view>
+              <view class="right">
+                <view class="one" style="text-align: right;padding-right: 32rpx">
+                  {{ item.car_number }}
+                </view>
+              </view>
+            </view>
+            <view class="foot">
+              <view class="btn">
+                {{ item.time }}
+              </view>
+            </view>
+          </navigator>
+        </view>
+      </view>
+      <view class="weui-tab__content" wx:else style="padding: 16rpx">
+        <view class="list">
+          <navigator wx:for="{{ orderList }}" wx:key="item" url="/pages/order_detail?order_id={{ item.order_id }}" hover-class="none" class="list-item">
+            <view class="top">
+              <view class="left">
+                <image class="userinfo-avatar" src="{{ item.avatarUrl }}" background-size="cover"/>
+              </view>
+              <view class="right">
+                <view class="one">
+                  {{ item.name }}
+                </view>
+              </view>
+              <view class="right">
+                <view class="one" style="text-align: right;padding-right: 32rpx">
+                  {{ item.car_number }}
+                </view>
+              </view>
+            </view>
+            <view class="foot">
+              <view class="btn">
+                {{ item.time }}
+              </view>
+            </view>
+          </navigator>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import util from '../utils/util'
+  import Search from '../components/search'
+  import Recharge from '../components/recharge'
+  import {
+    SYSTEM_INFO,
+    SEL_CLASS_CODE
+  } from '../utils/constant';
+  import Tap from '../components/tap'
+  import api from '../api/api'
+  export default class Home extends wepy.page {
+    config = {
+      navigationBarTitleText: '预约列表'
+    }
+    components = {
+      search:Search,
+      recharge:Recharge,
+      tap:Tap,
+    }
+
+    data = {
+      userInfo: {
+        nickName: '加载中...'
+      },
+      tabs:["未完成","已完成"],
+      time:"上午好",
+
+      orderList: [],
+      homeInfo:{
+        today_number:0,
+        week_number:0
+      },
+
+      employee: {
+        name:wepy.getStorageSync('user_info').nickName
+      },
+
+      activeIndex: 0
+  }
+
+    computed = {
+      now () {
+        return +new Date()
+      }
+    }
+
+    methods = {
+      changeCate (e) {
+        let code = e.currentTarget.dataset.code;
+        this.getTimeList(code);
+        wepy.setStorageSync(SEL_CLASS_CODE, code);
+        //设置一级分类的选中状态
+        for (var i = 0; i < this.dateList.length; i++) {
+          var rootCate = this.dateList[i];
+          rootCate.active = false;
+          if (rootCate.code == code) {
+            rootCate.active = true;
+          }
+        }
+      },
+      callbackStart(count){
+      },
+      recharge (e) {
+        this.recharge_active = 1
+      }
+    }
+
+    async getorderoverview (employee_id) {
+      let myDate = new Date();
+      let hour = myDate.getHours();
+      if (hour > 12){
+        this.time = "下午好"
+        this.$apply()
+      }
+      let order_status = wepy.getStorageSync('activeIndex') ? wepy.getStorageSync('activeIndex') : 0;
+      console.log(order_status)
+      const res = await api.getorderoverview({
+        query: {
+          employee_id: employee_id,
+          order_status:order_status
+        },
+        method: 'POST'
+      });
+      if (!res.data.status > 0){
+        wepy.setStorageSync('userid','')
+        await this.$parent.getAuth()
+      }
+      this.homeInfo = res.data.data[0]
+      if (this.homeInfo){
+        wepy.setStorageSync('is_root',this.homeInfo.is_root)
+        this.orderList = this.homeInfo.order_list
+      }
+      this.$apply()
+    }
+
+    events = {
+      //type 0 未完成 1已完成
+      'getorderlist': async (type) => {
+        const res = await api.getorderlist({
+          query: {
+            employee_id: wepy.getStorageSync('userid'),
+            order_status:type
+          },
+          method: 'POST'
+        });
+        this.orderList = res.data.data
+        this.$apply()
+      },
+    }
+
+    async onLoad() {
+      let systemInfo = wx.getStorageSync(SYSTEM_INFO);
+      this.windowHeight = systemInfo.windowHeight;
+      //初始化页面的参数
+      wepy.setStorageSync('activeIndex',0)
+    }
+
+    async onShow() {
+      if (!wepy.getStorageSync('userid')){
+        await this.$parent.getAuth()
+        this.userInfo = wepy.getStorageSync('user_info')
+        console.log(this.userInfo);
+        await this.getorderoverview(wepy.getStorageSync('userid'))
+        this.$apply()
+      }else{
+        this.userInfo = wepy.getStorageSync('user_info')
+        await this.getorderoverview(wepy.getStorageSync('userid'))
+        this.$apply()
+      }
+    }
+
+
+  }
+</script>

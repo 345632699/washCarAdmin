@@ -49,12 +49,11 @@
       .cell-right {
         .betweenBox;
         align-items: center;
-        padding-right: 6rpx;
 
         .gender {
           .betweenBox;
           flex-direction: column;
-          margin: 0 6rpx 0 30rpx;
+          margin: 0 12rpx 0 30rpx;
 
           image{
             width: 66rpx;
@@ -105,21 +104,15 @@
           .rotation {
             .rotate(-90deg);
           }
-
-          .set-admin {
-            width: 99rpx;
-            height: 60rpx;
-          }
         }
       }
 
       .cell-bottom {
-        margin: 0 18rpx 54rpx 0;
+        margin-bottom: 54rpx;
         min-height: 60rpx;
-        display: flex;
         flex-wrap: wrap;
-        align-content: space-between;
-        justify-content: space-between;
+        display: flex;
+        justify-content: flex-start;
 
         .no-data {
           width: 100%;
@@ -191,7 +184,7 @@
         </view>
       </vlew>
 
-      <view class="column-cell" wx:if="{{target == 1}}">
+      <view class="column-cell">
         <vlew class="cell-top info-cell">
           <view class="cell-left">
             <image src="../images/mine/area.png" class="cell-icon"></image>
@@ -199,13 +192,13 @@
               <view class="title">工作门店</view>
             </view>
           </view>
-          <view class="cell-right" @tap="activeSelect">
+          <view class="cell-right" @tap="activeBranch">
             <text wx:if="{{branchIndex == -1}}">请选择</text>
             <text wx:else>{{branchList[branchIndex].branch_name}}</text>
-            <image class="{{activeSelect?'':'rotation'}}" src="../images/triangle.png"></image>
+            <image class="{{activeBranch?'':'rotation'}}" src="../images/triangle.png"></image>
           </view>
         </vlew>
-        <view class="cell-bottom" wx:if="{{activeSelect}}" >
+        <view class="cell-bottom" wx:if="{{activeBranch}}" >
           <block wx:if="{{branchList}}">
             <repeat for="{{branchList}}" item="listItem" key="index">
               <view id="{{index}}" class="select-item {{branchIndex==index?'item-active':''}}" @tap="bindBranchChange">
@@ -219,49 +212,7 @@
         </view>
       </view>
 
-      <view class="column-cell" wx:if="{{target == 2}}">
-        <vlew class="cell-top info-cell">
-          <view class="cell-left">
-            <image src="../images/mine/work.png" class="cell-icon"></image>
-            <view class="cell-input">
-              <view class="title">工作职位</view>
-            </view>
-          </view>
-          <view class="cell-right" @tap="activeSelect">
-            <text wx:if="{{jobIndex == -1}}">请选择</text>
-            <text wx:else>{{jobList[jobIndex]}}</text>
-            <image class="{{activeSelect?'':'rotation'}}" src="../images/triangle.png"></image>
-          </view>
-        </vlew>
-        <view class="cell-bottom" wx:if="{{activeSelect}}" >
-          <block wx:if="{{jobList}}">
-            <repeat for="{{jobList}}" item="listItem" key="index">
-              <view id="{{index}}" class="select-item {{jobIndex==index?'item-active':''}}" @tap="bindJobChange">
-                <text>{{listItem}}</text>
-              </view>
-            </repeat>
-          </block>
-          <view class="no-data" wx:else>
-            <text>-- 无数据 --</text>
-          </view>
-        </view>
-      </view>
-
-      <view class="column-cell" wx:if="{{target == 2}}">
-        <vlew class="cell-top info-cell">
-          <view class="cell-left">
-            <image src="../images/mine/fingerprint.png" class="cell-icon"></image>
-            <view class="cell-input">
-              <view class="title">设置为管理员</view>
-            </view>
-          </view>
-          <view class="cell-right" @tap="setAdmin">
-            <image class="set-admin" src="{{adminFlag ? '../images/mine/female_selected.png' : '../images/mine/female.png'}}"></image>
-          </view>
-        </vlew>
-      </view>
-
-      <button class="btn" @tap="validate">{{target == 1 ?'验证身份' : '确定修改'}}</button>
+      <button class="btn" @tap="validate">验证身份</button>
     </view>
   </view>
 </template>
@@ -275,15 +226,15 @@ import {
 } from '../utils/constant';
 import Alert from '../components/myAlert'
 import api from "../api/api"
-export default class Identify extends wepy.page {
+export default class UpdateInfo extends wepy.page {
   config = {
-    navigationBarTitleText: '加载中'
+    navigationBarTitleText: '修改资料'
   }
+
   components = {
     alert: Alert
   }
   data = {
-    target: 1,
     sexList: ['未知', '男', '女'],
     sexIndex: 0,
     branchList: ['未选择分店'],
@@ -293,7 +244,10 @@ export default class Identify extends wepy.page {
       name: "请选择分店"
     },
     //员工信息
-    employee: {},
+    employee: {
+      name: '',
+      sex: '请选择性别',
+    },
 
     employee_id: 0,
     branch_id: 0,
@@ -310,10 +264,7 @@ export default class Identify extends wepy.page {
         sex: "女"
       }
     ],
-    activeSelect: false,
-    jobIndex: -1,
-    jobList:['职位一','职位二','职位三'],
-    adminFlag: true,
+    activeBranch: false,
     //--------------------------------
   }
 
@@ -321,17 +272,8 @@ export default class Identify extends wepy.page {
   methods = {
     //--------------------------------
     // 下拉框收合
-    activeSelect() {
-      this.activeSelect = !this.activeSelect;
-      this.$apply()
-    },
-    bindJobChange(e) {
-      this.jobIndex = e.currentTarget.id;
-      this.$apply()
-    },
-    setAdmin() {
-      this.adminFlag = !this.adminFlag;
-      this.is_root = Number(this.adminFlag);
+    activeBranch() {
+      this.activeBranch = !this.activeBranch;
       this.$apply()
     },
     //--------------------------------
@@ -366,15 +308,15 @@ export default class Identify extends wepy.page {
         tip.success("更新成功")
       }
     },
-    // setAdmin(e) {
-    //   console.log(e.detail.value)
-    //   if (e.detail.value) {
-    //     this.is_root = 1
-    //   } else {
-    //     this.is_root = 0
-    //   }
-    //   this.$apply()
-    // },
+    setAdmin(e) {
+      console.log(e.detail.value)
+      if (e.detail.value) {
+        this.is_root = 1
+      } else {
+        this.is_root = 0
+      }
+      this.$apply()
+    },
     changeName(e) {
       this.employee.real_name = e.detail.value
       this.$apply()
@@ -416,33 +358,24 @@ export default class Identify extends wepy.page {
       this.sexIndex = 2
     }
     this.branch = this.employee.branch_list[0]
-    if(this.branch){
-      this.branch_id = this.branch.branch_id;
-    }
-    
+    this.branch_id = this.branch.branch_id
     this.$apply()
 
   }
 
   async onLoad(option) {
-    this.target = option.target;
-    // this.target = 2;
-    if(this.target == 1){
-      wx.setNavigationBarTitle({
-        title: '身份认证'
-      });
-    }
-    if(this.target == 2){
-      wx.setNavigationBarTitle({
-        title: '修改资料'
-      });
-    }
-    let employee_id = option.employee_id
-    // let employee_id = 1;
+    // let employee_id = option.employee_id
+    let employee_id = 1;
     this.employee_id = employee_id
     await this.getstaffinfo(employee_id)
     await this.getbranchlist()
     this.$apply()
+  }
+
+  onShow() {
+    // wx.setNavigationBarTitle({
+    //   title: 'safddfadfasdf'
+    // });
   }
 }
 

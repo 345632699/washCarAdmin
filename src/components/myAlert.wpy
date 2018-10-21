@@ -1,141 +1,114 @@
 <style type="less">
-    .wepy-api-dialog{
-        .wepy-api-dialog__mask{
-            position: fixed;
-            z-index: 1000;
-            top: 0;
-            right: 0;
-            left: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.6);
-        }
-        .wepy-api-dialog__main{
-            position: fixed;
-            z-index: 5000;
-            max-width: 560rpx;
-            top: 50%;
-            left: 50%;
-            -webkit-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
-            background:#FFFFFF;
-            text-align: center;
-            overflow: hidden;
-            border-radius: 32rpx;
-            padding: 48rpx;
-            font-weight: bold;
-            .wepy-api-dialog__hd{
-                text-align: left;
-                .wepy-api-dialog__title{
-                    font-weight: bold;
-                    font-size: 40rpx;
-                }
-            }
-            .wepy-api-dialog__bd{
-                text-align: left;
-                width:232px;
-                padding-top: 10rpx;
-                font-size:32rpx;
-                font-family:Raleway-SemiBold;
-                color:rgba(0,0,0,0.6);
-                line-height:48rpx;
-            }
-            .wepy-api-dialog__ft {
-                position: relative;
-                display: -webkit-box;
-                display: -webkit-flex;
-                display: flex;
-                padding-top: 38rpx;
-                .wepy-api-dialog__btn {
-                    text-align: right;
-                    display: block;
-                    -webkit-box-flex: 1;
-                    -webkit-flex: 1;
-                    flex: 1;
-                    text-decoration: none;
-                    -webkit-tap-highlight-color: rgba(0,0,0,0);
-                    position: relative;
-                    height:32rpx;
-                    font-size:28rpx;
-                    font-family:Raleway-SemiBold;
-                    color:rgba(0,0,0,0.87);
-                    line-height:32rpx;
-                }
-            }
-        }
+@import '../style/common.less';
+
+.wepy-api-dialog{
+  .wepy-api-dialog__mask{
+    .mask;
+  }
+
+  .wepy-api-dialog__main{
+    .dialogBox;
+
+    .wepy-api-dialog__hd{
+      .dialogBoxHead;
+
+      .wepy-api-dialog__title{
+        .dialogBoxTitle;
+      }
     }
+
+    .wepy-api-dialog__bd{
+      padding: 0 44rpx 0 42rpx;
+      font-size: 26rpx;
+      line-height: 36rpx;
+    }
+
+    .wepy-api-dialog__ft {
+      display: flex;
+      justify-content: flex-end;
+      margin: 20rpx 12rpx 24rpx 42rpx;
+      
+      .btn{
+        padding: 28rpx;
+        font-size: 26rpx;
+      }
+    }
+  }
+}
 </style>
 <template>
-    <view class="wepy-api-dialog" wx:if="{{ is_active }}">
-        <view class="wepy-api-dialog__mask"></view>
-        <view class="wepy-api-dialog__main">
-            <view class="wepy-api-dialog__hd"><view class="wepy-api-dialog__title">{{ alertInfo.alert_title }}</view></view>
-            <view class="wepy-api-dialog__bd">{{ alertInfo.msg }}</view>
-            <view class="wepy-api-dialog__ft">
-                <view class="wepy-api-dialog__btn wepy-api-dialog__btn_default" @tap="comfirmCancel">{{ alertInfo.confirmText }}</view>
-                <view class="wepy-api-dialog__btn wepy-api-dialog__btn_primary" @tap="closeTap">关闭</view>
-            </view>
-        </view>
+  <view class="wepy-api-dialog" wx:if="{{ is_active }}">
+    <view class="wepy-api-dialog__mask"></view>
+    <view class="wepy-api-dialog__main">
+      <view class="wepy-api-dialog__hd">
+        <view class="wepy-api-dialog__title">{{ alertInfo.alert_title }}</view>
+      </view>
+      <view class="wepy-api-dialog__bd">{{ alertInfo.msg }}</view>
+      <view class="wepy-api-dialog__ft">
+        <view class="btn" style="margin-right:36rpx;color:#6D6E71" @tap="closeTap">关闭</view>
+        <view class="btn" @tap="comfirmCancel">{{ alertInfo.confirmText }}</view>
+      </view>
     </view>
+  </view>
 </template>
 <script>
-  import wepy from 'wepy'
+import wepy from 'wepy'
 
-  export default class MyAlert extends wepy.component {
+export default class MyAlert extends wepy.component {
 
-    data = {
-    }
+  data = {}
 
-    props = {
-      // 静态传值
-      title: {
-        type:String,
-        default: ''
-      },
+  props = {
+    // 静态传值
+    title: {
+      type: String,
+      default: ''
+    },
 
-      msg: {
-        type:String,
-        default: ''
-      },
+    msg: {
+      type: String,
+      default: ''
+    },
 
-      // 父向子单向动态传值
-      is_active: {
-        type: Number,
-        default: 0,
-        twoWay: true
-      },
+    // 父向子单向动态传值
+    is_active: {
+      type: Number,
+      default: 0,
+      twoWay: true
+    },
 
-      confirmText: {
-        type:String,
-        default: '确认'
-      },
+    confirmText: {
+      type: String,
+      default: '确认'
+    },
 
-      alertInfo: {
-        type:Object,
-        default: {
-          alert_title: "取消订单",
-          msg: "确认要取消预约吗？取消后可能无法选择同一时间\n",
-          comfirm: 0,
-          confirmText: '确认取消',
-          employee_id: 0
-        }
-      }
-    };
-
-
-    methods = {
-      closeTap () {
-        this.is_active = 0
-        this.$emit('comfirmAction',2)
-      },
-      comfirmCancel () {
-        this.is_active = 0
-        this.$emit('comfirmAction',1,this.alertInfo.employee_id)
+    alertInfo: {
+      type: Object,
+      default: {
+        alert_title: "取消预约",
+        msg: "确认要取消预约吗？取消后可能无法选择同一时间\n",
+        comfirm: 0,
+        confirmText: '确认取消',
       }
     }
+  };
 
-    onload () {
-      console.log(this.title);
+
+  methods = {
+    closeTap() {
+      this.is_active = 0
+      this.$emit('comfirmAction', 2)
+    },
+    comfirmCancel() {
+      this.is_active = 0
+      this.$emit('comfirmAction', 1)
     }
-
   }
+
+  onload() {
+    console.log(this.title);
+  }
+
+}
+
 </script>

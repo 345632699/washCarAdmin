@@ -8,11 +8,11 @@
         box-sizing: border-box;
     }
     @import './style/weui.less';
-    .page{
-        background-color: #F8F8F8;
-        font-size: 16px;
-        font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
-    }
+    //.page{
+    //    background-color: #F8F8F8;
+    //    font-size: 16px;
+    //    font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
+    //}
     .page__hd {
         padding: 40px;
     }
@@ -66,37 +66,38 @@
         'pages/car_type',
         'pages/me',
         'pages/auth',
-        'pages/identify'
+        'pages/identify',
+        'pages/employee_manage'
       ],
       window: {
-        backgroundTextStyle: 'dark',
-        navigationBarBackgroundColor: '#FFFFFF',
+        backgroundTextStyle: 'light',
+        navigationBarBackgroundColor: '#212121',
         navigationBarTitleText: 'WeChat',
-        navigationBarTextStyle: 'black',
+        navigationBarTextStyle: 'white',
         enablePullDownRefresh: false,
-        backgroundColor: '#FFFFFF'
+        backgroundColor: '#212121'
 
       },
       "tabBar": {
-        "color": "#838683",
+        "color": "#9B9B9B",
         "selectedColor": "#FFFFFF",
-        "backgroundColor": "#373C38",
+        "backgroundColor": "#212121",
         "borderStyle": "black",
         "list": [{
           "pagePath": "pages/home",
-          "text": "預約",
-          "iconPath": "images/index/date.png",
-          "selectedIconPath": "images/index/date_hover.png"
+          "text": "预约",
+          "iconPath": "images/tabbar/book_gray.png",
+          "selectedIconPath": "images/tabbar/book_white.png"
         }, {
           "pagePath": "pages/users_list",
-          "text": "用戶",
-          "iconPath": "images/index/user.png",
-          "selectedIconPath": "images/index/user_hover.png"
+          "text": "用户",
+          "iconPath": "images/tabbar/user_gray.png",
+          "selectedIconPath": "images/tabbar/user_white.png"
         }, {
           "pagePath": "pages/me",
-          "text": "個人",
-          "iconPath": "images/index/me.png",
-          "selectedIconPath": "images/index/me_hover.png"
+          "text": "个人",
+          "iconPath": "images/tabbar/mine_gray.png",
+          "selectedIconPath": "images/tabbar/mine_white.png"
         }]
       }
     }
