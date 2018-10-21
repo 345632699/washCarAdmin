@@ -123,7 +123,7 @@
 
         .no-data {
           width: 100%;
-          .no-data(60rpx);
+          .no-data();
         }
 
         .select-item {
