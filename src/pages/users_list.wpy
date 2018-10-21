@@ -27,10 +27,9 @@ Page,
     padding-top: 40rpx;
 
     .no-data{
-      text-align: center;
-      padding-top: 40rpx;
-      color: #FAFAFA;
+      .no-data(40rpx);
     }
+
     .list-item{
       margin: 0 24rpx 12rpx 26rpx;
       border-radius: 16rpx;
@@ -135,91 +134,89 @@ Page,
 </template>
 
 <script>
-  import wepy from 'wepy'
-  import util from '../utils/util'
-  import Search from '../components/search'
-  import Recharge from '../components/recharge'
-  import VipAlert from '../components/vipAlert'
-  import {
-    SYSTEM_INFO,
-    SEL_CLASS_CODE
-  } from '../utils/constant';
-  import api from '../api/api'
-  import tip from '../utils/tip'
-  export default class UsersList extends wepy.page {
-    config = {
-      navigationBarTitleText: '用户列表'
-    }
-    components = {
-      search:Search,
-      recharge:Recharge,
-      vip:VipAlert,
-    }
-
-    data = {
-      mynum: 20,
-      userInfo: {
-        nickName: '加载中...'
-      },
-      count: 0,
-      recharge_active: 0,
-      vip_active: 0,
-      employee_id: 0,
-      user_list:[],
-      selectUserId:0,
-      selectUserName:'',
-      is_root:0
-    }
-
-    computed = {
-      now () {
-        return +new Date()
-      }
-    }
-
-    methods = {
-      recharge (e) {
-        this.selectUserId = e.currentTarget.dataset.id
-        this.recharge_active = 1
-        this.selectUserName = e.currentTarget.dataset.username
-      },
-      vipChange (e) {
-        this.selectUserId = e.currentTarget.dataset.id
-        this.vip_active = 1
-        this.selectUserName = e.currentTarget.dataset.username
-      }
-    }
-
-    events = {
-      'updateUserList': async () => {
-        await this.getuserlist(wepy.getStorageSync("userid"))
-        tip.success("充值成功")
-      }
-    }
-
-    async getuserlist (employee_id) {
-      const res = await api.getuserlist({
-        query: {
-          employee_id: employee_id,
-        },
-        method: 'POST'
-      });
-      this.user_list = res.data.data
-      this.$apply()
-    }
-
-    async onLoad() {
-      let self = this
-      self.userInfo = wepy.getStorageSync('user_info')
-    }
-
-    async onShow() {
-      this.employee_id = wepy.getStorageSync('userid')
-      this.is_root = wepy.getStorageSync('is_root')
-      await this.getuserlist(this.employee_id)
-      this.$apply()
-    }
-
-
+import wepy from 'wepy'
+import util from '../utils/util'
+import Search from '../components/search'
+import Recharge from '../components/recharge'
+import VipAlert from '../components/vipAlert'
+import {
+  SYSTEM_INFO,
+  SEL_CLASS_CODE
+} from '../utils/constant';
+import api from '../api/api'
+import tip from '../utils/tip'
+export default class UsersList extends wepy.page {
+  config = {
+    navigationBarTitleText: '用户列表'
   }
+  components = {
+    search:Search,
+    recharge:Recharge,
+    vip:VipAlert,
+  }
+
+  data = {
+    mynum: 20,
+    userInfo: {
+      nickName: '加载中...'
+    },
+    count: 0,
+    recharge_active: 0,
+    vip_active: 0,
+    employee_id: 0,
+    user_list:[],
+    selectUserId:0,
+    selectUserName:'',
+    is_root:0
+  }
+
+  computed = {
+    now () {
+      return +new Date()
+    }
+  }
+
+  methods = {
+    recharge (e) {
+      this.selectUserId = e.currentTarget.dataset.id
+      this.recharge_active = 1
+      this.selectUserName = e.currentTarget.dataset.username
+    },
+    vipChange (e) {
+      this.selectUserId = e.currentTarget.dataset.id
+      this.vip_active = 1
+      this.selectUserName = e.currentTarget.dataset.username
+    }
+  }
+
+  events = {
+    'updateUserList': async () => {
+      await this.getuserlist(wepy.getStorageSync("userid"))
+      tip.success("充值成功")
+    }
+  }
+
+  async getuserlist (employee_id) {
+    const res = await api.getuserlist({
+      query: {
+        employee_id: employee_id,
+      },
+      method: 'POST'
+    });
+    this.user_list = res.data.data
+    this.$apply()
+  }
+
+  async onLoad() {
+    let self = this
+    self.userInfo = wepy.getStorageSync('user_info')
+  }
+
+  async onShow() {
+    this.employee_id = wepy.getStorageSync('userid')
+    this.is_root = wepy.getStorageSync('is_root')
+    await this.getuserlist(this.employee_id)
+    this.$apply()
+  }
+}
 </script>

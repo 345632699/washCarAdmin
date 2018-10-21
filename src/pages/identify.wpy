@@ -123,8 +123,7 @@
 
         .no-data {
           width: 100%;
-          text-align: center;
-          color: #9B9B9B;
+          .no-data(60rpx);
         }
 
         .select-item {
@@ -136,10 +135,6 @@
           border-radius: 12rpx;
           font-size: 24rpx;
           color: @titleColor;
-        }
-
-        &:last-child {
-
         }
 
         .item-active {
@@ -279,9 +274,11 @@ export default class Identify extends wepy.page {
   config = {
     navigationBarTitleText: '加载中'
   }
+
   components = {
     alert: Alert
   }
+
   data = {
     target: 1,
     sexList: ['未知', '男', '女'],
@@ -300,23 +297,23 @@ export default class Identify extends wepy.page {
     is_root: 1,
     //--------------------------------
     sexOption: [{
-        pic: "../images/mine/male.png",
-        selPic: "../images/mine/male_selected.png",
-        sex: "男"
-      },
-      {
-        pic: "../images/mine/female.png",
-        selPic: "../images/mine/female_selected.png",
-        sex: "女"
-      }
+      pic: "../images/mine/male.png",
+      selPic: "../images/mine/male_selected.png",
+      sex: "男"
+    },
+    {
+      pic: "../images/mine/female.png",
+      selPic: "../images/mine/female_selected.png",
+      sex: "女"
+    }
     ],
     activeSelect: false,
     jobIndex: -1,
+    //这里要赋值职位信息
     jobList:['职位一','职位二','职位三'],
     adminFlag: true,
     //--------------------------------
   }
-
 
   methods = {
     //--------------------------------
@@ -385,7 +382,6 @@ export default class Identify extends wepy.page {
     }
   }
 
-
   async getbranchlist() {
     const res = await api.getbranchlist({
       query: {
@@ -419,14 +415,11 @@ export default class Identify extends wepy.page {
     if(this.branch){
       this.branch_id = this.branch.branch_id;
     }
-    
     this.$apply()
-
   }
 
   async onLoad(option) {
     this.target = option.target;
-    // this.target = 2;
     if(this.target == 1){
       wx.setNavigationBarTitle({
         title: '身份认证'
@@ -438,12 +431,10 @@ export default class Identify extends wepy.page {
       });
     }
     let employee_id = option.employee_id
-    // let employee_id = 1;
     this.employee_id = employee_id
     await this.getstaffinfo(employee_id)
     await this.getbranchlist()
     this.$apply()
   }
 }
-
 </script>

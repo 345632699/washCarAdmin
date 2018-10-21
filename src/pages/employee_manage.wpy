@@ -6,6 +6,7 @@
     .weui-navbar {
       border-bottom: 0;
       box-shadow: none;
+
       .weui-navbar__item {
         color: #9B9B9B;
         font-weight: 400;
@@ -31,6 +32,7 @@
   .employee,.verify {
     .list{
       padding-top: 40rpx;
+
       .list-item{
         margin: 0 24rpx 12rpx 26rpx;
         border-radius: 16rpx;
@@ -132,7 +134,6 @@
       </view>
       <!-- 内容 -->
       <view class="weui-tab__panel">
-
         <!-- 员工列表 -->
         <view class="weui-tab__content employee" hidden="{{activeIndex != 0}}">
           <view class="list">
@@ -199,10 +200,11 @@ export default class EmployeeManage extends wepy.page {
   components = {
     alert: Alert
   }
+
   data = {
     //weui的tab参数
     tabs: ["员工列表", "审核列表"],
-    activeIndex: 1,//激活项
+    activeIndex: 0,//激活项
     sliderOffset: 0,//x轴上转换的值
     sliderLeft: 0,//距离左边的偏移值
 
@@ -218,7 +220,6 @@ export default class EmployeeManage extends wepy.page {
     is_active:0,
     is_root:wepy.getStorageSync('is_root'),
   }
-
 
   methods = {
     async tabClick(e) {
@@ -315,7 +316,6 @@ export default class EmployeeManage extends wepy.page {
     }
   }
 
-
   async onLoad(option) {
     let that = this;
     wx.getSystemInfo({
@@ -325,8 +325,7 @@ export default class EmployeeManage extends wepy.page {
       }
     });
 
-    // let employee_id = option.employee_id
-    let employee_id = 1;
+    let employee_id = option.employee_id
     this.employee_id = employee_id
     this.$apply()
   }
@@ -337,5 +336,4 @@ export default class EmployeeManage extends wepy.page {
     await this.getstaffinfo(employee_id)
   }
 }
-
 </script>

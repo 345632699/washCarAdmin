@@ -265,7 +265,7 @@ page,
                 <view class="title">用户信息</view>
                 <view class="subtitle">{{ order_detail.name }} {{ order_detail.phone_number }}</view>
               </view>
-              <button class="call-user" wx:if="{{ order_detail.phone_number }}">拨打电话</button>
+              <button class="call-user" wx:if="{{ order_detail.phone_number }}" data-phone="{{ order_detail.phone_number }}" @tap="callUser">拨打电话</button>
             </view>
           </view>
 
@@ -346,13 +346,14 @@ page,
                 <view class="weui-badge" data-index="{{index}}" @tap="deleteImg" style="margin-left: 6rpx;position: absolute;left:150rpx;top:-8rpx;">x</view>
               </view>
               <view class="photo" @tap="choose" wx:if="{{ (imgs.length > 8) ? false : true }}">
-                  <view class="add">
-                      <image src="../images/mine/fail.png"></image>
-                  </view>
+                <view class="add">
+                  <image src="../images/mine/fail.png"></image>
+                </view>
               </view>
             </view>
           </view>
 
+          <!-- 选择车型这里下一步不清楚是什么操作，选择or输入？ -->
           <!-- 车型 -->
           <view class="cell">
             <view class="cell-left">
@@ -391,30 +392,32 @@ page,
 </template>
 
 <script>
-  import wepy from 'wepy'
-  import util from '../utils/util'
-  import tip from '../utils/tip'
-  import {
-    SYSTEM_INFO,
-    SEL_CLASS_CODE,
-    APPID
-  } from '../utils/constant';
-  import Alert from '../components/myAlert'
-  import api from '../api/api'
-  import Rate from '../components/rate'
-  export default class OrderDetail extends wepy.page {
-    config = {
-      navigationBarTitleText: '预约详情'
-    }
-    components = {
-      alert:Alert,
-      rate1: Rate,
-      rate2: Rate,
-    }
-    data = {
-      order_id: 0,
-      order_detail: {},
-      imgs:[],
+import wepy from 'wepy'
+import util from '../utils/util'
+import tip from '../utils/tip'
+import {
+  SYSTEM_INFO,
+  SEL_CLASS_CODE,
+  APPID
+} from '../utils/constant';
+import Alert from '../components/myAlert'
+import api from '../api/api'
+import Rate from '../components/rate'
+export default class OrderDetail extends wepy.page {
+  config = {
+    navigationBarTitleText: '预约详情'
+  }
+
+  components = {
+    alert:Alert,
+    rate1: Rate,
+    rate2: Rate,
+  }
+
+  data = {
+    order_id: 0,
+    order_detail: {},
+    imgs:[],
       source_imgs:[], //原图
       has_done:false,
       carModel:"",
@@ -429,14 +432,29 @@ page,
       is_active: 0,
 
       //-------------------------------------------
+      //这里需要赋值
       evaluate_service: 4,//服务
       evaluate_artisan: 4,//技工
-      comment: '我觉得还行。这是一段废话一段废话一段废话一段废话一段废话一段废话一段废话一段废话一段废话换行',//评价内容
+      comment: '我觉得还行。这是一段废话一段废话一段废话一段废话一段废话一段废话一段废话一段废话换行',//评价内容
       //--------------------------------------------
     }
 
 
     methods = {
+      //--------------------------------------------
+      callUser() {
+        let phone = e.currentTarget.dataset.phone
+        wx.makePhoneCall({
+          phoneNumber: phone, //此号码并非真实电话号码，仅用于测试
+          success: function () {
+            console.log("拨打电话成功！")
+          },
+          fail: function () {
+            console.log("拨打电话失败！")
+          }
+        })
+      }
+      //--------------------------------------------
       previewImage (e) {
         let current = e.target.dataset.src;
         wepy.previewImage({
@@ -545,106 +563,105 @@ page,
         i=data.i?data.i:0,//当前上传的哪张图片
         success=data.success?data.success:0,//上传成功的个数
         fail=data.fail?data.fail:0;//上传失败的个数
-      wx.uploadFile({
-        url: data.url,
-        filePath: data.path[i],
-        name: 'carImage',//这里根据自己的实际情况改
-        header: {
-          'content-type': 'application/json'
-        },// 设置请求的 header
-        formData:{
-          number: i,
-          carModel: this.carModel,
-          orderId: this.order_id,
-        },//这里是上传图片时一起上传的数据
-        success: (resp) => {
-          //这个图片执行完上传后，开始上传下一张
-          i++;
-          //需要对返回的数据进行json序列化处理
-          let res = JSON.parse(resp.data)
-          if(resp.statusCode == 200 && res.status > 0 ){
-            success++//图片上传成功，图片上传成功的变量+1
-          }else{
-            fail++
-            console.log('第'+ i + "张上传失败")
-            tip.error("图片上传出错")
-            return
-          }
-          //这里可能有BUG，失败也会执行这里,所以这里应该是后台返回过来的状态码为成功时，这里的success才+1
-        },
-        fail: (res) => {
-          fail++;//图片上传失败，图片上传失败的变量+1
-          console.log('第'+ i + "上传失败")
-//          console.log('fail:'+i+"fail:"+fail);
-        },
-        complete: () => {
-          if(i==data.path.length){   //当图片传完时，停止调用
-//            console.log('执行完毕');
-//            console.log('成功：'+success+" 失败："+fail);
-            //完成订单
-            if(success == 9){
-              this.servicedone()
-            }
-          }else{//若图片还没有传完，则继续调用函数
-            if (!fail){
-              data.i=i;
-              data.success=success;
-              data.fail=fail;
-              wx.showLoading({
-                title:  '正在上传'+i+'/9张',
-                mask: true
-              });
-              that.uploadimg(data);
+        wx.uploadFile({
+          url: data.url,
+          filePath: data.path[i],
+          name: 'carImage',//这里根据自己的实际情况改
+          header: {
+            'content-type': 'application/json'
+          },// 设置请求的 header
+          formData:{
+            number: i,
+            carModel: this.carModel,
+            orderId: this.order_id,
+          },//这里是上传图片时一起上传的数据
+          success: (resp) => {
+            //这个图片执行完上传后，开始上传下一张
+            i++;
+            //需要对返回的数据进行json序列化处理
+            let res = JSON.parse(resp.data)
+            if(resp.statusCode == 200 && res.status > 0 ){
+              success++//图片上传成功，图片上传成功的变量+1
             }else{
-              wx.showLoading({
-                title: '上传图片出错',
-              })
-              setTimeout(function(){
-                wx.hideLoading()
-              },2000)
+              fail++
+              console.log('第'+ i + "张上传失败")
+              tip.error("图片上传出错")
+              return
+            }
+            //这里可能有BUG，失败也会执行这里,所以这里应该是后台返回过来的状态码为成功时，这里的success才+1
+          },
+          fail: (res) => {
+            fail++;//图片上传失败，图片上传失败的变量+1
+            console.log('第'+ i + "上传失败")
+            //console.log('fail:'+i+"fail:"+fail);
+          },
+          complete: () => {
+            if(i==data.path.length){   //当图片传完时，停止调用
+              //console.log('执行完毕');
+              //console.log('成功：'+success+" 失败："+fail);
+              //完成订单
+              if(success == 9){
+                this.servicedone()
+              }
+            }else{//若图片还没有传完，则继续调用函数
+              if (!fail){
+                data.i=i;
+                data.success=success;
+                data.fail=fail;
+                wx.showLoading({
+                  title:  '正在上传'+i+'/9张',
+                  mask: true
+                });
+                that.uploadimg(data);
+              }else{
+                wx.showLoading({
+                  title: '上传图片出错',
+                })
+                setTimeout(function(){
+                  wx.hideLoading()
+                },2000)
+              }
             }
           }
-
+        });
+      }
+      async servicedone () {
+        const res = await api.servicedone({
+          query: {
+            orderId: parseInt(this.order_id),
+            carModel: this. carModel,
+            appId:APPID
+          },
+          method: 'POST'
+        })
+        if (res.data.status){
+          tip.success("确认完成")
+          wepy.navigateBack()
+        }else{
+          tip.error(res.data.errmsg)
+          wepy.navigateBack()
         }
-      });
-    }
-    async servicedone () {
-      const res = await api.servicedone({
-        query: {
-          orderId: parseInt(this.order_id),
-          carModel: this. carModel,
-          appId:APPID
-        },
-        method: 'POST'
-      })
-      if (res.data.status){
-        tip.success("确认完成")
-        wepy.navigateBack()
-      }else{
-        tip.error(res.data.errmsg)
-        wepy.navigateBack()
       }
-    }
 
-    async getorderdetails (order_id) {
-      const res = await api.getorderdetails({
-        query: {
-          order_id: parseInt(order_id),
-        },
-        method: 'POST'
-      })
-      this.order_detail = res.data.data[0]
-      if (this.order_detail.image_list.length >= 9){
-        this.imgs = this.order_detail.thumbnail_image_list
-        this.source_imgs = this.order_detail.image_list
-        this.number = 9
+      async getorderdetails (order_id) {
+        const res = await api.getorderdetails({
+          query: {
+            order_id: parseInt(order_id),
+          },
+          method: 'POST'
+        })
+        this.order_detail = res.data.data[0]
+        if (this.order_detail.image_list.length >= 9){
+          this.imgs = this.order_detail.thumbnail_image_list
+          this.source_imgs = this.order_detail.image_list
+          this.number = 9
+        }
+        let order_status = this.order_detail.order_status
+        if ( order_status > 1 && order_status < 5){
+          this.has_done = true
+        }
+        this.$apply()
       }
-      let order_status = this.order_detail.order_status
-      if ( order_status > 1 && order_status < 5){
-        this.has_done = true
-      }
-      this.$apply()
-    }
 
     // events对象中所声明的函数为用于监听组件之间的通信与交互事件的事件处理函数
     events = {

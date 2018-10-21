@@ -1,5 +1,6 @@
 <style lang="less">
-    .container {
+@import './style/weui.less';
+    /* .container {
         height: 100%;
         display: flex;
         flex-direction: column;
@@ -7,12 +8,11 @@
         justify-content: space-between;
         box-sizing: border-box;
     }
-    @import './style/weui.less';
-    //.page{
-    //    background-color: #F8F8F8;
-    //    font-size: 16px;
-    //    font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
-    //}
+    .page{
+        background-color: #F8F8F8;
+        font-size: 16px;
+        font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
+    }
     .page__hd {
         padding: 40px;
     }
@@ -37,103 +37,103 @@
         color: #888888;
         text-align: left;
         font-size: 14px;
-    }
+    } */
 </style>
 
 <script>
-  import wepy from 'wepy'
-  import 'wepy-async-function'
+import wepy from 'wepy'
+import 'wepy-async-function'
 
-  import { setStore } from 'wepy-redux'
-  import configStore from './store'
-  import api from './api/api'
-  import tip from './utils/tip'
-  import {
-    SYSTEM_INFO,
-    SEL_CLASS_CODE,
-    APPID
-  } from './utils/constant'
-  const store = configStore()
-  setStore(store)
+import { setStore } from 'wepy-redux'
+import configStore from './store'
+import api from './api/api'
+import tip from './utils/tip'
+import {
+  SYSTEM_INFO,
+  SEL_CLASS_CODE,
+  APPID
+} from './utils/constant'
+const store = configStore()
+setStore(store)
 
-  export default class extends wepy.app {
-    config = {
-      pages: [
-        'pages/home',
-        'pages/users_list',
-        'pages/order_detail',
-        'pages/classify',
-        'pages/car_type',
-        'pages/me',
-        'pages/auth',
-        'pages/identify',
-        'pages/employee_manage'
-      ],
-      window: {
-        backgroundTextStyle: 'light',
-        navigationBarBackgroundColor: '#212121',
-        navigationBarTitleText: 'WeChat',
-        navigationBarTextStyle: 'white',
-        enablePullDownRefresh: false,
-        backgroundColor: '#212121'
+export default class extends wepy.app {
+  config = {
+    pages: [
+    'pages/home',
+    'pages/users_list',
+    'pages/order_detail',
+    'pages/classify',
+    'pages/car_type',
+    'pages/me',
+    'pages/auth',
+    'pages/identify',
+    'pages/employee_manage'
+    ],
+    window: {
+      backgroundTextStyle: 'light',
+      navigationBarBackgroundColor: '#212121',
+      navigationBarTitleText: 'WeChat',
+      navigationBarTextStyle: 'white',
+      enablePullDownRefresh: false,
+      backgroundColor: '#212121'
 
-      },
-      "tabBar": {
-        "color": "#9B9B9B",
-        "selectedColor": "#FFFFFF",
-        "backgroundColor": "#212121",
-        "borderStyle": "black",
-        "list": [{
-          "pagePath": "pages/home",
-          "text": "预约",
-          "iconPath": "images/tabbar/book_gray.png",
-          "selectedIconPath": "images/tabbar/book_white.png"
-        }, {
-          "pagePath": "pages/users_list",
-          "text": "用户",
-          "iconPath": "images/tabbar/user_gray.png",
-          "selectedIconPath": "images/tabbar/user_white.png"
-        }, {
-          "pagePath": "pages/me",
-          "text": "个人",
-          "iconPath": "images/tabbar/mine_gray.png",
-          "selectedIconPath": "images/tabbar/mine_white.png"
-        }]
-      }
+    },
+    "tabBar": {
+      "color": "#9B9B9B",
+      "selectedColor": "#FFFFFF",
+      "backgroundColor": "#212121",
+      "borderStyle": "black",
+      "list": [{
+        "pagePath": "pages/home",
+        "text": "预约",
+        "iconPath": "images/tabbar/book_gray.png",
+        "selectedIconPath": "images/tabbar/book_white.png"
+      }, {
+        "pagePath": "pages/users_list",
+        "text": "用户",
+        "iconPath": "images/tabbar/user_gray.png",
+        "selectedIconPath": "images/tabbar/user_white.png"
+      }, {
+        "pagePath": "pages/me",
+        "text": "个人",
+        "iconPath": "images/tabbar/mine_gray.png",
+        "selectedIconPath": "images/tabbar/mine_white.png"
+      }]
     }
+  }
 
-    globalData = {
-      userInfo: null
-    }
+  globalData = {
+    userInfo: null
+  }
 
-    constructor () {
-      super()
-      this.use('requestfix')
-      this.use('promisify')
-    }
+  constructor () {
+    super()
+    this.use('requestfix')
+    this.use('promisify')
+  }
 
-    async onLaunch() {
-      const updateManager = wx.getUpdateManager()
-      updateManager.onCheckForUpdate(function (res) {
+  async onLaunch() {
+    const updateManager = wx.getUpdateManager()
+    updateManager.onCheckForUpdate(function (res) {
         // 请求完新版本信息的回调
         console.log(res.hasUpdate)
       })
 
-      updateManager.onUpdateReady(function () {
-        wx.showModal({
-          title: '更新提示',
-          content: '新版本已经准备好，是否重启应用？',
-          success: function (res) {
-            if (res.confirm) {
+    updateManager.onUpdateReady(function () {
+      wx.showModal({
+        title: '更新提示',
+        content: '新版本已经准备好，是否重启应用？',
+        success: function (res) {
+          if (res.confirm) {
             // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
-              updateManager.applyUpdate()
-            }
+            updateManager.applyUpdate()
           }
-        })
-
+        }
       })
 
-      updateManager.onUpdateFailed(function () {
+    })
+
+    updateManager.onUpdateFailed(function () {
         // 新的版本下载失败
         wx.showModal({
           title: '更新提示',
@@ -181,10 +181,5 @@
     changeUrl (url) {
       this.config.tabBar.list[2].pagePath = 'pages/classify'
     }
-
-
-
-
-
   }
 </script>

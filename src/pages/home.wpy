@@ -65,6 +65,7 @@
     .weui-navbar {
       border-bottom: 0;
       box-shadow: none;
+      
       .weui-navbar__item {
         color: @txtColor;
         font-weight: 400;
@@ -140,6 +141,7 @@
               font-size: 28rpx;
               line-height: 40rpx;
             }
+
             .rate{
               margin-bottom: 26rpx;
               color: #9B9B9B;
@@ -152,8 +154,7 @@
     }
 
     .no-data{
-      text-align: center;
-      padding-top: 40rpx;
+      .no-data(60rpx);
     }
   }
 }
@@ -165,7 +166,7 @@
       </view>
       <view class="card-content">
         <view class="left column">
-          <view class="user-name">您好，{{userInfo.nickName}}</view>
+          <view class="user-name">{{time}}，{{userInfo.nickName}}</view>
           <view class="date">2018年9月6日</view>
         </view>
         <view class="right column">
@@ -216,16 +217,16 @@
 </template>
 
 <script>
-  import wepy from 'wepy'
-  import util from '../utils/util'
-  import Search from '../components/search'
-  import Recharge from '../components/recharge'
-  import {
-    SYSTEM_INFO,
-    SEL_CLASS_CODE
-  } from '../utils/constant';
-  import Tap from '../components/tap'
-  import api from '../api/api'
+import wepy from 'wepy'
+import util from '../utils/util'
+import Search from '../components/search'
+import Recharge from '../components/recharge'
+import {
+  SYSTEM_INFO,
+  SEL_CLASS_CODE
+} from '../utils/constant';
+import Tap from '../components/tap'
+import api from '../api/api'
 
   const sliderWidth = 50 // 需要设置slider的宽度，用于计算中间位置
   export default class Home extends wepy.page {
@@ -247,7 +248,7 @@
       userInfo: {
         nickName: '加载中...'
       },
-      
+
       time:"上午好",
 
       orderList: [],
@@ -259,7 +260,7 @@
       employee: {
         name:wepy.getStorageSync('user_info').nickName
       },
-  }
+    }
 
     computed = {
       now () {
@@ -379,7 +380,5 @@
       }
       this.getorderlist(this.activeIndex);
     }
-
-
   }
 </script>

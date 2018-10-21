@@ -108,7 +108,6 @@ export default class MyAlert extends wepy.component {
   onload() {
     console.log(this.title);
   }
-
 }
 
 </script>
