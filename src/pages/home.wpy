@@ -174,6 +174,7 @@
             <text>今日预约：{{ homeInfo.today_number }}单</text>
             <text>本周预约：{{ homeInfo.week_number }}单</text>
           </view>
+          <!-- 什么时候显示什么状态，记得换图片。然后图片我随便截图的，记得放原切图 -->
           <image src="../../images/book/hot.png" class="icon"></image>
         </view>
       </view>

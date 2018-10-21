@@ -453,7 +453,7 @@ export default class OrderDetail extends wepy.page {
             console.log("拨打电话失败！")
           }
         })
-      }
+      },
       //--------------------------------------------
       previewImage (e) {
         let current = e.target.dataset.src;
