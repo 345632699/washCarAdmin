@@ -169,7 +169,6 @@
         <view class="cell-right">
           <repeat for="{{sexOption}}" key="index" item="item">
             <view class="gender" @tap="bindSexChange" id="{{index}}">
-              <!-- 然后图片我随便选的，记得放原切图 -->
               <image src="{{(sexIndex == index+1) ? item.selPic : item.pic}}"></image>
               <text class="sex">{{item.sex}}</text>
             </view>
@@ -252,6 +251,7 @@
             </view>
           </view>
           <view class="cell-right" @tap="setAdmin">
+            <!-- 图片我随便选的，记得放原切图(￣▽￣) -->
             <image class="set-admin" src="{{adminFlag ? '../images/mine/female_selected.png' : '../images/mine/female.png'}}"></image>
           </view>
         </vlew>
