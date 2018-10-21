@@ -299,6 +299,7 @@ page,
             </view>
           </view>
 
+          <!-- ！！这里需要后台返回该订单的用户评价数据 -->
           <!-- 客户评价 -->
           <view class="cell rate">
             <view class="top">
@@ -353,7 +354,7 @@ page,
             </view>
           </view>
 
-          <!-- 选择车型这里下一步不清楚是什么操作，选择or输入？ -->
+          <!-- ！！选择车型这里下一步不清楚是什么操作，选择or输入？弹框形式？UI没给喔 -->
           <!-- 车型 -->
           <view class="cell">
             <view class="cell-left">
@@ -432,7 +433,7 @@ export default class OrderDetail extends wepy.page {
       is_active: 0,
 
       //-------------------------------------------
-      //这里需要赋值
+      //！！这里需要后台返回该订单的评价数据 来赋值
       evaluate_service: 4,//服务
       evaluate_artisan: 4,//技工
       comment: '我觉得还行。这是一段废话一段废话一段废话一段废话一段废话一段废话一段废话一段废话换行',//评价内容
@@ -442,7 +443,7 @@ export default class OrderDetail extends wepy.page {
 
     methods = {
       //--------------------------------------------
-      callUser() {
+      callUser(e) {
         let phone = e.currentTarget.dataset.phone
         wx.makePhoneCall({
           phoneNumber: phone, //此号码并非真实电话号码，仅用于测试

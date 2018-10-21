@@ -167,6 +167,7 @@
       <view class="card-content">
         <view class="left column">
           <view class="user-name">{{time}}，{{userInfo.nickName}}</view>
+          <!-- ！！这里需要后台返回日期 -->
           <view class="date">2018年9月6日</view>
         </view>
         <view class="right column">
@@ -174,7 +175,7 @@
             <text>今日预约：{{ homeInfo.today_number }}单</text>
             <text>本周预约：{{ homeInfo.week_number }}单</text>
           </view>
-          <!-- 什么时候显示什么状态，记得换图片。然后图片我随便截图的，记得放原切图 -->
+          <!-- ！！什么时候显示空闲、火爆和正常的图片？然后红绿黄三张图片我随便截的，缺原切图。 -->
           <image src="../../images/book/hot.png" class="icon"></image>
         </view>
       </view>
@@ -205,7 +206,7 @@
 
                 <view class="bottom">
                   <view class="car-num">{{ item.car_number }}</view>
-                  <!-- 这里要加评分 -->
+                  <!-- ！！这里需要后台返回评分 -->
                   <view class="rate">评分：5</view>
                 </view>
               </view>
