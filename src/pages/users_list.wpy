@@ -113,7 +113,7 @@ Page,
       <view class="no-data" wx:if="{{!user_list.length}}">暂无数据</view>
       <view class="list-item" wx:for="{{ user_list }}" wx:key="item">
         <view class="top">
-          <image class="avatar" src="../images/mine/shopkeeper.png" />
+          <image class="avatar" src="{{ item.avatarUrl }}" />
           <view class="right">
             <view class="name">
               <view class="one">{{ item.username }}</view>

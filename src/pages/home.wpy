@@ -194,10 +194,10 @@
       <!-- 内容 -->
       <view class="weui-tab__panel">
         <view class="weui-tab__content order">
-          <view class="no-data" wx:if="{{ orderList }}">暂无数据</view>
+          <view class="no-data" wx:if="{{ orderList.length == 0 }}">暂无数据</view>
           <view class="list" wx:else>
             <navigator class="list-item" wx:for="{{ orderList }}" wx:key="item" url="/pages/order_detail?order_id={{ item.order_id }}" hover-class="none">
-              <image class="avatar" src="{{ item.avatar_url }}"></image>
+              <image class="avatar" src="{{ item.avatarUrl }}"></image>
               <view class="right">
                 <view class="top">  
                   <view class="name">{{ item.name }}</view>

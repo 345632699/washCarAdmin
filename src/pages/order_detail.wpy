@@ -365,7 +365,9 @@ page,
               <view class="txt">
                 <view class="title">车型</view>
                 <view class="subtitle" wx:if="{{ order_detail.order_status < 3 }}">{{ order_detail.car_model }}</view>
-                <view class="subtitle" wx:else>请选择车型</view>
+                <view class="subtitle" wx:else>
+                  <input type="text" value="{{ carModel }}" placeholder="请输入车型">
+                </view>
               </view>
               <image wx:if="{{ order_detail.order_status < 3 }}" class="skip" src="../images/book/more.png"></image>
             </view>
@@ -375,7 +377,7 @@ page,
 
       <!-- 底部按钮 -->
       <view class="pay-btn">
-        <block wx:if="{{ (true == has_done) ? 'true' : '' }}">
+        <block wx:if="{{ has_done == 0 && order_detail < 3 }}">
           <button class="nomal-btn" type="default" @tap="doWash">开始洗车</button>
           <button class="cancel-btn" type="default" @tap="cancelOrder">取消订单</button>
         </block>
@@ -522,7 +524,11 @@ export default class OrderDetail extends wepy.page {
       },
       //上傳圖片
       async upload () {
-        let imgs=this.data.imgs;
+        let imgs=this.data.imgs
+        if (!this.carModel){
+          tip.error('车型不能为空')
+          return
+        }
         if (imgs.length < 9){
           tip.error('图片少于9张')
           return
@@ -630,7 +636,7 @@ export default class OrderDetail extends wepy.page {
         const res = await api.servicedone({
           query: {
             orderId: parseInt(this.order_id),
-            carModel: this. carModel,
+            carModel: this.carModel,
             appId:APPID
           },
           method: 'POST'
