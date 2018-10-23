@@ -390,7 +390,7 @@
           title: '程序加载中',
         })
         await this.uploadimg({
-          url:'https://wx.cy1993.cn/cy1993_app/uploadcarimage/',//这里是你图片上传的接口
+          url:'https://test.cy1993.cn/cy1993_app/uploadcarimage/',//这里是你图片上传的接口
           path:imgs//这里是选取的图片的地址数组
         })
 
