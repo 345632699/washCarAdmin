@@ -1,0 +1,386 @@
+<style lang="less">
+    .page{
+        background: #FFFFFF;
+        color: #373C38;
+        .list{
+            margin-top: 32rpx;
+            margin-bottom: 16rpx;
+            .list-item{
+                width:688rpx;
+                /*height:192rpx;*/
+                background:rgba(255,255,255,1);
+                box-shadow: 0px 2rpx 10rpx 0px rgba(0,0,0,0.5);
+                margin: auto;
+                border-radius: 20rpx;
+                margin-bottom: 16rpx;
+                padding-bottom:16rpx;
+                &.verify{
+                    height:136rpx;
+                    .btn{
+                        display: inline-block;
+                        padding:0 16rpx 0 16rpx;
+                    }
+                }
+                .top{
+                    display: -webkit-box;
+                    display: -webkit-flex;
+                    display: flex;
+                    -webkit-box-align: center;
+                    -webkit-align-items: center;
+                    align-items: center;
+                    .left{
+                        text-align: center;
+                        width: 80rpx;
+                        height: 80rpx;
+                        padding: 32rpx;
+                        image{
+                            width: 100%;
+                            max-height: 100%;
+                            vertical-align: top;
+                            border-radius: 50%;
+                        }
+                    }
+                    .right{
+                        color: red;
+                        -webkit-box-flex: 1;
+                        -webkit-flex: 1;
+                        flex: 1;
+                        min-width: 0;
+                        .one{
+                            width: auto;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            height:40rpx;
+                            font-size:28rpx;
+                            color:#373C38;
+                            line-height:40rpx;
+                        }
+                        .two{
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            display: -webkit-box;
+                            -webkit-box-orient: vertical;
+                            -webkit-line-clamp: 2;
+                            height:40rpx;
+                            font-size:28rpx;
+                            color:#373C38;
+                            line-height:40rpx;
+                        }
+                    }
+                }
+                .foot{
+                    padding-left: 144rpx;
+                    margin-top: -16rpx;
+                    .btn{
+                        display: inline-block;
+                        height:32rpx;
+                        font-size:28rpx;
+                        color:#373C38;
+                        line-height:32rpx;
+                        width: 192rpx;
+                    }
+                }
+            }
+        }
+    }
+    .classifyPage{
+        background: #FFFFFF;
+        font-size: 32rpx;
+        color:#373C38;
+        text-align: center;
+        .identify{
+            .head{
+                button{
+                    width:654rpx;
+                    height:96rpx;
+                    background:rgba(255,255,255,1);
+                    box-shadow: 0px 4rpx 5rpx 0px rgba(0,0,0,0.5);
+                    border:none;
+                    border-radius: 32rpx;
+                    font-size: 28rpx;
+                    line-height: 96rpx;
+                    color:#373C38;
+                    font-weight: bold;
+                }
+            }
+            .context{
+                padding-top: 80rpx;
+                image{
+                    width: 134rpx;
+                    height: 134rpx;
+                }
+                .text{
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+    .greyColor{
+        color:rgba(0,0,0,0.38);
+    }
+</style>
+<template>
+    <view class="navbar page" wx:if="{{ 'authed'==auth_status && is_root>0 }}">
+        <view class="page__bd">
+            <view class="weui-tab">
+                <view class="weui-navbar" style="color: #111612">
+                    <view wx:for="{{tabs}}" wx:key="*this" id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" @tap="tabClick">
+                        <view class="weui-navbar__title">{{item}}</view>
+                    </view>
+                    <view class="weui-navbar__slider" style="background:#111612;left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+                </view>
+                <view class="weui-tab__panel">
+                    <view class="weui-tab__content" wx:if="{{ 0 == activeIndex }}">
+                        <view class="list">
+                            <view class="list-item" wx:for="{{ employee_list }}" wx:key="item">
+                                <view class="top">
+                                    <view class="left">
+                                        <image class="userinfo-avatar" src="{{ item.avatar_url }}" background-size="cover"/>
+                                        <view style="font-size: 22rpx;text-align: center" hidden="true">
+                                            {{ item.position }}
+                                        </view>
+                                    </view>
+                                    <view class="right">
+                                        <view class="one">
+                                            {{ item.name }}
+                                        </view>
+                                        <view class="two">
+                                            {{ item.position }}
+                                        </view>
+                                    </view>
+                                </view>
+                                <view class="foot" wx:if="{{ is_root }}">
+                                    <navigator  url="/pages/identify?employee_id={{ item.employee_id }}" hover-class="none" class="btn">
+                                        修改资料
+                                    </navigator>
+                                    <view data-id="{{ item.employee_id }}" @tap="deleteStaff" class="btn">
+                                        删除员工
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="weui-tab__content" wx:if="{{ 1 == activeIndex }}">
+                        <view class="list">
+                            <view wx:for="{{ staff_auth_list }}" wx:key="item" class="list-item verify">
+                                <view class="top">
+                                    <view class="left">
+                                        <image class="userinfo-avatar" src="{{ item.avatar_url }}" background-size="cover"/>
+                                    </view>
+                                    <view class="right">
+                                        <view class="one">
+                                            {{ item.name }}
+                                        </view>
+                                    </view>
+                                    <view class="right">
+                                        <view class="one" style="text-align: right;padding-right: 32rpx">
+                                            <view data-id="{{ item.employee_id }}" @tap="reject" class="btn">拒绝</view>
+                                            <view data-id="{{ item.employee_id }}" @tap="agree" class="btn">通过</view>
+                                        </view>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="classifyPage" wx:else>
+        <view class="identify">
+            <vie class="head">
+                <button @tap="doVerify" wx:if="{{ 'none'==auth_status }}">身份验证</button>
+                <button @tap="doVerify" wx:if="{{ 'authed'==auth_status }}">资料修改</button>
+                <button style="color:rgba(0,0,0,0.38);" wx:if="{{ 'processing'==auth_status }}">身份验证</button>
+            </vie>
+            <view class="context">
+                <image src="../images/all/verifying@2x.png" wx:if="{{ 'processing'==auth_status }}"></image>
+                <image src="../images/all/verify@2x.png" wx:else></image>
+                <view class="text" wx:if="{{ 'none'==auth_status }}">
+                    验证身份之后才可以使用所有功能
+                </view>
+                <view class="text greyColor" wx:if="{{ 'processing'==auth_status }}">
+                    正在审核中
+                </view>
+                <view class="text" wx:if="{{ 'authed'==auth_status }}">
+                    您已通过审核 接下来您可以用所有的功能了
+                </view>
+            </view>
+        </view>
+    </view>
+    <alert :is_active.sync="is_active" :alertInfo.sync="alertInfo"></alert>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import util from '../utils/util'
+  import {
+    SYSTEM_INFO,
+    SEL_CLASS_CODE
+  } from '../utils/constant';
+  import api from '../api/api'
+  import tip from '../utils/tip'
+  import Alert from '../components/myAlert'
+  const sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
+  export default class Me extends wepy.page {
+    config = {
+      navigationBarTitleText: '个人中心'
+    }
+    components = {
+      alert:Alert
+    }
+
+    data = {
+      mynum: 20,
+      userInfo: {
+        nickName: '加载中...'
+      },
+      count: 0,
+      windowHeight: 0,
+      currentDate: wx.getStorageSync(SEL_CLASS_CODE),
+      //navbar
+      tabs: ['员工列表', '审核列表'],
+      activeIndex: 0,
+      sliderOffset: 0,
+      sliderLeft: 0,
+
+      employee_list: [],
+      staff_auth_list: [],
+      auth_status:"none",
+
+      is_root:wepy.getStorageSync('is_root'),
+
+      alertInfo: {
+        alert_title: "删除用户",
+        msg: "确认删除用户吗，该操作将不可逆？\n",
+        comfirm: 0,
+        confirmText: '确认删除',
+      },
+      is_active:0
+
+    }
+
+    computed = {
+      now () {
+        return +new Date()
+      }
+    }
+
+    methods = {
+      async tabClick (e) {
+        this.sliderOffset = e.currentTarget.offsetLeft;
+        this.activeIndex = e.currentTarget.id;
+        let employee_id = wepy.getStorageSync("userid")
+        if (this.activeIndex == 1){
+          await this.getstaffauthlist(employee_id)
+        }else{
+          await this.getstafflist(employee_id)
+        }
+      },
+      async deleteStaff (e) {
+        this.is_active = 1
+        let employee_id = e.currentTarget.dataset.id
+        this.alertInfo.employee_id = employee_id
+      },
+      async agree (e) {
+        let employee_id = e.currentTarget.dataset.id
+        await this.updatestaffauth(employee_id,0)
+      },
+      async reject (e) {
+        let employee_id = e.currentTarget.dataset.id
+        await this.updatestaffauth(employee_id,1)
+      },
+      doVerify () {
+        wepy.navigateTo({
+          url: './classify'
+        })
+      }
+    }
+
+    async updatestaffauth (employee_id,auth_status) {
+      const res = await api.updatestaffauth({
+        query: {
+          employee_id: employee_id,
+          auth_status: auth_status,
+        },
+        method: 'POST'
+      });
+      if (res.data.status){
+        tip.success("通过审核")
+      }else{
+        tip.error("系统错误")
+      }
+    }
+
+    async getstafflist (employee_id) {
+      const res = await api.getstafflist({
+        query: {
+          employee_id: employee_id,
+        },
+        method: 'POST'
+      });
+      this.employee_list = res.data.data
+      this.$apply()
+    }
+
+    async getstaffauthlist (employee_id) {
+      const res = await api.getstaffauthlist({
+        query: {
+          employee_id: employee_id,
+        },
+        method: 'POST'
+      });
+      this.staff_auth_list = res.data.data
+      this.$apply()
+    }
+
+    async getstaffinfo (employee_id) {
+      const res = await api.getstaffinfo({
+        query: {
+          employee_id: employee_id,
+        },
+        method: 'POST'
+      });
+      this.auth_status = res.data.data[0].auth_status
+      this.is_root = res.data.data[0].is_root
+      this.$apply()
+    }
+
+    events = {
+      'comfirmAction': async  (comfirm,employee_id) => {
+        console.log(employee_id)
+        if (comfirm == 1) {
+          const res = await api.updatestaffauth({
+            query: {
+              employee_id: employee_id,
+              auth_status: 2,
+            },
+            method: 'POST'
+          })
+          if (res.data.status) {
+            tip.success("删除成功")
+            await this.getstafflist(wepy.getStorageSync("userid"))
+          }
+        }
+      }
+    }
+
+    async onLoad() {
+      let self = this
+      self.userInfo = wepy.getStorageSync('user_info')
+      //navbar
+      let res = await wepy.getSystemInfo();
+
+      this.sliderLeft = (res.windowWidth / this.tabs.length - sliderWidth) / 2;
+      this.sliderOffset = res.windowWidth / this.tabs.length * this.activeIndex;
+    }
+
+    async onShow() {
+      let employee_id = wepy.getStorageSync("userid")
+      await this.getstafflist(employee_id)
+      await this.getstaffinfo(employee_id)
+    }
+
+
+  }
+</script>

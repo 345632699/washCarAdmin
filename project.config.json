@@ -1,13 +1,15 @@
 {
-  "description": "A WePY project",
-  "setting": {
-    "urlCheck": true,
-    "es6": false,
-    "postcss": false,
-    "minified": false
-  },
-  "compileType": "miniprogram",
-  "appid": "touristappid",
-  "projectname": "business",
-  "miniprogramRoot": "./dist"
+	"description": "A WePY project",
+	"setting": {
+		"urlCheck": true,
+		"es6": false,
+		"postcss": false,
+		"minified": false,
+		"newFeature": true
+	},
+	"compileType": "miniprogram",
+	"appid": "wxd2b1f049d88ddca4",
+	"projectname": "washcar",
+	"miniprogramRoot": "dist/",
+	"condition": {}
 }

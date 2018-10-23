@@ -1,0 +1,113 @@
+/* 全局变量 */
+@bgColor: #212121;//背景颜色
+@titleColor: #FFFFFF;//标题颜色
+@txtColor: #FAFAFA;//一般字体颜色
+@normalFontSize: 24rpx;//一般字体大小
+@normalBtnBgColor: #C42B2B;//正常按钮背景色
+@normalBtnBorderColor: #7E1919;//正常按钮边框色
+@cancelBtnBgColor: #4A4A4A;//取消按钮背景色
+
+@cellsBgColor: #2E2E2E;
+@cellsBorder: #4A4A4A;
+
+/* 全局css */
+
+/* 背景虚化,高斯模糊+暗度 */
+.blur{
+  -webkit-filter: blur(5px) brightness(50%);
+  -moz-filter: blur(5px) brightness(50%);
+  -o-filter: blur(5px) brightness(50%);
+  -ms-filter: blur(5px) brightness(50%);
+  filter: blur(5px) brightness(50%);
+}
+
+/* 水平垂直居中 */
+.centerBox{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* 间隔排列 */
+.betweenBox{
+  display: flex;
+  justify-content: space-between;
+}
+
+/* 长按钮 */
+.longBtn(@bgColr,@borderColor:transparent){//按钮
+  background: @bgColr;
+  color: @txtColor;
+  border: 2rpx solid @borderColor;
+  font-size:32rpx;
+}
+
+/* 图片旋转 */
+.rotate(@rotate){
+  /* 旋转@rotate度 */
+  transform:rotate(@rotate);
+  -ms-transform:rotate(@rotate); /* Internet Explorer */
+  -moz-transform:rotate(@rotate); /* Firefox */
+  -webkit-transform:rotate(@rotate); /* Safari 和 Chrome */
+  -o-transform:rotate(@rotate); /* Opera */
+}
+
+/* 底部间隔 */
+.bottom(@height){
+  padding-bottom: @height;
+}
+
+/* 无数据 */
+.no-data(@paddingTop:0){
+  text-align: center;
+  padding-top: @paddingTop;
+  color: #9B9B9B;
+  font-size: 24rpx;
+  line-height: 30rpx;
+}
+
+/* 按钮 */
+button:after{
+  border:0px;
+}
+
+/* page页面 */
+page,.page{
+  font-family:PingFangSC-Regular;
+  background: @bgColor;
+}
+
+/* 弹框样式： */
+/* 遮罩 */
+.mask{
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.6);
+}
+/* 弹框盒子 */
+.dialogBox{
+  position: fixed;
+  z-index: 5000;
+  width: 502rpx;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background: @cellsBgColor;
+  color: @titleColor;
+  overflow: hidden;
+  border-radius: 12rpx;
+}
+/* 盒子顶部 */
+.dialogBoxHead{
+  padding: 36rpx 44rpx 48rpx 42rpx;
+  .centerBox;
+}
+/* 顶部标题 */
+.dialogBoxTitle{
+  font-size: 32rpx;
+  line-height: 44rpx;
+}

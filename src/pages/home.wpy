@@ -1,175 +1,217 @@
 <style lang="less">
-  .page{
-    background: #FFFFFF;
-    color: #FFFFFF;
-    .list{
-      margin-top: 16rpx;
-      .list-item{
-        width:688rpx;
-        height:192rpx;
-        background:rgba(255,255,255,1);
-        box-shadow: 0px 2rpx 10rpx 0px rgba(0,0,0,0.5);
-        margin: auto;
-        border-radius: 20rpx;
-        margin-bottom: 16rpx;
-        .top{
-          display: -webkit-box;
-          display: -webkit-flex;
-          display: flex;
-          -webkit-box-align: center;
-          -webkit-align-items: center;
-          align-items: center;
-          .left{
-            text-align: center;
-            width: 80rpx;
-            height: 80rpx;
-            padding: 32rpx;
-            image{
-              width: 100%;
-              max-height: 100%;
-              vertical-align: top;
-              border-radius: 50%;
-            }
-          }
-          .right{
-            color: red;
-            -webkit-box-flex: 1;
-            -webkit-flex: 1;
-            flex: 1;
-            min-width: 0;
-            .one{
-              width: auto;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              height:40rpx;
-              font-size:28rpx;
-              color:#373C38;
-              line-height:40rpx;
-            }
-            .two{
-              overflow: hidden;
-              text-overflow: ellipsis;
-              display: -webkit-box;
-              -webkit-box-orient: vertical;
-              -webkit-line-clamp: 2;
-              height:40rpx;
-              font-size:28rpx;
-              color:#373C38;
-              line-height:40rpx;
-            }
-          }
+@import '../style/common.less';
+.page{
+  @cardHeight: 374rpx; //顶部div高
+  color: @titleColor;
+
+  .card {
+    height: @cardHeight;
+
+    .card-blur {
+      height: @cardHeight;
+      .blur;
+    }
+
+    .card-content {
+      height: 254rpx;
+      width: 618rpx;
+      position: absolute;
+      top: 0;
+      .betweenBox;
+      flex-wrap: wrap;
+      margin: 60rpx 66rpx 80rpx;
+
+      .column {
+        flex-basis: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .left{
+        .user-name{
+          color: @txtColor;
+          font-size: 40rpx;
+          line-height: 56rpx;
         }
-        .foot{
-          padding-left: 144rpx;
-          margin-top: -16rpx;
-          .btn{
-            display: inline-block;
-            height:32rpx;
-            font-size:28rpx;
-            color:#373C38;
-            line-height:32rpx;
-          }
+
+        .date{
+          color: @txtColor;
+          font-size: 28rpx;
+          line-height: 40rpx;
         }
       }
-      &.admin{
-        .list-item{
-          height: 172rpx;
-          .newapp{
-            height:32rpx;
-            font-size:28rpx;
-            line-height:32rpx;
-            color: #373C38;
+
+      .right{
+        .book-info{
+          text{
+            display: block;
+            color: #9B9B9B;
+            font-size: 24rpx;
+            line-height: 35rpx;
           }
-          box-shadow: none;
         }
-        .admin-name{
-          color: #373C38;
-          height:48rpx;
-          font-size:28rpx;
-          line-height:48rpx;
-          padding-left: 32rpx;
-          padding-top: 16rpx;
+
+        .icon{
+          height: 48rpx;
+          width: 140rpx;
+          border-radius: 12rpx;
         }
       }
     }
   }
+
+  .weui-tab {
+    .weui-navbar {
+      border-bottom: 0;
+      box-shadow: none;
+      
+      .weui-navbar__item {
+        color: @txtColor;
+        font-weight: 400;
+
+        .weui-navbar__title {
+          font-size: 32rpx;
+          line-height: 44rpx;
+        }
+      }
+
+      .weui-bar__item_on {
+        color: @txtColor;
+      }
+
+      .weui-navbar__slider {
+        width: 50px;
+        background: #C42B2B;
+        height: 4rpx;
+      }
+    }
+  }
+
+  .order {
+    .list{
+      padding-top: 40rpx;
+      .list-item{
+        //width: 616rpx;
+        margin: 0 24rpx 12rpx 26rpx;
+        border-radius: 16rpx;
+        background: #2E2E2E;
+        min-height: 200rpx;
+        .centerBox;
+
+        .avatar{
+          width: 116rpx;
+          height: 116rpx;
+          margin-right: 40rpx;
+        }
+
+        .right{
+          width: 455rpx;
+          .betweenBox;
+          align-items: center;
+          flex-direction: column;
+
+          .top{
+            width: 100%;
+            .betweenBox;
+            align-items: center;
+
+            .name{
+              color: #FAFAFA;
+              font-size: 32rpx;
+              line-height: 44rpx;
+              margin-bottom: 12rpx;
+            }
+
+            .time{
+              margin-bottom: 26rpx;
+              color: #9B9B9B;
+              font-size: 24rpx;
+              line-height: 34rpx;
+            }
+          }
+          
+          .bottom{
+            width: 100%;
+            .betweenBox;
+            align-items: center;
+
+            .car-num{
+              color: #9B9B9B;
+              font-size: 28rpx;
+              line-height: 40rpx;
+            }
+
+            .rate{
+              margin-bottom: 26rpx;
+              color: #9B9B9B;
+              font-size: 24rpx;
+              line-height: 34rpx;
+            }
+          }
+        }
+      }
+    }
+
+    .no-data{
+      .no-data(60rpx);
+    }
+  }
+}
 </style>
 <template>
   <view class="page">
-    <!--頂部-->
-
-    <view class="list admin">
-      <view class="list-item">
-        <view class="admin-name">
-          {{time}} {{ userInfo.nickName }}
+    <view class="card">
+      <view class="card-blur" style="background:url('{{userInfo.avatarUrl}}') no-repeat;background-position:center;background-size: cover;">
+      </view>
+      <view class="card-content">
+        <view class="left column">
+          <view class="user-name">{{time}}，{{userInfo.nickName}}</view>
+          <!-- ！！这里需要后台返回日期 -->
+          <view class="date">2018年9月6日</view>
         </view>
-        <view class="top" style="margin-top: -16rpx">
-          <view class="right" style="padding-left: 32rpx">
-            <view class="one">
-              今日预约：{{ homeInfo.today_number }}单
-            </view>
-            <view class="two">
-              本周预约：{{ homeInfo.week_number }}单
-            </view>
+        <view class="right column">
+          <view class="book-info">
+            <text>今日预约：{{ homeInfo.today_number }}单</text>
+            <text>本周预约：{{ homeInfo.week_number }}单</text>
           </view>
-          <view class="left">
-            <image class="userinfo-avatar" src="" background-size="cover"/>
-          </view>
+          <!-- ！！什么时候显示空闲、火爆和正常的图片？然后红绿黄三张图片我随便截的，缺原切图。 -->
+          <image src="../../images/book/hot.png" class="icon"></image>
         </view>
       </view>
     </view>
-    <tap :activeIndex.sync="activeIndex"></tap>
-    <view class="weui-tab__panel">
-      <view class="weui-tab__content" wx:if="{{ 0 == activeIndex }}" style="padding: 16rpx">
-        <view class="list">
-          <navigator wx:for="{{ orderList }}" wx:key="item" url="/pages/order_detail?order_id={{ item.order_id }}" hover-class="none" class="list-item">
-            <view class="top">
-              <view class="left">
-                <image class="userinfo-avatar" src="{{ item.avatarUrl }}" background-size="cover"/>
-              </view>
-              <view class="right">
-                <view class="one">
-                  {{ item.name }}
-                </view>
-              </view>
-              <view class="right">
-                <view class="one" style="text-align: right;padding-right: 32rpx">
-                  {{ item.car_number }}
-                </view>
-              </view>
-            </view>
-            <view class="foot">
-              <view class="btn">
-                {{ item.time }}
-              </view>
-            </view>
-          </navigator>
-        </view>
+
+    <view class="weui-tab">
+      <!-- 顶部 -->
+      <view class="weui-navbar">
+        <repeat for="{{tabs}}" key="*this">
+          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" @tap="tabClick">
+            <view class="weui-navbar__title">{{item}}</view>
+          </view>
+        </repeat>
+        <view class="weui-navbar__slider" style="left:{{sliderLeft}}px;transform:translateX({{sliderOffset}}px);-webkit-transform:translateX({{sliderOffset}}px);"></view>
       </view>
-      <view class="weui-tab__content" wx:else style="padding: 16rpx">
-        <view class="list">
-          <navigator wx:for="{{ orderList }}" wx:key="item" url="/pages/order_detail?order_id={{ item.order_id }}" hover-class="none" class="list-item">
-            <view class="top">
-              <view class="left">
-                <image class="userinfo-avatar" src="{{ item.avatarUrl }}" background-size="cover"/>
-              </view>
+      <!-- 内容 -->
+      <view class="weui-tab__panel">
+        <view class="weui-tab__content order">
+          <view class="no-data" wx:if="{{ orderList }}">暂无数据</view>
+          <view class="list" wx:else>
+            <navigator class="list-item" wx:for="{{ orderList }}" wx:key="item" url="/pages/order_detail?order_id={{ item.order_id }}" hover-class="none">
+              <image class="avatar" src="{{ item.avatar_url }}"></image>
               <view class="right">
-                <view class="one">
-                  {{ item.name }}
+                <view class="top">  
+                  <view class="name">{{ item.name }}</view>
+                  <view class="time">{{ item.time }}</view>
+                </view>
+
+                <view class="bottom">
+                  <view class="car-num">{{ item.car_number }}</view>
+                  <!-- ！！这里需要后台返回评分 -->
+                  <view class="rate">评分：5</view>
                 </view>
               </view>
-              <view class="right">
-                <view class="one" style="text-align: right;padding-right: 32rpx">
-                  {{ item.car_number }}
-                </view>
-              </view>
-            </view>
-            <view class="foot">
-              <view class="btn">
-                {{ item.time }}
-              </view>
-            </view>
-          </navigator>
+            </navigator>
+          </view>
         </view>
       </view>
     </view>
@@ -177,16 +219,18 @@
 </template>
 
 <script>
-  import wepy from 'wepy'
-  import util from '../utils/util'
-  import Search from '../components/search'
-  import Recharge from '../components/recharge'
-  import {
-    SYSTEM_INFO,
-    SEL_CLASS_CODE
-  } from '../utils/constant';
-  import Tap from '../components/tap'
-  import api from '../api/api'
+import wepy from 'wepy'
+import util from '../utils/util'
+import Search from '../components/search'
+import Recharge from '../components/recharge'
+import {
+  SYSTEM_INFO,
+  SEL_CLASS_CODE
+} from '../utils/constant';
+import Tap from '../components/tap'
+import api from '../api/api'
+
+  const sliderWidth = 50 // 需要设置slider的宽度，用于计算中间位置
   export default class Home extends wepy.page {
     config = {
       navigationBarTitleText: '预约列表'
@@ -198,10 +242,15 @@
     }
 
     data = {
+      tabs:["未完成","已完成"],
+      activeIndex: 0,//激活项
+      sliderOffset: 0,//x轴上转换的值
+      sliderLeft: 0,//距离左边的偏移值
+
       userInfo: {
         nickName: '加载中...'
       },
-      tabs:["未完成","已完成"],
+
       time:"上午好",
 
       orderList: [],
@@ -213,9 +262,7 @@
       employee: {
         name:wepy.getStorageSync('user_info').nickName
       },
-
-      activeIndex: 0
-  }
+    }
 
     computed = {
       now () {
@@ -224,6 +271,12 @@
     }
 
     methods = {
+      async tabClick(e) {
+        this.sliderOffset = e.currentTarget.offsetLeft;
+        this.activeIndex = e.currentTarget.id;
+        this.getorderlist(this.activeIndex);
+        this.$apply();
+      },
       changeCate (e) {
         let code = e.currentTarget.dataset.code;
         this.getTimeList(code);
@@ -242,6 +295,19 @@
       recharge (e) {
         this.recharge_active = 1
       }
+    }
+
+    async getorderlist(type) {
+      //type 0 未完成 1已完成
+      const res = await api.getorderlist({
+        query: {
+          employee_id: wepy.getStorageSync('userid'),
+          order_status:type
+        },
+        method: 'POST'
+      });
+      this.orderList = res.data.data
+      this.$apply()
     }
 
     async getorderoverview (employee_id) {
@@ -288,13 +354,22 @@
     }
 
     async onLoad() {
-      let systemInfo = wx.getStorageSync(SYSTEM_INFO);
-      this.windowHeight = systemInfo.windowHeight;
-      //初始化页面的参数
-      wepy.setStorageSync('activeIndex',0)
+      let that = this;
+      wx.getSystemInfo({
+        success: function (res) {
+          that.sliderLeft = (res.windowWidth / that.tabs.length - sliderWidth) / 2;
+          that.sliderOffset = res.windowWidth / that.tabs.length * that.activeIndex;
+        }
+      });
+
+      // let systemInfo = await wx.getStorageSync(SYSTEM_INFO);
+      // this.windowHeight = systemInfo.windowHeight;
+      // 初始化页面的参数
+      // wepy.setStorageSync('activeIndex',0);
+      // this.$apply()
     }
 
-    async onShow() {
+    async onShow() {  
       if (!wepy.getStorageSync('userid')){
         await this.$parent.getAuth()
         this.userInfo = wepy.getStorageSync('user_info')
@@ -305,8 +380,7 @@
         await this.getorderoverview(wepy.getStorageSync('userid'))
         this.$apply()
       }
+      this.getorderlist(this.activeIndex);
     }
-
-
   }
 </script>

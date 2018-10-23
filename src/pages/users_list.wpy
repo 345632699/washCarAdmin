@@ -1,200 +1,222 @@
 <style lang="less">
-    .page{
-        background: #FFFFFF;
-        color: #FFFFFF;
-        .list{
-            margin-top: 16rpx;
-            .list-item{
-                width:688rpx;
-                background:rgba(255,255,255,1);
-                box-shadow: 0px 2rpx 10rpx 0px rgba(0,0,0,0.5);
-                margin: auto;
-                border-radius: 20rpx;
-                margin-bottom: 16rpx;
-                .top{
-                    display: -webkit-box;
-                    display: -webkit-flex;
-                    display: flex;
-                    -webkit-box-align: center;
-                    -webkit-align-items: center;
-                    align-items: center;
-                    .left{
-                        text-align: center;
-                        width: 80rpx;
-                        height: 80rpx;
-                        padding: 32rpx;
-                        .userinfo-avatar{
-                            width: 100%;
-                            max-height: 100%;
-                            vertical-align: top;
-                            border-radius: 50%;
-                        }
-                    }
-                    .right{
-                        color: red;
-                        -webkit-box-flex: 1;
-                        -webkit-flex: 1;
-                        flex: 1;
-                        min-width: 0;
-                        .one{
-                            width: auto;
-                            overflow: hidden;
-                            text-overflow: ellipsis;
-                            height:40rpx;
-                            font-size:28rpx;
-                            color:#373C38;
-                            line-height:40rpx;
-                        }
-                        .two{
-                            overflow: hidden;
-                            text-overflow: ellipsis;
-                            display: -webkit-box;
-                            -webkit-box-orient: vertical;
-                            -webkit-line-clamp: 2;
-                            height:40rpx;
-                            font-size:28rpx;
-                            color:#373C38;
-                            line-height:40rpx;
-                        }
-                    }
-                }
-                .foot{
-                    padding-left: 144rpx;
-                    margin-top: -16rpx;
-                    padding-bottom: 16rpx;
-                    .btn{
-                        display: inline-block;
-                        height:32rpx;
-                        font-size:28rpx;
-                        color:#373C38;
-                        line-height:32rpx;
-                        width: 192rpx;
-                    }
-                }
-            }
-        }
+@import '../style/common.less'; 
+
+Page,
+.page{
+  .search{
+    width: 698rpx;
+    margin: 20rpx 26rpx 12rpx;
+
+    input{
+      width: 100%;
+      height: 72rpx;
+      text-align: center;
+      border: 2rpx solid #4A4A4A;
+      border-radius: 12rpx;
+      font-size: 24rpx;
+      color: #9B9B9B;
     }
+
+    .placeholder{
+      font-size: 24rpx;
+      color: #9B9B9B;
+    }
+  }
+
+  .list{
+    padding-top: 40rpx;
+
+    .no-data{
+      .no-data(40rpx);
+    }
+
+    .list-item{
+      margin: 0 24rpx 12rpx 26rpx;
+      border-radius: 16rpx;
+      background: #2E2E2E;
+      min-height: 200rpx;
+      .betweenBox;
+      align-items: center;
+      flex-direction: column;
+
+      .top{
+        width: 616rpx;
+        display: flex;
+        align-items: center;
+        margin: 42rpx;
+        margin-bottom: 0;
+
+        .avatar{
+          width: 116rpx;
+          height: 116rpx;
+          margin-right: 40rpx;
+        }
+
+        .right{
+          width: 500rpx;
+          .betweenBox;
+          align-items: center;
+
+          .name{
+            .one{
+              color: #FAFAFA;
+              font-size: 32rpx;
+              line-height: 44rpx;
+              margin-bottom: 12rpx;
+            }
+
+            .two{
+              color: #9B9B9B;
+              font-size: 28rpx;
+              line-height: 40rpx;
+            }
+          }
+
+          image{
+            width: 67rpx;
+            height: 67rpx;
+          }
+        }
+      }
+
+      .foot{
+        width: 616rpx;
+        margin: 30rpx 36rpx 0;
+        border-top: 2rpx solid #4A4A4A;
+        display:flex;
+        justify-content: space-around;
+        align-items: center;
+
+        .btn{
+          width: 308rpx;
+          color: #FFFFFF;
+          font-size: 24rpx;
+          line-height: 34rpx;
+          margin:28rpx 0;
+          text-align:center;
+
+          &:first-child{
+            border-right: 2rpx solid #4A4A4A;
+          }
+        }
+      }
+    }
+  }
+}
 </style>
 <template>
-    <view class="page">
-        <!--頂部-->
-        <!--<search></search>-->
-        <view class="list">
-            <view class="list-item" wx:for="{{ user_list }}" wx:key="item">
-                <view class="top">
-                    <view class="left">
-                        <image class="userinfo-avatar" src="{{ item.avatarUrl }}" background-size="cover"/>
-                    </view>
-                    <view class="right">
-                        <view class="one">
-                            {{ item.username }} {{ item.vip_name  ?  ( item.vip_name ) : "" }}
-                        </view>
-                        <view class="two">
-                            账户余额: ¥ {{ item.balance }}
-                        </view>
-                    </view>
-                </view>
-                <view class="foot" wx:if="{{ is_root }}">
-                    <view class="btn" data-id="{{ item.user_id }}" data-username="{{ item.username }}" @tap="recharge">
-                        设置余额
-                    </view>
-                    <view class="btn" data-id="{{ item.user_id }}" data-username="{{ item.username }}" @tap="vipChange">
-                        设置会员等級
-                    </view>
-                </view>
-            </view>
-        </view>
+  <view class="page">
+    <view class="search">
+      <input bindconfirm="searchInfo" confirm-type="搜索" placeholder="请输入用户名/微信号等信息" placeholder-class="placeholder"/>
     </view>
-    <recharge :recharge_active.sync="recharge_active" :username.sync="selectUserName" :user_id.sync="selectUserId"></recharge>
-    <vip :vip_active.sync="vip_active" :username.sync="selectUserName" :user_id.sync="selectUserId"></vip>
+    <view class="list">
+      <view class="no-data" wx:if="{{!user_list.length}}">暂无数据</view>
+      <view class="list-item" wx:for="{{ user_list }}" wx:key="item">
+        <view class="top">
+          <image class="avatar" src="../images/mine/shopkeeper.png" />
+          <view class="right">
+            <view class="name">
+              <view class="one">{{ item.username }}</view>
+              <view class="two">余额：{{ item.balance }}元</view>
+            </view>
+            <image src="../images/user/user.png" />
+          </view>
+        </view>
+        <view class="foot">
+          <view data-id="{{ item.user_id }}" data-username="{{ item.username }}" @tap="recharge" class="btn">账户充值</view>
+          <view class="btn" data-id="{{ item.user_id }}" data-username="{{ item.username }}" @tap="vipChange">设置会员等级</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <recharge :recharge_active.sync="recharge_active" :username.sync="selectUserName" :user_id.sync="selectUserId"></recharge>
+  <vip :vip_active.sync="vip_active" :username.sync="selectUserName" :user_id.sync="selectUserId"></vip>
 </template>
 
 <script>
-  import wepy from 'wepy'
-  import util from '../utils/util'
-  import Search from '../components/search'
-  import Recharge from '../components/recharge'
-  import VipAlert from '../components/vipAlert'
-  import {
-    SYSTEM_INFO,
-    SEL_CLASS_CODE
-  } from '../utils/constant';
-  import api from '../api/api'
-  import tip from '../utils/tip'
-  export default class UsersList extends wepy.page {
-    config = {
-      navigationBarTitleText: '用户列表'
-    }
-    components = {
-      search:Search,
-      recharge:Recharge,
-      vip:VipAlert,
-    }
-
-    data = {
-      mynum: 20,
-      userInfo: {
-        nickName: '加载中...'
-      },
-      count: 0,
-      recharge_active: 0,
-      vip_active: 0,
-      employee_id: 0,
-      user_list:[],
-      selectUserId:0,
-      selectUserName:'',
-      is_root:0
-    }
-
-    computed = {
-      now () {
-        return +new Date()
-      }
-    }
-
-    methods = {
-      recharge (e) {
-        this.selectUserId = e.currentTarget.dataset.id
-        this.recharge_active = 1
-        this.selectUserName = e.currentTarget.dataset.username
-      },
-      vipChange (e) {
-        this.selectUserId = e.currentTarget.dataset.id
-        this.vip_active = 1
-        this.selectUserName = e.currentTarget.dataset.username
-      }
-    }
-
-    events = {
-      'updateUserList': async () => {
-        await this.getuserlist(wepy.getStorageSync("userid"))
-        tip.success("充值成功")
-      }
-    }
-
-    async getuserlist (employee_id) {
-      const res = await api.getuserlist({
-        query: {
-          employee_id: employee_id,
-        },
-        method: 'POST'
-      });
-      this.user_list = res.data.data
-      this.$apply()
-    }
-
-    async onLoad() {
-      let self = this
-      self.userInfo = wepy.getStorageSync('user_info')
-    }
-
-    async onShow() {
-      this.employee_id = wepy.getStorageSync('userid')
-      this.is_root = wepy.getStorageSync('is_root')
-      await this.getuserlist(this.employee_id)
-      this.$apply()
-    }
-
-
+import wepy from 'wepy'
+import util from '../utils/util'
+import Search from '../components/search'
+import Recharge from '../components/recharge'
+import VipAlert from '../components/vipAlert'
+import {
+  SYSTEM_INFO,
+  SEL_CLASS_CODE
+} from '../utils/constant';
+import api from '../api/api'
+import tip from '../utils/tip'
+export default class UsersList extends wepy.page {
+  config = {
+    navigationBarTitleText: '用户列表'
   }
+  components = {
+    search:Search,
+    recharge:Recharge,
+    vip:VipAlert,
+  }
+
+  data = {
+    mynum: 20,
+    userInfo: {
+      nickName: '加载中...'
+    },
+    count: 0,
+    recharge_active: 0,
+    vip_active: 0,
+    employee_id: 0,
+    user_list:[],
+    selectUserId:0,
+    selectUserName:'',
+    is_root:0
+  }
+
+  computed = {
+    now () {
+      return +new Date()
+    }
+  }
+
+  methods = {
+    recharge (e) {
+      this.selectUserId = e.currentTarget.dataset.id
+      this.recharge_active = 1
+      this.selectUserName = e.currentTarget.dataset.username
+    },
+    vipChange (e) {
+      this.selectUserId = e.currentTarget.dataset.id
+      this.vip_active = 1
+      this.selectUserName = e.currentTarget.dataset.username
+    }
+  }
+
+  events = {
+    'updateUserList': async () => {
+      await this.getuserlist(wepy.getStorageSync("userid"))
+      tip.success("充值成功")
+    }
+  }
+
+  async getuserlist (employee_id) {
+    const res = await api.getuserlist({
+      query: {
+        employee_id: employee_id,
+      },
+      method: 'POST'
+    });
+    this.user_list = res.data.data
+    this.$apply()
+  }
+
+  async onLoad() {
+    let self = this
+    self.userInfo = wepy.getStorageSync('user_info')
+  }
+
+  async onShow() {
+    this.employee_id = wepy.getStorageSync('userid')
+    this.is_root = wepy.getStorageSync('is_root')
+    await this.getuserlist(this.employee_id)
+    this.$apply()
+  }
+}
 </script>

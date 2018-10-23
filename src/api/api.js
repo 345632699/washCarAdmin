@@ -7,7 +7,6 @@ let env = "-test" //-dev 或者 -test
 // const apiMall = 'https://wx.cy1993.cn/cy1993_app/merchant/'
 const api = 'https://test.cy1993.cn/cy1993_app/'
 const apiMall = 'https://test.cy1993.cn/cy1993_app/merchant/'
-// const apiMall = 'http://localhost:8080/'
 //appid = "wx234f1e50c0aeb853"
 //secret = "64336a6964d9f53d6dc31c26fdea970c"
 const login = (params) => wxRequest(params, api + "login/");

@@ -1,387 +1,447 @@
 <style lang="less">
-    page {
-        background-color: #FFFFFF;
-        height: 100%;
-    }
-    .page__hd{
-        padding: 50rpx 50rpx 100rpx 50rpx;
-        text-align: center;
-        font-size: 24rpx;
-        background-color: #FFFFFF;
-    }
-    .page__title{
-        display: inline-block;
-        padding: 20rpx 40rpx;
-        font-size: 24rpx;
-        color: #AAAAAA;
-        border-bottom: 1px solid #CCCCCC;
-    }
-    .page__desc{
-        display: none;
-        margin-top: 20rpx;
-        font-size: 24rpx;
-        color: #BBBBBB;
-    }
-    .section{
-        margin-bottom: 80rpx;
-    }
-    .section__title{
-        margin-bottom: 16rpx;
-        padding-left: 30rpx;
-        padding-right: 30rpx;
-    }
-    .picker{
-        background-color: #FFFFFF;
-    }
-    .weui-cells{
-        padding-left: 30rpx;
-        padding-right: 30rpx;
-        padding-top: 16rpx;
-        &:after {
-            margin-right:48rpx;
-            margin-left: 48rpx;
-        }
-        &.last{
-            &:after {
-                display: none;
-            }
-        }
-        .weui-btn{
-            &.mybtn{
-                border:none;
-                margin:0 32rpx 0 32rpx;
-                background: #373C38;
-                border-radius: 1.5rem;
-                height:72rpx;
-                font-size:28rpx;
-                color:rgba(255,255,255,1);
-                line-height:72rpx;
-                width: 610rpx;
-                margin: auto;
-                margin-bottom: 32rpx;
-            }
-        }
-        .img{
-            display: inline-block;
-            padding-left: 32rpx;
+@import '../style/common.less';
+
+.page {
+  .identify-content {
+    .centerBox;
+    flex-direction: column;
+    margin: 60rpx 24rpx;
+    border-radius: 12rpx;
+    background: #2E2E2E;
+    box-shadow: 0 4rpx 8rpx 0 rgba(0, 0, 0, 0.5);
+
+    .info-cell {
+      width: 628rpx;
+      margin: 46rpx 36rpx 0;
+      padding-bottom: 14rpx;
+      .betweenBox;
+      align-items: center;
+      border-bottom: 2rpx solid #4A4A4A;
+
+      .cell-left {
+        .betweenBox;
+
+        .cell-icon {
+          width: 65rpx;
+          height: 65rpx;
+          margin-right: 27rpx;
         }
 
-    }
-    .weui-cell{
-        padding-top: 32rpx;
-        padding-bottom: 0;
-        font-size: 24rpx;
-        line-height: 24rpx;
-        &.money{
-            &:before {
-                display: none;
-            }
-        }
-        &.input-text{
-            padding-bottom: 32rpx;
-            padding-top: 16rpx;
-            color:rgba(0,0,0,0.38);
-            &:before {
-                display: none;
-            }
-            .weui-flex__item{
-                .size78{
-                    height: 156rpx;
-                    width: 95%;
-                    padding-left: 10rpx;
-                }
-            }
-        }
-        .carNum{
-            font-size: 24rpx;
-            &.weui-select{
-                border: none;
-                padding-right:1.8rem;
-                color: #B1B4B2;
-                margin-top: -1.3rem;
-                text-align: right;
-            }
-        }
-        .weui-cell__bd{
+        .cell-input {
+          .title {
             font-size: 32rpx;
-            line-height: 32rpx;
-            margin-right: 20rpx;
-            &.font14{
-                font-size: 28rpx;
-                height: 36rpx;
-                line-height: 36rpx;
-            }
+            line-height: 44rpx;
+            color: @txtColor;
+          }
+
+          .placeholder{
+            font-size: 24rpx;
+            color: #9B9B9B;
+          }
+
+          input{
+            font-size: 24rpx;
+            color: #9B9B9B;
+          }
+        }
+      }
+
+      .cell-right {
+        .betweenBox;
+        align-items: center;
+        padding-right: 6rpx;
+
+        .gender {
+          .betweenBox;
+          flex-direction: column;
+          margin: 0 6rpx 0 30rpx;
+
+          image{
+            width: 66rpx;
+            height: 66rpx;
+            margin-bottom: 6rpx;
+          }
+
+          .sex{
+            font-size: 18rpx;
+            line-height: 26rpx;
+            color: #9B9B9B;
+            text-align: center;
+          }
+        }
+      }
+    }
+
+    .column-cell {
+      width: 628rpx;
+      border-bottom: 2rpx solid #4A4A4A;
+      min-height: 114rpx;
+      margin: 46rpx 36rpx 0;
+
+      .cell-top {
+        border: 0;
+        margin: 0;
+        padding-bottom: 12rpx;
+
+        .cell-input{
+          padding-top: 6rpx;
         }
 
-    }
-    .font-gray{
-        color: #B1B4B2;
-    }
-    .font-red{
-        color: #E64340;
-    }
-    .img-format{
-        margin-right: 5px;
-        vertical-align: middle;
-        width:32rpx;
-        height: 32rpx;
-    }
-    .margin-format{
-        margin-top: -5px;
-    }
-    .right{
-        padding-top: 7rpx;padding-left: 4rpx;
-    }
-    .text-format{
-        overflow:hidden;
-        text-overflow:ellipsis;
-        white-space:nowrap;
-    }
-    .weui-api-dialog__hd{
-        border: 1px solid red;
-        background: red;
-        color:rgba(0,0,0,0.87);
-    }
-    .brightGrey{
-        color:rgba(0,0,0,0.38);
-    }
+        .cell-right{
+         .centerBox;
 
-    .brightMask{
-        .pre{
-            position: fixed;
-            top:25%;
-            left: 0rpx;
+          text {
+            font-size: 24rpx;
+            line-height: 34rpx;
+            color: #9B9B9B;
+          }
+
+          image {
+            width: 28rpx;
+            height: 28rpx;
+            margin-left: 32rpx;
+          }
+
+          .rotation {
+            .rotate(-90deg);
+          }
+
+          .set-admin {
+            width: 99rpx;
+            height: 60rpx;
+          }
         }
-        .next{
-            position: fixed;
-            top:25%;
-            right: 0rpx;
+      }
+
+      .cell-bottom {
+        margin: 0 18rpx 54rpx 0;
+        min-height: 60rpx;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: space-between;
+        justify-content: space-between;
+
+        .no-data {
+          width: 100%;
+          .no-data();
         }
+
+        .select-item {
+          .centerBox;
+          width: 280rpx;
+          height: 56rpx;
+          margin-top:18rpx;
+          border: 2rpx solid #9B9B9B;
+          border-radius: 12rpx;
+          font-size: 24rpx;
+          color: @titleColor;
+        }
+
+        .item-active {
+          background: @normalBtnBgColor  !important;
+          border-color: @normalBtnBgColor  !important;
+        }
+      }
     }
+  }
+
+  .btn{
+    .longBtn(@normalBtnBgColor,@normalBtnBorderColor);
+    line-height: 80rpx;
+    height: 80rpx;
+    width: 610rpx;
+    margin: 60rpx 0;
+  }
+}
 
 </style>
 <template>
-    <view class="page">
-        <!--頂部-->
-        <scroll-view scroll-y scroll-with-animation="true" class="page__bd" >
-            <view class="weui-cells weui-cells_after-title">
-                <view class="weui-cell">
-                    <view class="weui-cell__hd">
-                        <image class="img-format" src="../images/all/fingerprint@2x.png" ></image>
-                    </view>
-                    <view class="weui-cell__bd">基本信息</view>
-                </view>
-                <view class="weui-cell input-text" style="margin-top: -12rpx;padding-bottom: 5px">
-                    <view class="weui-cell__hd margin-format" style="padding-top: 7rpx;padding-left: 4rpx">
-                        <image class="img-format" style="width: 15rpx;height: 15rpx;padding: 8rpx;" src="" ></image>
-                    </view>
-                    <view style="width: 30%" >
-                        <input @input="changeName"  value="{{ employee.real_name }}" placeholder="请输入姓名" />
-                    </view>
+  <view class="page">
+    <view class="identify-content">
+      <!-- 基本信息 -->
+      <view class="info-cell">
+        <view class="cell-left">
+          <image src="../images/mine/user.png" class="cell-icon"></image>
+          <view class="cell-input">
+            <view class="title">基本信息</view>
+            <input @tap="changeName" placeholder="请输入姓名" maxlength="8" placeholder-class="placeholder" />
+          </view>
+        </view>
+        <view class="cell-right">
+          <repeat for="{{sexOption}}" key="index" item="item">
+            <view class="gender" @tap="bindSexChange" id="{{index}}">
+              <image src="{{(sexIndex == index+1) ? item.selPic : item.pic}}"></image>
+              <text class="sex">{{item.sex}}</text>
+            </view>
+          </repeat>
+        </view>
+      </view>
 
-                    <view class="weui-cell__hd margin-format right">
-                        <image class="img-format" style="width: 15rpx;height: 15rpx;padding: 8rpx;" src="../images/all/down.svg" ></image>
-                    </view>
-                    <view style="padding-left: 0;width: 80%">
-                        <picker @change="bindSexChange" value="{{sexIndex}}" range="{{sexList}}">
-                            <view class="picker">
-                                {{ employee.sex }}
-                            </view>
-                        </picker>
-                    </view>
-                </view>
-            </view>
+      <!-- 联系电话 -->
+      <vlew class="info-cell">
+        <view class="cell-left">
+          <image src="../images/mine/phone.png" class="cell-icon"></image>
+          <view class="cell-input">
+            <view class="title">联系电话</view>
+            <input @tap="changePhone" type="number" maxlength="11" placeholder="请输入手机号码" placeholder-class="placeholder" />
+          </view>
+        </view>
+      </vlew>
 
-            <view class="weui-cells weui-cells_after-title">
-                <view class="weui-cell">
-                    <view class="weui-cell__hd">
-                        <image class="img-format" src="../images/all/phone@2x.png" ></image>
-                    </view>
-                    <view class="weui-cell__bd">手机号码</view>
-                </view>
-                <view class="weui-cell input-text" >
-                    <view class="weui-cell__hd margin-format">
-                        <image class="img-format"></image>
-                    </view>
-                    <view>
-                        <input style="height: 16rpx" @input="changePhone" maxlength="11" value="{{ employee.phone_number }}" placeholder="请输入手机号" />
-                    </view>
-                </view>
+      <!-- 工作门店 -->
+      <view class="column-cell" wx:if="{{target == 1}}">
+        <vlew class="cell-top info-cell">
+          <view class="cell-left">
+            <image src="../images/mine/area.png" class="cell-icon"></image>
+            <view class="cell-input">
+              <view class="title">工作门店</view>
             </view>
+          </view>
+          <view class="cell-right" @tap="activeSelect">
+            <text wx:if="{{branchIndex == -1}}">请选择</text>
+            <text wx:else>{{branchList[branchIndex].branch_name}}</text>
+            <image class="{{activeSelect?'':'rotation'}}" src="../images/triangle.png"></image>
+          </view>
+        </vlew>
+        <view class="cell-bottom" wx:if="{{activeSelect}}" >
+          <block wx:if="{{branchList}}">
+            <repeat for="{{branchList}}" item="listItem" key="index">
+              <view id="{{index}}" class="select-item {{branchIndex==index?'item-active':''}}" @tap="bindBranchChange">
+                <text>{{listItem.branch_name}}</text>
+              </view>
+            </repeat>
+          </block>
+          <view class="no-data" wx:else>
+            <text>-- 无数据 --</text>
+          </view>
+        </view>
+      </view>
 
-            <view class="weui-cells weui-cells_after-title">
-                <view class="weui-cell">
-                    <view class="weui-cell__hd">
-                        <image class="img-format" src="../images/all/car@2x.png" ></image>
-                    </view>
-                    <view class="weui-cell__bd">工作分店</view>
-                </view>
-                <view class="weui-cell input-text">
-                    <view class="weui-cell__hd">
-                        <image class="img-format" src="" ></image>
-                    </view>
-                    <view class="brightGrey">{{ branch.branch_name }}</view>
-                    <view class="weui-cell__bd">
-                        <picker @change="bindBranchChange" value="{{ branchIndex }}" range="{{ branchList }}">
-                            <view class="carNum weui-select"></view>
-                        </picker>
-                    </view>
-                </view>
+      <!-- ！！这里需要后台返回职位种类 -->
+      <!-- 工作职位 -->
+      <view class="column-cell" wx:if="{{target == 2}}">
+        <vlew class="cell-top info-cell">
+          <view class="cell-left">
+            <image src="../images/mine/work.png" class="cell-icon"></image>
+            <view class="cell-input">
+              <view class="title">工作职位</view>
             </view>
+          </view>
+          <view class="cell-right" @tap="activeSelect">
+            <text wx:if="{{jobIndex == -1}}">请选择</text>
+            <text wx:else>{{jobList[jobIndex]}}</text>
+            <image class="{{activeSelect?'':'rotation'}}" src="../images/triangle.png"></image>
+          </view>
+        </vlew>
+        <view class="cell-bottom" wx:if="{{activeSelect}}" >
+          <block wx:if="{{jobList}}">
+            <repeat for="{{jobList}}" item="listItem" key="index">
+              <view id="{{index}}" class="select-item {{jobIndex==index?'item-active':''}}" @tap="bindJobChange">
+                <text>{{listItem}}</text>
+              </view>
+            </repeat>
+          </block>
+          <view class="no-data" wx:else>
+            <text>-- 无数据 --</text>
+          </view>
+        </view>
+      </view>
 
-            <view class="weui-cells weui-cells_after-title" style="padding-bottom: 32rpx">
-                <view class="weui-cell">
-                    <view class="weui-cell__hd">
-                        <image class="img-format" src="" ></image>
-                    </view>
-                    <view class="weui-cell__bd">设为管理员</view>
-                    <view class="weui-cell__ft">
-                        <switch checked @change="setAdmin"></switch>
-                    </view>
-                </view>
+      <!-- 设置管理员 -->
+      <view class="column-cell" wx:if="{{target == 2}}">
+        <vlew class="cell-top info-cell">
+          <view class="cell-left">
+            <image src="../images/mine/fingerprint.png" class="cell-icon"></image>
+            <view class="cell-input">
+              <view class="title">设置为管理员</view>
             </view>
-            
-            <view class="weui-cells weui-cells_after-title last" style="padding-top: 64rpx;padding-bottom: 100px;">
-                <button class="weui-btn mybtn" type="primary" plain="true" @tap="validate">身份认证</button>
-            </view>
-        </scroll-view>
+          </view>
+          <view class="cell-right" @tap="setAdmin">
+            <!-- ！！开关图片我随便选的，记得放原切图(￣▽￣) -->
+            <image class="set-admin" src="{{adminFlag ? '../images/mine/female_selected.png' : '../images/mine/female.png'}}"></image>
+          </view>
+        </vlew>
+      </view>
+
+      <button class="btn" @tap="validate">{{target == 1 ?'验证身份' : '确定修改'}}</button>
     </view>
+  </view>
 </template>
-
 <script>
-  import wepy from 'wepy'
-  import util from '../utils/util'
-  import tip from '../utils/tip'
-  import {
-    SYSTEM_INFO,
-    SEL_CLASS_CODE
-  } from '../utils/constant';
-  import Alert from '../components/myAlert'
-  import api from "../api/api"
-  export default class Identify extends wepy.page {
-    config = {
-      navigationBarTitleText: '身份验证'
+import wepy from 'wepy'
+import util from '../utils/util'
+import tip from '../utils/tip'
+import {
+  SYSTEM_INFO,
+  SEL_CLASS_CODE
+} from '../utils/constant';
+import Alert from '../components/myAlert'
+import api from "../api/api"
+export default class Identify extends wepy.page {
+  config = {
+    navigationBarTitleText: '加载中..'
+  }
+
+  components = {
+    alert: Alert
+  }
+
+  data = {
+    target: 1,
+    sexList: ['未知', '男', '女'],
+    sexIndex: 0,
+    branchList: ['未选择分店'],
+    branchIndex: -1,
+    //门店信息
+    branch: {
+      name: "请选择分店"
+    },
+    //员工信息
+    employee: {},
+
+    employee_id: 0,
+    branch_id: 0,
+    is_root: 1,
+    //--------------------------------
+    sexOption: [{
+      pic: "../images/mine/male.png",
+      selPic: "../images/mine/male_selected.png",
+      sex: "男"
+    },
+    {
+      pic: "../images/mine/female.png",
+      selPic: "../images/mine/female_selected.png",
+      sex: "女"
     }
-    components = {
-      alert:Alert
-    }
-    data = {
-      sexList: ['未知','男','女'],
-      sexIndex: 0,
-      branchList:['未选择分店'],
-      branchIndex: 0,
-      //门店信息
-      branch: {
-        name: "请选择分店"
-      },
-      //员工信息
-      employee:{
-        name: '',
-        sex:'请选择性别',
-      },
+    ],
+    activeSelect: false,
+    jobIndex: -1,
+    //这里要赋值职位信息
+    jobList:['职位一','职位二','职位三'],
+    adminFlag: true,
+    //--------------------------------
+  }
 
-      branchListResource:[],
-
-      employee_id:0,
-      branch_id: 0,
-      is_root:1,
-    }
-
-
-    methods = {
-      bindSexChange (e) {
-        this.sexIndex = e.detail.value
-        this.employee.sex = this.sexList[this.sexIndex]
-        this.$apply()
-      },
-      async bindBranchChange (e) {
-        this.branchIndex = e.detail.value
-        this.branch.branch_name = this.branchList[this.branchIndex]
-        this.branch_id = this.branchListResource[this.branchIndex].branch_id
-        this.$apply()
-      },
-      async validate () {
-        const res = await api.updatestaffinfo({
-          query: {
-            employee_id: parseInt(this.employee_id),
-            gender: parseInt(this.sexIndex),
-            phone_number: parseInt(this.employee.phone_number),
-            branch_id: parseInt(this.branch_id),
-            name: this.employee.real_name,
-            is_root: parseInt(this.is_root) ,
-          },
-          method: 'POST'
-        });
-        if (res.data.status){
-          wx.navigateBack({ changed: true });
-          tip.success("更新成功")
-        }
-      },
-      setAdmin (e) {
-        console.log(e.detail.value)
-        if (e.detail.value){
-          this.is_root =  1
-        }else{
-          this.is_root =  0
-        }
-        this.$apply()
-      },
-      changeName (e) {
-        this.employee.real_name = e.detail.value
-        this.$apply()
-      },
-      changePhone (e) {
-        this.employee.phone_number = e.detail.value
-        this.$apply()
-      }
-    }
-
-
-    async getbranchlist () {
-      const res = await api.getbranchlist({
+  methods = {
+    //--------------------------------
+    // 下拉框收合
+    activeSelect() {
+      this.activeSelect = !this.activeSelect;
+      this.$apply()
+    },
+    bindJobChange(e) {
+      this.jobIndex = e.currentTarget.id;
+      this.$apply()
+    },
+    setAdmin() {
+      this.adminFlag = !this.adminFlag;
+      this.is_root = Number(this.adminFlag);
+      this.$apply()
+    },
+    //--------------------------------
+    bindSexChange(e) {
+      let index = e.currentTarget.id;
+      console.log('index', index);
+      console.log('sel', Number(index) + 1);
+      this.sexIndex = Number(index) + 1;
+      this.employee.sex = this.sexOption[index].sex;
+      this.$apply()
+    },
+    async bindBranchChange(e) {
+      this.branchIndex = e.currentTarget.id;
+      this.branch.branch_name = this.branchList[this.branchIndex].branch_name
+      this.branch_id = this.branchList[this.branchIndex].branch_id
+      this.$apply()
+    },
+    async validate() {
+      const res = await api.updatestaffinfo({
         query: {
-          merchant_id: wepy.getStorageSync("merchant_id"),
+          employee_id: parseInt(this.employee_id),
+          gender: parseInt(this.sexIndex),
+          phone_number: parseInt(this.employee.phone_number),
+          branch_id: parseInt(this.branch_id),
+          name: this.employee.real_name,
+          is_root: parseInt(this.is_root),
         },
         method: 'POST'
       });
-      this.branchListResource = res.data.data
-      for (let p in res.data.data){
-        this.branchList[p] = res.data.data[p].branch_name
+      if (res.data.status) {
+        wx.navigateBack({ changed: true });
+        tip.success("更新成功")
       }
+    },
+    // setAdmin(e) {
+    //   console.log(e.detail.value)
+    //   if (e.detail.value) {
+    //     this.is_root = 1
+    //   } else {
+    //     this.is_root = 0
+    //   }
+    //   this.$apply()
+    // },
+    changeName(e) {
+      this.employee.real_name = e.detail.value
       this.$apply()
-
-    }
-
-    async getstaffinfo(employee_id) {
-      const res = await api.getstaffinfo({
-        query: {
-          employee_id: employee_id,
-        },
-        method: 'POST'
-      });
-      this.employee = res.data.data[0]
-      if (this.employee.gender == 0){
-        this.employee.sex = "未知"
-        this.sexIndex = 0
-      }else if((this.employee.gender == 1)){
-        this.employee.sex = "男"
-        this.sexIndex = 1
-      }else{
-        this.employee.sex = "女"
-        this.sexIndex = 2
-      }
-      this.branch = this.employee.branch_list[0]
-      this.branch_id = this.branch.branch_id
-      this.$apply()
-
-    }
-
-    async onLoad(option) {
-      let employee_id = option.employee_id
-      this.employee_id = employee_id
-      await this.getstaffinfo(employee_id)
-      await this.getbranchlist()
+    },
+    changePhone(e) {
+      this.employee.phone_number = e.detail.value
       this.$apply()
     }
   }
+
+  async getbranchlist() {
+    const res = await api.getbranchlist({
+      query: {
+        merchant_id: wepy.getStorageSync("merchant_id"),
+      },
+      method: 'POST'
+    });
+    this.branchList = res.data.data
+    this.$apply()
+  }
+
+  async getstaffinfo(employee_id) {
+    const res = await api.getstaffinfo({
+      query: {
+        employee_id: employee_id,
+      },
+      method: 'POST'
+    });
+    this.employee = res.data.data[0]
+    if (this.employee.gender == 0) {
+      this.employee.sex = "未知"
+      this.sexIndex = 0
+    } else if ((this.employee.gender == 1)) {
+      this.employee.sex = "男"
+      this.sexIndex = 1
+    } else {
+      this.employee.sex = "女"
+      this.sexIndex = 2
+    }
+    this.branch = this.employee.branch_list[0]
+    if(this.branch){
+      this.branch_id = this.branch.branch_id;
+    }
+    this.$apply()
+  }
+
+  async onLoad(option) {
+    this.target = option.target;
+    if(this.target == 1){
+      wx.setNavigationBarTitle({
+        title: '身份认证'
+      });
+    }
+    if(this.target == 2){
+      wx.setNavigationBarTitle({
+        title: '修改资料'
+      });
+    }
+    let employee_id = option.employee_id
+    this.employee_id = employee_id
+    await this.getstaffinfo(employee_id)
+    await this.getbranchlist()
+    this.$apply()
+  }
+}
 </script>

@@ -1,278 +1,199 @@
 <style type="less">
-    .wepy-api-dialog_bind{
-        .wepy-api-dialog__mask_bind{
-            position: fixed;
-            z-index: 1000;
-            top: 0;
-            right: 0;
-            left: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.6);
-        }
-        .wepy-api-dialog__main_bind{
-            position: fixed;
-            z-index: 5000;
-            max-width: 560rpx;
-            width: 560rpx;
-            top: 50%;
-            left: 50%;
-            -webkit-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
-            background:#FFFFFF;
-            text-align: center;
-            overflow: hidden;
-            border-radius: 32rpx;
-            font-weight: bold;
-            .wepy-api-dialog__hd_bind{
-                padding:48rpx;
-                padding-bottom: 16rpx;
-                text-align: left;
-                .wepy-api-dialog__title_bind{
-                    width:496rpx;
-                    font-size: 32rpx;
-                    height:56rpx;
-                    color:rgba(0,0,0,0.6);
-                    line-height:56rpx;
-                }
-            }
-            .weui-cell{
-                &.weui_bind{
-                    height: 110rpx;
-                    padding-top: 0;
-                    padding-bottom: 0;
-                    .weui-cell__bd{
-                        text-align: left;
-                        padding-left: 32rpx;
-                        font-size: 28rpx;
-                        color:rgba(0,0,0,0.87);
-                    }
-                }
-            }
-            .main{
-                .font-red{
-                    font-size: 24rpx;
-                    height:32rpx;
-                    color:rgba(176,0,32,1);
-                    line-height:32rpx;
-                    text-align: left;
-                    padding-left: 48rpx;
-                    padding-bottom: 16rpx;
-                }
-                .mobile{
-                    width:464rpx;
-                    height: 88rpx;
-                    border-radius:8rpx;
-                    border:2rpx solid rgba(25,25,25,0.32);
-                    margin: auto;
-                    margin-top: 32rpx;
-                    margin-bottom: 16rpx;
-                    font-size: 28rox;
-                    .number{
-                        display: inline-block;
-                        font-size: 28rpx;
-                        width: 256rpx;
-                        height: 88rpx;
-                        line-height: 88rpx;
-                        text-align: left;
-                    }
-                    .doSend{
-                        display: inline-block;
-                        font-size: 28rpx;
-                        height: 88rpx;
-                        line-height: 88rpx;
-                        position: relative;
-                        top:-34rpx;
-                    }
-                }
+@import '../style/common.less';
 
-                .selectOption{
-                    .number{
-                        width:464rpx;
-                        height:88rpx;
-                        border-radius:8rpx;
-                        border:1px solid rgba(25,25,25,0.32);
-                        line-height: 88rpx;
-                        margin-left: 40rpx;
-                        font-weight: normal;
-                    }
-                }
+.wepy-api-dialog_bind{
+  .wepy-api-dialog__mask_bind{
+    .mask;
+  }
 
-                .code{
-                    width:464rpx;
-                    height: 112rpx;
-                    border-radius:8rpx;
-                    border:2rpx solid rgba(25,25,25,0.32);
-                    margin: auto;
-                    margin-bottom: 16rpx;
-                    .number{
-                        display: inline-block;
-                        font-size: 32rpx;
-                        height: 112rpx;
-                        line-height: 112rpx;
-                        text-align: left;
-                        color:rgba(0,0,0,0.87);
-                    }
-                    .icon_down{
-                        width: 30rpx;
-                        height: 30rpx;
-                    }
-                }
-            }
-            .foot{
-                width:464rpx;
-                margin: auto;
-                margin-top: 32rpx;
-                margin-bottom: 16rpx;
-                .btn{
-                    display: inline-block;
-                    width: 192rpx;
-                    height: 72rpx;
-                    line-height: 72rpx;
-                    font-size: 32rpx;
-                    text-align: right;
-                }
-            }
-        }
-    }
-    .icon_down{
-        width: 20rpx;
-        height: 20rpx;
-        float: right;
-        position: relative;
-        top:32rpx;
-        margin-right: 16rpx;
-    }
-</style>
-<template>
-    <view class="wepy-api-dialog_bind" wx:if="{{ vip_active }}">
-        <view class="wepy-api-dialog__mask_bind" @tap="hide"></view>
-        <view class="wepy-api-dialog__main_bind">
-            <view class="wepy-api-dialog__hd_bind">
-                <view class="wepy-api-dialog__title_bind">
-                    为用户：{{ username }} 设置会员等级
-                </view>
-            </view>
-            <view class="main">
-                <view class="font-red">*请确认好选择的等级</view>
-                <!--<view class="code">-->
-                    <!--<input type="number" maxlength="4" placeholder="请输入充值金额" class="number" value="{{ code }}" />-->
-                <!--</view>-->
-                <picker class="selectOption" @change="changeVip" value="{{ vipIndex }}" range="{{ vipList }}">
-                    <view class="number">
-                        {{ vipName }}
-                        <image class="icon_down" src="../images/order/down.svg"></image>
-                    </view>
-                </picker>
-            </view>
-            <view class="foot">
-                <view class="btn" @tap="comfirmRecharge">
-                    确认
-                </view>
-                <view class="btn" @tap="hide">
-                    取消
-                </view>
-            </view>
-        </view>
-    </view>
-</template>
-<script>
-  import wepy from 'wepy'
-  import tip from '../utils/tip'
-  import api from '../api/api'
+  .wepy-api-dialog__main_bind{
+    .dialogBox;
 
-  export default class VipAlert extends wepy.component {
+    .wepy-api-dialog__hd_bind{
+      padding-bottom: 34rpx !important;
+      .dialogBoxHead;
 
-    data = {
-      vipList: [],
-      vipIndex:0,
-      vipName: "请选择会员等级"
-
+      .wepy-api-dialog__title_bind{
+        .dialogBoxTitle;
+      }
     }
 
-    props = {
-      // 静态传值
-      title: {
-        type:String,
-        default: ''
-      },
-
-      msg: {
-        type:String,
-        default: ''
-      },
-
-      // 父向子单向动态传值
-      vip_active: {
-        type: Number,
-        default: 0,
-        twoWay: true
-      },
-
-      user_id: {
-        type: Number,
-        default: 0
-      },
-
-      username: {
-        type:String,
-        default:"游客",
-      },
-
-      confirmText: {
-        type:String,
-        default: '確認'
-      },
-      vipListResource:[],
-    };
-
-
-    methods = {
-      hide () {
-        this.vip_active = 0
-      },
-      async comfirmRecharge (e) {
-        const res = await api.updateviplevel({
-          query: {
-            merchant_id: wepy.getStorageSync('merchant_id'),
-            user_id: this.user_id,
-            vipsetting_id: this.vipListResource[this.vipIndex].vipsetting_id,
-          },
-          method: 'POST'
-        });
-        if (res.data.status){
-          this.vip_active = 0
-          this.$apply()
-          this.$emit('updateUserList')
-        }else{
-          tip.error("充值失败")
-        }
-      },
-      changeVip (e) {
-        this.vipIndex = e.detail.value
-        this.vipName = this.vipList[this.vipIndex]
-        this.$apply()
+    .wepy-api-dialog__bd_bind{
+      margin: 0 24rpx;
+      .user{
+        font-size: 32rpx;
+        line-height:  44rpx;
+        margin-bottom: 6rpx;
       }
 
+      .font-red{
+        color: #C42B2B;
+        font-size: 20rpx;
+        line-height: 28rpx;
+        margin-bottom: 24rpx;
+      }
+      .selectOption{
+        text-align: center;
+        .number{
+          width:420rpx;
+          height:44rpx;
+          border-radius:8rpx;
+          border:1px solid #6D6E71;
+          line-height: 44rpx;
+          font-size: 26rpx;
+          font-weight: normal;
+          text-align: left;
+          color: #6D6E71;
+          padding: 18rpx;
+
+          .icon_down{
+            margin-top: 6rpx;
+            float: right;
+            width: 30rpx;
+            height: 30rpx;
+            .rotate(90deg);
+          }
+        }
+      }
     }
 
-    async getviplevel() {
-      const res = await api.getviplevel({
+    .wepy-api-dialog__ft_bind{
+      display: flex;
+      justify-content: flex-end;
+      margin: 24rpx 22rpx 16rpx 24rpx;
+
+      .btn{
+        padding: 28rpx;
+        font-size: 26rpx;
+      }
+    }
+  }
+}
+</style>
+<template>
+  <view class="wepy-api-dialog_bind" wx:if="{{ vip_active }}">
+    <view class="wepy-api-dialog__mask_bind" @tap="hide"></view>
+    <view class="wepy-api-dialog__main_bind">
+      <view class="wepy-api-dialog__hd_bind">
+        <view class="wepy-api-dialog__title_bind">
+          会员等级设置
+        </view>
+      </view>
+
+      <view class="wepy-api-dialog__bd_bind">
+        <view class="user">用户：{{ username }}</view>
+        <view class="font-red">*请确认好选择的等级</view>
+        <picker class="selectOption" @change="changeVip" value="{{ vipIndex }}" range="{{ vipList }}">
+          <view class="number">
+            {{ vipName }}
+            <image class="icon_down" src="../images/user/more.png"></image>
+          </view>
+        </picker>
+      </view>
+
+      <view class="wepy-api-dialog__ft_bind">
+        <view class="btn" @tap="hide" style="margin-right:36rpx;color:#6D6E71">取消</view>
+        <view class="btn" @tap="comfirmRecharge">确认</view>
+      </view>
+    </view>
+  </view>
+</template>
+<script>
+import wepy from 'wepy'
+import tip from '../utils/tip'
+import api from '../api/api'
+
+export default class VipAlert extends wepy.component {
+
+  data = {
+    vipList: [],
+    vipIndex:0,
+    vipName: "请选择会员等级"
+
+  }
+
+  props = {
+    // 静态传值
+    title: {
+      type:String,
+      default: ''
+    },
+
+    msg: {
+      type:String,
+      default: ''
+    },
+
+    // 父向子单向动态传值
+    vip_active: {
+      type: Number,
+      default: 0,
+      twoWay: true
+    },
+
+    user_id: {
+      type: Number,
+      default: 0
+    },
+
+    username: {
+      type:String,
+      default:"游客",
+    },
+
+    confirmText: {
+      type:String,
+      default: '確認'
+    },
+    vipListResource:[],
+  };
+
+
+  methods = {
+    hide () {
+      this.vip_active = 0
+    },
+    async comfirmRecharge (e) {
+      const res = await api.updateviplevel({
         query: {
           merchant_id: wepy.getStorageSync('merchant_id'),
+          user_id: this.user_id,
+          vipsetting_id: this.vipListResource[this.vipIndex].vipsetting_id,
         },
         method: 'POST'
       });
-      this.vipListResource = res.data.data
-      for(let p in this.vipListResource){//遍历json数组时，这么写p为索引，0,1
-        this.vipList.push(this.vipListResource[p].vip_name)
+      if (res.data.status){
+        this.vip_active = 0
+        this.$apply()
+        this.$emit('updateUserList')
+      }else{
+        tip.error("充值失败")
       }
+    },
+    changeVip (e) {
+      this.vipIndex = e.detail.value
+      this.vipName = this.vipList[this.vipIndex]
       this.$apply()
-
-    }
-
-    async onLoad () {
-      await this.getviplevel()
     }
 
   }
+
+  async getviplevel() {
+    const res = await api.getviplevel({
+      query: {
+        merchant_id: wepy.getStorageSync('merchant_id'),
+      },
+      method: 'POST'
+    });
+    this.vipListResource = res.data.data
+    for(let p in this.vipListResource){//遍历json数组时，这么写p为索引，0,1
+      this.vipList.push(this.vipListResource[p].vip_name)
+    }
+    this.$apply()
+  }
+
+  async onLoad () {
+    await this.getviplevel()
+  }
+}
 </script>
