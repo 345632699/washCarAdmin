@@ -59,6 +59,7 @@ setStore(store)
 export default class extends wepy.app {
   config = {
     pages: [
+    'pages/dataAnalysis/analysis',
     'pages/home',
     'pages/users_list',
     'pages/order_detail',
@@ -67,7 +68,7 @@ export default class extends wepy.app {
     'pages/me',
     'pages/auth',
     'pages/identify',
-    'pages/employee_manage'
+    'pages/employee_manage',
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -91,6 +92,11 @@ export default class extends wepy.app {
       }, {
         "pagePath": "pages/users_list",
         "text": "用户",
+        "iconPath": "images/tabbar/user_gray.png",
+        "selectedIconPath": "images/tabbar/user_white.png"
+      }, {
+        "pagePath": "pages/dataAnalysis/analysis",
+        "text": "数据",
         "iconPath": "images/tabbar/user_gray.png",
         "selectedIconPath": "images/tabbar/user_white.png"
       }, {
