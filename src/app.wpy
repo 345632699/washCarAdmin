@@ -97,8 +97,8 @@ export default class extends wepy.app {
       }, {
         "pagePath": "pages/dataAnalysis/analysis",
         "text": "数据",
-        "iconPath": "images/tabbar/user_gray.png",
-        "selectedIconPath": "images/tabbar/user_white.png"
+        "iconPath": "images/analysis/data_normal.png",
+        "selectedIconPath": "images/analysis/data_active.png"
       }, {
         "pagePath": "pages/me",
         "text": "个人",
