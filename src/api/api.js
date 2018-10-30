@@ -47,6 +47,8 @@ const servicedone = (params) => wxRequest(params, api + "servicedone/");
 const cancelorder = (params) => wxRequest(params, api + "cancelorder/");
 //数据分析首页
 const getanalysismainpage = (params) => wxRequest(params, api + "getanalysismainpage/");
+//分析详情
+const getanalysisdetails = (params) => wxRequest(params, api + "getanalysisdetails/");
 
 
 
@@ -70,5 +72,6 @@ module.exports = {
   updateorderstatus,
   servicedone,
   cancelorder,
-  getanalysismainpage
+  getanalysismainpage,
+  getanalysisdetails
 }
