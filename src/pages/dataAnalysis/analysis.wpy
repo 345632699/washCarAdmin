@@ -264,7 +264,7 @@
                         <view class="list-item">
                             <view class="title">订单数（个）</view>
                             <view class="container" wx:for="{{ order_numbers }}" wx:for-item="selectItem" wx:key="index" wx:if="{{ selectItem.selected > 0 }}">
-                                <view class="pannel">
+                                <view class="pannel" @tap="getDetail">
                                     <view class="left">
                                         <view class="sub">
                                             {{selectItem.title}}
@@ -509,6 +509,11 @@
                 }
                 this.$apply()
             },
+            getDetail() {
+                wepy.navigateTo({
+                    url: `/pages/dataAnalysis/detail`
+                })
+            }
         }
         getIndex(obj, str) {
             let returnIndex = 0
@@ -586,7 +591,7 @@
             })
             let data = res.data.data[0]
             if (!wepy.getStorageSync('order_numbers')) {
-               let resData = {
+                let resData = {
                     'today': data.today_orders_number,
                     'week': data.week_orders_number,
                     'month': data.month_orders_number
@@ -611,7 +616,6 @@
                 }
                 this.updateDatas(this.new_users, resData)
                 wepy.setStorageSync('new_users', this.new_users)
-
             }
         }
         updateDatas(items, resData) {

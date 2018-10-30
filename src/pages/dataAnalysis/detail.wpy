@@ -48,7 +48,7 @@
             let systemInfo = await wx.getStorageSync(SYSTEM_INFO);
             const chart = echarts.init(canvas, null, {
                 width: systemInfo.windowWidth,
-                height: height
+                height: (systemInfo.windowWidth / 1.785)
             })
             canvas.setChart(chart)
             var option2 = {
@@ -131,10 +131,10 @@
                                 type: 'default',
                                 color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                                     offset: 0,
-                                    color: 'rgba(245, 81, 95, 1)'
+                                    color: '#F5515F'
                                 }, {
                                     offset: 1,
-                                    color: 'rgba(159, 4, 27, 1)'
+                                    color: '#9F041B'
                                 }]),
                             }
                         }
@@ -146,7 +146,7 @@
                     },
                     "symbolSize": "0",
                     "symbol": "circle",
-                    data: [10, 12, 21, 54, 260, 830, 710]
+                    data: [100, 300, 600, 900, 400, 300, 100]
                 }]
             };
             chart.setOption(option2)
