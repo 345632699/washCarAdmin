@@ -1,0 +1,403 @@
+<style lang="less">
+@import '../../style/common.less';
+.page {
+  height: 100%;
+  .weui-tab {
+    .weui-navbar {
+      border-bottom: 0;
+      box-shadow: none;
+
+      .weui-navbar__item {
+        color: #9B9B9B;
+        font-weight: 400;
+
+        .weui-navbar__title {
+          font-size: 32rpx;
+          line-height: 44rpx;
+        }
+      }
+
+      .weui-bar__item_on {
+        color: @txtColor;
+      }
+
+      .weui-navbar__slider {
+        width: 60px;
+        background: #C42B2B;
+        height: 4rpx;
+      }
+    }
+
+    .weui-tab__panel{
+      
+
+      .sel-time{
+        .centerBox;
+        margin: 40rpx 0 20rpx 0;;
+
+        .btn{
+          width: 318rpx;
+          height: 60rpx;
+          border-radius: 16rpx;
+          border: 2rpx solid #4A4A4A;
+          color: #FFFFFF;
+          .centerBox;
+
+          text{
+            text-align: center;
+            border-radius: 16rpx 0 0 16rpx;
+            font-size: 32rpx;
+            line-height: 58rpx;
+            width: 158rpx;
+            display: inline-block;
+
+            &:last-child{
+              border-left: 2rpx solid #4A4A4A; 
+              border-radius: 0 16rpx 16rpx 0;
+            }
+          }
+        }
+      }
+
+      .detail{
+        margin: 45rpx 24rpx 60rpx 26rpx;
+        border-radius: 12rpx;
+        background: @cellsBgColor;
+        box-shadow:0px 4px 8px 0px rgba(0,0,0,0.5);
+        text-align: center;
+
+        .title{
+          text-align: center;
+          font-size: 32rpx;
+          line-height: 44rpx;
+          color: @titleColor;
+          padding: 24rpx;
+        }
+
+        .data{
+          margin: 20rpx 36rpx;
+          padding-bottom: 42rpx;
+
+          .name{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 20rpx 0 20rpx;
+            border-bottom: 2rpx solid #4A4A4A;
+
+            view{
+              width: 150rpx;
+              font-size: 24rpx;
+              line-height: 34rpx;
+              color: @titleColor;
+            }
+          }
+
+          .item{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding-top: 20rpx;
+
+            text{
+              width: 150rpx;
+              font-size: 24rpx;
+              line-height: 34rpx;
+              color: #9B9B9B;
+            }
+
+            &:last-child{
+              padding-bottom: 20rpx
+            }
+          }
+        }
+      }
+
+      .no-data{
+        font-size: 30rpx;
+        line-height: 300rpx;
+        color: #6D6E71;
+      }
+
+      .more-detail{
+        margin: 12rpx 24rpx 0 26rpx;
+        border-radius: 12rpx;
+        background: @cellsBgColor;
+        box-shadow:0px 4px 8px 0px rgba(0,0,0,0.5);
+        text-align: center;
+
+        &:first-child{
+          margin-top: 45rpx;
+        }
+
+        .title{
+          text-align: center;
+          font-size: 32rpx;
+          line-height: 44rpx;
+          color: @titleColor;
+          padding: 28rpx;
+          margin-bottom: 10rpx;
+        }
+
+        .data{
+          .centerBox;
+
+          .item{
+            width: 130rpx;
+            text-align: center;
+            margin: 0 14rpx;
+
+            .count{
+              font-size: 64rpx;
+              line-height: 60rpx;
+              color: #C42B2B;
+              font-weight: bold;
+            }
+
+            .name{
+              font-size: 24rpx;
+              line-height: 34rpx;
+              color: @titleColor;
+              margin: 20rpx 0 4rpx;
+            }
+
+            .txt{
+              font-size: 18rpx;
+              line-height: 26rpx;
+              color: #6D6E71;
+              margin: 3rpx 0 3rpx;
+            }
+          }
+        }
+
+        .tips{
+          text-align: center;
+          font-size: 24rpx;
+          line-height: 34rpx;
+          color: #9B9B9B;
+          padding: 26rpx 38rpx 30rpx 22rpx;
+        }
+      }
+    }
+  }
+}
+</style>
+<template>
+  <view class="page">
+    <view class="weui-tab">
+      <!-- 顶部 -->
+      <view class="weui-navbar">
+        <repeat for="{{tabs}}" key="*this">
+          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" @tap="tabClick">
+            <view class="weui-navbar__title">{{item}}</view>
+          </view>
+        </repeat>
+        <view class="weui-navbar__slider" style="left:{{sliderLeft}}px;transform:translateX({{sliderOffset}}px);-webkit-transform:translateX({{sliderOffset}}px);"></view>
+      </view>
+
+      <view class="weui-tab__panel">
+        <view class="sel-time">
+          <view class="btn">
+            <text @tap="selectTime" id="1" style="background:{{selTime==1 ? '#C42B2B' : '#212121'}}">本周</text>
+            <text @tap="selectTime" id="2" style="background:{{selTime==2 ? '#C42B2B' : '#212121'}}">本月</text>
+          </view>
+        </view>
+
+        <view class="chart">
+          <line_chart 
+            :xTitle.sync="xTitle" 
+            :yTitle.sync="yTitle" 
+            :chartData.sync="chartData" 
+            :xAxisData.sync="xAxisData">
+          </line_chart>
+        </view>
+
+        <view class="weui-tab" style="margin-top: 50rpx;">
+          <!-- 顶部 -->
+          <view class="weui-navbar">
+            <repeat for="{{tabs2}}" key="*this">
+              <view id="{{index}}" class="weui-navbar__item {{activeIndex2 == index ? 'weui-bar__item_on' : ''}}" @tap="tabClick2">
+                <view class="weui-navbar__title">{{item}}</view>
+              </view>
+            </repeat>
+            <view class="weui-navbar__slider" style="left:{{sliderLeft2}}px;transform:translateX({{sliderOffset2}}px);-webkit-transform:translateX({{sliderOffset2}}px);"></view>
+          </view>
+
+          <view class="weui-tab__panel" hidden="{{activeIndex2 != 0}}">
+            <view class="detail">
+              <view class="title">每日数据</view>
+              <view class="data">
+                <view class="name">
+                  <view>日期</view>
+                  <view>订单数(个)</view>
+                </view>
+                <view class="item">
+                  <text>9月10日</text>
+                  <text>3</text>
+                </view>
+                <view class="item">
+                  <text>9月10日</text>
+                  <text>3</text>
+                </view>
+                <view class="item">
+                  <text>9月10日</text>
+                  <text>3</text>
+                </view>
+                <view class="item">
+                  <text>9月10日</text>
+                  <text>3</text>
+                </view>
+              </view>
+            </view>
+          </view>
+
+          <view class="weui-tab__panel" hidden="{{activeIndex2 != 1}}">
+            <view class="more-detail">
+              <view class="title">数据小结</view>
+              <view class="data">
+                <view class="item">
+                  <view class="count">
+                    65
+                  </view>
+                  <view class="name">订单数</view>
+                  <view class="txt">比上月增加12%</view>
+                </view>
+                <view class="item">
+                  <view class="count">
+                    65
+                  </view>
+                  <view class="name">订单数</view>
+                  <view class="txt">比上月增加12%</view>
+                </view>
+                <view class="item">
+                  <view class="count">
+                    65
+                  </view>
+                  <view class="name">订单数</view>
+                  <view class="txt">比上月增加12%</view>
+                </view>
+                <view class="item">
+                  <view class="count">
+                    65
+                  </view>
+                  <view class="name">订单数</view>
+                  <view class="txt">比上月增加12%</view>
+                </view>
+              </view>
+              <view class="tips">
+                本月订单数增加原因可能为服务提升、用户数增长、天气晴朗的天数多等（当数据充足时可以预期下一个月的订单数）
+              </view>
+            </view>
+            <view class="detail no-data">
+              暂未收集到充足的数据
+            </view>
+            <!-- <view class="detail">
+              <view class="title">每日数据</view>
+              <view class="data">
+                <view class="name">
+                  <view>日期</view>
+                  <view>订单数(个)</view>
+                </view>
+                <view class="item">
+                  <text>9月10日</text>
+                  <text>3</text>
+                </view>
+                <view class="item">
+                  <text>9月10日</text>
+                  <text>3</text>
+                </view>
+                <view class="item">
+                  <text>9月10日</text>
+                  <text>3</text>
+                </view>
+                <view class="item">
+                  <text>9月10日</text>
+                  <text>3</text>
+                </view>
+              </view>
+            </view> -->
+          </view>
+        </view>
+        
+      </view>
+    </view>
+  </view>
+</template>
+<script>
+import wepy from 'wepy'
+import LineChart from '../../components/lineChart'
+import util from '../../utils/util'
+  import {
+    SYSTEM_INFO,
+    SEL_CLASS_CODE
+  } from '../../utils/constant';
+  import api from '../../api/api'
+
+const sliderWidth = 60 // 需要设置slider的宽度，用于计算中间位置
+export default class Charts extends wepy.page {
+	config = {
+    navigationBarTitleText: '数据统计',
+    usingComponents: {
+      ec_canvas: '../../plugins/ec-canvas/ec-canvas'
+    }
+  }
+
+	components = {
+    line_chart: LineChart
+  }
+
+  data = {
+    //weui的tab参数
+    tabs: ["订单数", "营业额", "新用户", "服务评价", "技工评价"],
+    activeIndex: 0,//激活项
+    sliderOffset: 0,//x轴上转换的值
+    sliderLeft: 0,//距离左边的偏移值
+
+    //weui的tab参数
+    tabs2: ["每日数据", "更多"],
+    activeIndex2: 1,//激活项
+    sliderOffset2: 0,//x轴上转换的值
+    sliderLeft2: 0,//距离左边的偏移值
+
+
+    xTitle: '日期',
+		yTitle: '订单数(个)',
+    chartData: [10, 12, 21, 54, 260, 830, 710],
+    xAxisData: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+
+    selTime: 1,
+  }
+
+  methods = {
+    async tabClick(e) {
+      this.sliderOffset = e.currentTarget.offsetLeft;
+      this.activeIndex = e.currentTarget.id;
+      this.$apply();
+    },
+
+    async tabClick2(e) {
+      this.sliderOffset2 = e.currentTarget.offsetLeft;
+      this.activeIndex2 = e.currentTarget.id;
+      this.$apply();
+    },
+
+    selectTime(e) {
+      this.selTime = e.currentTarget.id;
+    }
+  }
+
+  async onLoad(option) {
+    let that = this;
+    wx.getSystemInfo({
+      success: function (res) {
+        that.sliderLeft = (res.windowWidth / that.tabs.length - sliderWidth) / 2;
+        that.sliderOffset = res.windowWidth / that.tabs.length * that.activeIndex;
+
+        that.sliderLeft2 = (res.windowWidth / that.tabs2.length - sliderWidth) / 2;
+        that.sliderOffset2 = res.windowWidth / that.tabs2.length * that.activeIndex2;
+      }
+    });
+    this.$apply()
+  }
+}
+</script>

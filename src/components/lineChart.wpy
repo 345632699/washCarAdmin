@@ -1,0 +1,182 @@
+<template>
+	<view class="line__chart">
+		<ec_canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ec }}" bind:init="echartInit">
+		</ec_canvas>
+	</view>
+</template>
+
+<script>
+import wepy from 'wepy'
+import echarts from '../plugins/ec-canvas/echarts.js'
+
+export default class LineChart extends wepy.component {
+	props = {
+		xTitle: {
+      default: ''
+    },
+    yTitle: {
+      default: ''
+    },
+    chartData: {
+      default: [10, 12, 21, 54, 260, 830, 710]
+    },
+    xAxisData: {
+    	default: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+    }
+  }
+
+	data = {
+		ec: {}
+	}
+
+	methods = {
+		echartInit(e) {
+			this.initChart(e.detail.canvas, e.detail.width, e.detail.height, this.xTitle, this.yTitle, this.chartData, this.xAxisData)
+		}
+	}
+
+	initChart(canvas, width, height, xTitle, yTitle, chartData, xAxisData) {
+		const chart = echarts.init(canvas, null, {
+			width: width,
+			height: height
+		})
+		canvas.setChart(chart)
+
+		var option = {
+			"backgroundColor": "#212121",
+			title: {//标题
+				show: false,
+				text: '',
+				subtext: 'title',
+				"textStyle": {
+					"color": "#eeeeee"
+				},
+				"subtextStyle": {
+					"color": "rgba(255, 255, 255, 1)"
+				}
+			},
+			tooltip: {
+				trigger: 'axis'
+			},
+			//图例名
+			legend: {
+				data: []
+			},
+			grid: {
+        left: '2%',   //图表距边框的距离
+        right: '12%',
+        bottom: '3%',
+        containLabel: true
+      },
+			toolbox: {
+				show: false,
+				feature: {
+					mark: {
+						show: true
+					},
+					dataView: {
+						show: true,
+						readOnly: false
+					},
+					magicType: {
+						show: true,
+						type: ['line', 'bar', 'stack', 'tiled']
+					},
+					restore: {
+						show: true
+					},
+					saveAsImage: {
+						show: true
+					}
+				}
+			},
+			calculable: true,
+			xAxis: [{
+				type: 'category',
+				show: true, 
+				boundaryGap: false,
+				axisLabel: {
+					show: true,
+					textStyle: {
+						color: '#ffffff',
+						fontSize:9,
+					}
+				},
+				// data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+				data: xAxisData,
+				name: xTitle, //横轴标题
+				nameTextStyle:{
+          color:"#FFFFFF", 
+          fontSize:9,  
+          padding:2
+        }
+			}],
+			yAxis: [{
+				type: 'value',
+				show: true, 
+				axisLabel: {
+					show: true,
+					textStyle: {
+						color: '#ffffff',
+						fontSize:9
+					}
+				},
+				splitLine: {
+					show: true,
+					lineStyle: {
+						color: ['rgba(46, 46, 46, 1)'],
+						width: 1,
+						type: 'solid'
+					}
+				},
+				name: yTitle, //纵轴标题
+				nameTextStyle:{
+          color:"#FFFFFF", 
+          fontSize:9,  
+          padding:10
+        }
+			}],
+			series: [{
+				name: '成交',
+				type: 'line',
+				smooth: true,
+				itemStyle: {
+					normal: {
+						areaStyle: {
+							width: 0,
+							type: 'default',
+							color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+								offset: 0,
+								color: 'rgba(245, 81, 95, 1)'
+							}, {
+								offset: 1,
+								color: 'rgba(159, 4, 27, 1)'
+							}]),
+						}
+					}
+				},
+				"lineStyle": {
+					"normal": {
+						"width": "0"
+					}
+				},
+				"symbolSize": "0",
+				"symbol": "circle",
+				// data: [10, 12, 21, 54, 260, 830, 710]
+				data: chartData,
+			}]
+		};
+
+		chart.setOption(option)
+		return chart
+	}
+}
+</script>
+
+<style lang="less">
+.line__chart {
+    width: 700rpx;
+    height: 420rpx;
+    margin: 0 auto;
+}
+</style>

@@ -52,10 +52,23 @@
           }
         }
 
-        .icon{
+        .sign{
           height: 48rpx;
           width: 140rpx;
           border-radius: 12rpx;
+          .centerBox;
+
+          image{
+            height: 34rpx;
+            width: 34rpx;
+            padding-right: 10rpx;
+          }
+
+          text{
+            font-size: 24rpx;
+            line-height: 34rpx;
+            color: @titleColor;
+          }
         }
       }
     }
@@ -168,15 +181,26 @@
         <view class="left column">
           <view class="user-name">{{time}}，{{userInfo.nickName}}</view>
           <!-- ！！这里需要后台返回日期 -->
-          <view class="date">2018年9月6日</view>
+          <view class="date">{{now}}</view>
         </view>
         <view class="right column">
           <view class="book-info">
             <text>今日预约：{{ homeInfo.today_number }}单</text>
             <text>本周预约：{{ homeInfo.week_number }}单</text>
           </view>
-          <!-- ！！什么时候显示空闲、火爆和正常的图片？然后红绿黄三张图片我随便截的，缺原切图。 -->
-          <image src="../../images/book/hot.png" class="icon"></image>
+
+          <!-- <view class="sign" style="background: #C42B2B">
+            <image src="../../images/book/hot.png"></image>
+            <text>火爆</text>
+          </view> -->
+          <!-- <view class="sign" style="background: #F5A623">
+            <image src="../../images/book/normal.png"></image>
+            <text>正常</text>
+          </view> -->
+          <view class="sign" style="background: #8BA909">
+            <image src="../../images/book/free.png"></image>
+            <text>空闲</text>
+          </view>
         </view>
       </view>
     </view>
@@ -266,7 +290,19 @@ import api from '../api/api'
 
     computed = {
       now () {
-        return +new Date()
+        let date = new Date();
+        let year = date.getFullYear();
+        let month = date.getMonth() + 1;
+        let strDate = date.getDate();
+
+        if (month >= 1 && month <= 9) {
+          month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+          strDate = "0" + strDate;
+        }
+
+        return `${year}-${month}-${strDate}`
       }
     }
 

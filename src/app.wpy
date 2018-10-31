@@ -59,6 +59,7 @@ setStore(store)
 export default class extends wepy.app {
   config = {
     pages: [
+    'pages/dataAnalysis/detail',
     'pages/dataAnalysis/analysis',
     'pages/home',
     'pages/users_list',
