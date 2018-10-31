@@ -260,7 +260,7 @@
             <!-- 内容 -->
             <view class="weui-tab__panel">
                 <view class="weui-tab__content order">
-                    <view class="order-number list">
+                    <view class="order-number list" wx:if="{{ show_list.order_numbers }}">
                         <view class="list-item">
                             <view class="title">订单数（个）</view>
                             <view class="container" wx:for="{{ order_numbers }}" wx:for-item="selectItem" wx:key="index" wx:if="{{ selectItem.selected > 0 }}">
@@ -290,7 +290,7 @@
                             </view>
                         </view>
                     </view>
-                    <view class="in-come list">
+                    <view class="in-come list" wx:if="{{ show_list.in_comes }}">
                         <view class="list-item">
                             <view class="title">营业额（元）</view>
                             <view class="container" wx:for="{{ in_comes }}" wx:for-item="selectItem" wx:key="index" wx:if="{{ selectItem.selected > 0 }}">
@@ -320,7 +320,67 @@
                             </view>
                         </view>
                     </view>
-                    <view class="new-user list">
+                    <view class="new-user list" wx:if="{{ show_list.new_users }}">
+                        <view class="list-item">
+                            <view class="title">新增用户个数（个）</view>
+                            <view class="container" wx:for="{{ new_users }}" wx:for-item="selectItem" wx:key="index" wx:if="{{ selectItem.selected > 0 }}">
+                                <view class="pannel">
+                                    <view class="left">
+                                        <view class="sub">
+                                            {{selectItem.title}}
+                                        </view>
+                                    </view>
+                                    <view class="right">
+                                        {{selectItem.count}}
+                                    </view>
+                                    <view class="delete" wx:if="{{is_edit}}" wx:for-item="del" @tap="del({{index}},3)">
+                                        <view class="text">-</view>
+                                    </view>
+                                </view>
+                            </view>
+                            <view class="container">
+                                <view class="pannel add-pannel" wx:for="{{ new_users }}" wx:key="item" @tap="addItem({{index}},3)" wx:if="{{ item.selected < 1 }}">
+                                    <view class="add">
+                                        <view class="text">
+                                            +
+                                        </view>
+                                    </view>
+                                    <view class="tips"> {{ item.title }}</view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="new-user list" wx:if="{{ select_modules.indexOf('服务评分') > -1 }}">
+                        <view class="list-item">
+                            <view class="title">新增用户个数（个）</view>
+                            <view class="container" wx:for="{{ new_users }}" wx:for-item="selectItem" wx:key="index" wx:if="{{ selectItem.selected > 0 }}">
+                                <view class="pannel">
+                                    <view class="left">
+                                        <view class="sub">
+                                            {{selectItem.title}}
+                                        </view>
+                                    </view>
+                                    <view class="right">
+                                        {{selectItem.count}}
+                                    </view>
+                                    <view class="delete" wx:if="{{is_edit}}" wx:for-item="del" @tap="del({{index}},3)">
+                                        <view class="text">-</view>
+                                    </view>
+                                </view>
+                            </view>
+                            <view class="container">
+                                <view class="pannel add-pannel" wx:for="{{ new_users }}" wx:key="item" @tap="addItem({{index}},3)" wx:if="{{ item.selected < 1 }}">
+                                    <view class="add">
+                                        <view class="text">
+                                            +
+                                        </view>
+                                    </view>
+                                    <view class="tips"> {{ item.title }}</view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="new-user list" wx:if="{{ select_modules.indexOf('技工评分') > -1 }}">
                         <view class="list-item">
                             <view class="title">新增用户个数（个）</view>
                             <view class="container" wx:for="{{ new_users }}" wx:for-item="selectItem" wx:key="index" wx:if="{{ selectItem.selected > 0 }}">
@@ -351,14 +411,16 @@
                         </view>
                     </view>
                     <view class="data-sum list">
-                        <view class="list-item">
-                            <view class="add">
-                                +
+                        <picker mode="selector" range="{{modules}}" value="{{index}}" @change="listenerPickerSelected">
+                            <view class="list-item">
+                                <view class="add">
+                                    +
+                                </view>
+                                <view class="tips">
+                                    添加模块
+                                </view>
                             </view>
-                            <view class="tips">
-                                添加模块
-                            </view>
-                        </view>
+                        </picker>
                     </view>
                 </view>
             </view>
@@ -388,6 +450,8 @@
             tap: Tap,
         }
         data = {
+            modules: ['营业额', '订单数', '新增用户个数', '服务评分', '技工评分', '数据总结'],
+            select_modules: [],            
             userInfo: {
                 nickName: '加载中...'
             },
@@ -401,6 +465,11 @@
             },
             is_edit: 0,
             button_title: '编辑',
+            show_list: {
+                order_numbers: 0,
+                in_comes: 0,
+                new_users: 0
+            },
             order_numbers: [{
                     sort: 0,
                     title: '今天 Today',
@@ -513,6 +582,15 @@
                 wepy.navigateTo({
                     url: `/pages/dataAnalysis/detail`
                 })
+            },
+            listenerPickerSelected (e) {
+                let index = e.detail.value
+                this.select_modules.push(this.modules[index])
+                this.modules.splice(index,1)
+                this.$apply()
+                this.updateShowList(this.select_modules)
+                wepy.setStorageSync('select_modules',this.select_modules)
+                wepy.setStorageSync('modules',this.modules)
             }
         }
         getIndex(obj, str) {
@@ -584,7 +662,7 @@
                 query: {
                     analysis_item_list: '1,2,3,4,5,6,7,8,9',
                     branch_id: 1,
-                    employee_id: 1,
+                    // employee_id: 1,
                     merchant_id: wepy.getStorageSync('merchant_id')
                 },
                 method: 'POST'
@@ -629,6 +707,17 @@
                 }
             })
         }
+        updateShowList (select_modules) {
+            if (select_modules.indexOf('订单数') > -1) {
+                this.show_list.order_numbers = 1
+            }
+            if (select_modules.indexOf('营业额') > -1) {
+                this.show_list.in_comes = 1
+            }
+            if (select_modules.indexOf('新增用户个数') > -1) {
+                this.show_list.new_users = 1
+            }
+        }
         async onShow() {
             if (wepy.getStorageSync('order_numbers')) {
                 this.order_numbers = wepy.getStorageSync('order_numbers')
@@ -639,6 +728,14 @@
             if (wepy.getStorageSync('new_users')) {
                 this.new_users = wepy.getStorageSync('new_users')
             }
+            if (wepy.getStorageSync('select_modules').length) {
+                this.select_modules = wepy.getStorageSync('select_modules')
+                this.updateShowList(this.select_modules)
+            }
+            if(wepy.getStorageSync('modules').length){
+                this.modules = wepy.getStorageSync('modules')
+            }
+            this.$apply()
             //   this.getorderlist(this.activeIndex);
         }
     }
