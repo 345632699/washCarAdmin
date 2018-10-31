@@ -1,284 +1,304 @@
 <style scoped lang="less">
-@import '../../style/common.less';
-
-.page {
-  @cardHeight: 394rpx; //顶部div高
-  color: @titleColor;
-
-  .card {
-    height: @cardHeight;
-
-    .card-blur {
+  @import '../../style/common.less';
+  .page {
+    @cardHeight: 394rpx; //顶部div高
+    color: @titleColor;
+    .card {
       height: @cardHeight;
-      .blur;
-    }
-
-    .card-content {
-      height: 254rpx;
-      width: 618rpx;
-      position: absolute;
-      top: 0;
-      .betweenBox;
-      flex-wrap: wrap;
-      margin: 60rpx 66rpx 80rpx;
-
-      .column {
-        flex-basis: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+      .card-blur {
+        height: @cardHeight;
+        .blur;
       }
-
-      .left {
-        .user-name {
+      .card-content {
+        height: 254rpx;
+        width: 618rpx;
+        position: absolute;
+        top: 0;
+        .betweenBox;
+        flex-wrap: wrap;
+        margin: 60rpx 66rpx 80rpx;
+        .column {
+          flex-basis: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .left {
+          .user-name {
+            color: @txtColor;
+            font-size: 40rpx;
+            line-height: 56rpx;
+          }
+          .date {
+            color: @txtColor;
+            font-size: 28rpx;
+            line-height: 40rpx;
+          }
+        }
+        .right {
+          .book-info {
+            text {
+              display: block;
+              color: #9B9B9B;
+              font-size: 24rpx;
+              line-height: 35rpx;
+            }
+          }
+          .sign {
+            height: 48rpx;
+            width: 140rpx;
+            border-radius: 12rpx;
+            .centerBox;
+            image {
+              height: 34rpx;
+              width: 34rpx;
+              padding-right: 10rpx;
+            }
+            text {
+              font-size: 24rpx;
+              line-height: 34rpx;
+              color: @titleColor;
+            }
+          }
+        }
+      }
+    }
+    .weui-tab {
+      .weui-navbar {
+        border-bottom: 0;
+        box-shadow: none;
+        .weui-navbar__item {
           color: @txtColor;
-          font-size: 40rpx;
-          line-height: 56rpx;
+          font-weight: 400;
+          .weui-navbar__title {
+            font-size: 32rpx;
+            line-height: 44rpx;
+          }
         }
-
-        .date {
+        .weui-bar__item_on {
           color: @txtColor;
-          font-size: 28rpx;
-          line-height: 40rpx;
         }
-      }
-
-      .right {
-        .book-info {
-          text {
-            display: block;
-            color: #9B9B9B;
-            font-size: 24rpx;
-            line-height: 35rpx;
-          }
-        }
-
-        .sign {
-          height: 48rpx;
-          width: 140rpx;
-          border-radius: 12rpx;
-          .centerBox;
-
-          image {
-            height: 34rpx;
-            width: 34rpx;
-            padding-right: 10rpx;
-          }
-
-          text {
-            font-size: 24rpx;
-            line-height: 34rpx;
-            color: @titleColor;
-          }
+        .weui-navbar__slider {
+          width: 50px;
+          background: #C42B2B;
+          height: 4rpx;
         }
       }
     }
-  }
-
-  .weui-tab {
-    .weui-navbar {
-      border-bottom: 0;
-      box-shadow: none;
-
-      .weui-navbar__item {
-        color: @txtColor;
-        font-weight: 400;
-
-        .weui-navbar__title {
-          font-size: 32rpx;
-          line-height: 44rpx;
+    .order {
+      .order-number,
+      .in-come,
+      .nmechanic-evaluates,
+      .service-evaluates,
+      .new-user {
+        .list-item {
+          //width: 616rpx;
+          margin: 0 24rpx 12rpx 26rpx;
+          border-radius: 16rpx;
+          background: #2E2E2E;
+          height: 250rpx;
+          .title {
+            font-size: 28rpx;
+            padding: 24rpx;
+            .left {
+              display: inline-block;
+              width: 60%;
+            }
+            .del-title {
+              display: inline-block;
+              width: 40%;
+              vertical-align: middle;
+              text-align: right;
+              color: #C42B2B;
+              font-size: 24rpx;
+            }
+          }
+          .container {
+            position: relative;
+            display: inline-block;
+            vertical-align: middle;
+          }
+          .pannel {
+            display: inline-block;
+            margin-left: 24rpx;
+            margin-top: 16rpx;
+            width: 200rpx;
+            height: 100rpx;
+            background: #C42B2B;
+            color: #ffffff;
+            font-size: 20rpx;
+            border-radius: 16rpx;
+            overflow: hidden;
+            vertical-align: middle;
+            box-shadow: 2rpx 4rpx 4rpx #000000;
+            .left {
+              display: inline-block;
+              width: 104rpx;
+              text-align: center;
+              .sub {
+                position: relative;
+                top: 14rpx;
+                margin: auto;
+                width: 52rpx;
+                height: 54rpx;
+              }
+            }
+            .right {
+              background: #CC4A4A;
+              border-radius: 16rpx;
+              border-bottom-left-radius: 30rpx;
+              border-top-left-radius: 30rpx;
+              display: inline-block;
+              font-size: 32rpx;
+              text-align: center;
+              line-height: 100rpx;
+              width: 96rpx;
+              height: 100rpx;
+            }
+            .delete {
+              position: absolute;
+              top: 0rpx;
+              left: 200rpx;
+              width: 40rpx;
+              height: 40rpx;
+              border-radius: 50%;
+              background: #D0021B;
+              box-shadow: 2rpx 2rpx 4rpx #000000;
+              .text {
+                height: 40rpx;
+                width: 40rpx;
+                font-size: 60rpx;
+                font-weight: 400;
+                line-height: 30rpx;
+                text-align: center;
+              }
+            }
+            .add {
+              .text {
+                color: #6D6E71;
+                text-align: center;
+                font-size: 50rpx;
+                font-weight: 400;
+                height: 56rpx;
+              }
+            }
+            .tips {
+              color: #6D6E71;
+              font-size: 20rpx;
+              text-align: center;
+            }
+          }
+          .add-pannel {
+            background: #2E2E2E;
+            border: 2rpx solid #6D6E71;
+          }
         }
       }
-
-      .weui-bar__item_on {
-        color: @txtColor;
+      .in-come {
+        .list-item {
+          .pannel {
+            background: #F5A623;
+            .right {
+              background: #F6B343;
+            }
+          }
+          .add-pannel {
+            background: #2E2E2E;
+            border: 2rpx solid #6D6E71;
+          }
+        }
       }
-
-      .weui-navbar__slider {
-        width: 50px;
-        background: #C42B2B;
-        height: 4rpx;
+      .new-user {
+        .list-item {
+          .pannel {
+            background: #8BA909;
+            .right {
+              background: #9CB52D;
+            }
+          }
+          .add-pannel {
+            background: #2E2E2E;
+            border: 2rpx solid #6D6E71;
+          }
+        }
       }
-    }
-  }
-
-  .order {
-
-    .order-number,
-    .in-come,
-    .new-user {
-      .list-item {
-        //width: 616rpx;
+      .service-evaluates {
+        .list-item {
+          .pannel {
+            background: #3F9DD6;
+            .right {
+              background: #5BABDC;
+            }
+          }
+          .add-pannel {
+            background: #2E2E2E;
+            border: 2rpx solid #6D6E71;
+          }
+        }
+      }
+      .nmechanic-evaluates {
+        .list-item {
+          .pannel {
+            background: #3AC6A7;
+            .right {
+              background: #57CEB4;
+            }
+          }
+          .add-pannel {
+            background: #2E2E2E;
+            border: 2rpx solid #6D6E71;
+          }
+        }
+      }
+      .data-sum {
         margin: 0 24rpx 12rpx 26rpx;
         border-radius: 16rpx;
         background: #2E2E2E;
         height: 250rpx;
-
-        .title {
+        .add {
+          color: #6D6E71;
+          font-size: 56rpx;
+          font-weight: 400;
+          text-align: center;
+          padding-top: 42rpx;
+        }
+        .tips {
+          color: #6D6E71;
           font-size: 28rpx;
-          padding: 24rpx;
+          text-align: center;
         }
-
-        .container {
+        .summarize {
           position: relative;
-          display: inline-block;
-          vertical-align: middle;
         }
-
-        .pannel {
-          display: inline-block;
-          margin-left: 24rpx;
-          margin-top: 16rpx;
-          width: 200rpx;
-          height: 100rpx;
-          background: #C42B2B;
-          color: #ffffff;
-          font-size: 20rpx;
-          border-radius: 16rpx;
-          overflow: hidden;
-          vertical-align: middle;
-          box-shadow: 2rpx 4rpx 4rpx #000000;
-
-          .left {
-            display: inline-block;
-            width: 104rpx;
-            text-align: center;
-
-            .sub {
-              position: relative;
-              top: 14rpx;
-              margin: auto;
-              width: 52rpx;
-              height: 54rpx;
-            }
-          }
-
-          .right {
-            background: #c83939;
-            border-radius: 16rpx;
-            border-bottom-left-radius: 30rpx;
-            border-top-left-radius: 30rpx;
-            display: inline-block;
-            font-size: 32rpx;
-            text-align: center;
-            line-height: 100rpx;
-            width: 96rpx;
-            height: 100rpx;
-          }
-
-          .delete {
-            position: absolute;
-            top: 0rpx;
-            left: 200rpx;
-            width: 40rpx;
-            height: 40rpx;
-            border-radius: 50%;
-            background: #D0021B;
-            box-shadow: 2rpx 2rpx 4rpx #000000;
-
-            .text {
-              height: 40rpx;
-              width: 40rpx;
-              font-size: 60rpx;
-              font-weight: 400;
-              line-height: 30rpx;
-              text-align: center;
-            }
-          }
-
-          .add {
-            .text {
-              color: #6D6E71;
-              text-align: center;
-              font-size: 50rpx;
-              font-weight: 400;
-              height: 56rpx;
-            }
-          }
-
-          .tips {
-            color: #6D6E71;
-            font-size: 20rpx;
-            text-align: center;
-          }
+        .main-title {
+          position: absolute;
+          top: 20rpx;
+          left: 102rpx;
+          font-size: 28rpx;
         }
-
-        .add-pannel {
-          background: #2E2E2E;
-          border: 2rpx solid #6D6E71;
+        .sub-title {
+          position: absolute;
+          top: 72rpx;
+          left: 102rpx;
+          font-size: 18rpx;
         }
+        .icon {
+          position: absolute;
+          top: 44rpx;
+          left: 40rpx;
+        }
+      }
+      .no-data {
+        .no-data(60rpx);
       }
     }
-
-    .in-come {
-      .list-item {
-        .pannel {
-          background: #F5A623;
-
-          .right {
-            background: #F6B03C;
-          }
-        }
-
-        .add-pannel {
-          background: #2E2E2E;
-          border: 2rpx solid #6D6E71;
-        }
-      }
+    .weui-tab__panel {
+      padding-top: 0;
     }
-
-    .new-user {
-      .list-item {
-        .pannel {
-          background: #8BA909;
-
-          .right {
-            background: #92AE18;
-          }
-        }
-
-        .add-pannel {
-          background: #2E2E2E;
-          border: 2rpx solid #6D6E71;
-        }
-      }
-    }
-
-    .data-sum {
-      margin: 0 24rpx 12rpx 26rpx;
-      border-radius: 16rpx;
-      background: #2E2E2E;
-      height: 250rpx;
-
-      .add {
-        color: #6D6E71;
-        font-size: 56rpx;
-        font-weight: 400;
-        text-align: center;
-        padding-top: 42rpx;
-      }
-
-      .tips {
-        color: #6D6E71;
-        font-size: 28rpx;
-        text-align: center;
-      }
-    }
-
-    .no-data {
-      .no-data(60rpx);
+    .weui-tab {
+      top: -64rpx;
     }
   }
-
-  .weui-tab__panel {
-    padding-top: 0;
-  }
-
-  .weui-tab {
-    top: -64rpx;
-  }
-}
-
 </style>
 <template>
   <view class="page">
@@ -296,9 +316,9 @@
             <text>今日预约：{{ homeInfo.today_number }}单</text>
             <text>本周预约：{{ homeInfo.week_number }}单</text>
           </view>
-          <view class="sign" style="background: #C42B2B">
+          <view class="sign" @tap="edit" style="background: #C42B2B">
             <image src="../../images/book/edit.png"></image>
-            <text>编辑</text>
+            <text>{{button_title}}</text>
           </view>
         </view>
       </view>
@@ -309,9 +329,12 @@
         <view class="weui-tab__content order">
           <view class="order-number list" wx:if="{{ show_list.order_numbers }}">
             <view class="list-item">
-              <view class="title">订单数（个）</view>
+              <view class="title">
+                <text class="left">订单数（个）</text>
+                <text class="del-title" wx:if="{{is_edit}}" @tap="delModule('order_numbers','订单数')">删除模块</text>
+              </view>
               <view class="container" wx:for="{{ order_numbers }}" wx:for-item="selectItem" wx:key="index" wx:if="{{ selectItem.selected > 0 }}">
-                <view class="pannel" @tap="getDetail">
+                <view class="pannel" data-type="10" @tap="{{is_edit ? '' : 'getDetail'}}">
                   <view class="left">
                     <view class="sub">
                       {{selectItem.title}}
@@ -339,9 +362,12 @@
           </view>
           <view class="in-come list" wx:if="{{ show_list.in_comes }}">
             <view class="list-item">
-              <view class="title">营业额（元）</view>
+              <view class="title">
+                <text class="left">营业额（元）</text>
+                <text class="del-title" wx:if="{{is_edit}}" @tap="delModule('in_comes','营业额')">删除模块</text>
+              </view>
               <view class="container" wx:for="{{ in_comes }}" wx:for-item="selectItem" wx:key="index" wx:if="{{ selectItem.selected > 0 }}">
-                <view class="pannel">
+                <view class="pannel" data-type="11" @tap="{{is_edit ? '' : 'getDetail'}}">
                   <view class="left">
                     <view class="sub">
                       {{selectItem.title}}
@@ -369,9 +395,12 @@
           </view>
           <view class="new-user list" wx:if="{{ show_list.new_users }}">
             <view class="list-item">
-              <view class="title">新增用户个数（个）</view>
+              <view class="title">
+                <text class="left">新增用户个数（个）</text>
+                <text class="del-title" wx:if="{{is_edit}}" @tap="delModule('new_users','新增用户个数')">删除模块</text>
+              </view>
               <view class="container" wx:for="{{ new_users }}" wx:for-item="selectItem" wx:key="index" wx:if="{{ selectItem.selected > 0 }}">
-                <view class="pannel">
+                <view class="pannel" data-type="12" @tap="{{is_edit ? '' : 'getDetail'}}">
                   <view class="left">
                     <view class="sub">
                       {{selectItem.title}}
@@ -397,11 +426,14 @@
               </view>
             </view>
           </view>
-          <view class="new-user list" wx:if="{{ select_modules.indexOf('服务评分') > -1 }}">
+          <view class="service-evaluates list" wx:if="{{ show_list.service_evaluates }}">
             <view class="list-item">
-              <view class="title">新增用户个数（个）</view>
-              <view class="container" wx:for="{{ new_users }}" wx:for-item="selectItem" wx:key="index" wx:if="{{ selectItem.selected > 0 }}">
-                <view class="pannel">
+              <view class="title">
+                <text class="left">服务评价均分（满分5分）</text>
+                <text class="del-title" wx:if="{{is_edit}}" @tap="delModule('service_evaluates','服务评分')">删除模块</text>
+              </view>
+              <view class="container" wx:for="{{ service_evaluates }}" wx:for-item="selectItem" wx:key="index" wx:if="{{ selectItem.selected > 0 }}">
+                <view class="pannel" data-type="15" @tap="{{is_edit ? '' : 'getDetail'}}">
                   <view class="left">
                     <view class="sub">
                       {{selectItem.title}}
@@ -410,13 +442,13 @@
                   <view class="right">
                     {{selectItem.count}}
                   </view>
-                  <view class="delete" wx:if="{{is_edit}}" wx:for-item="del" @tap="del({{index}},3)">
+                  <view class="delete" wx:if="{{is_edit}}" wx:for-item="del" @tap="del({{index}},4)">
                     <view class="text">-</view>
                   </view>
                 </view>
               </view>
               <view class="container">
-                <view class="pannel add-pannel" wx:for="{{ new_users }}" wx:key="item" @tap="addItem({{index}},3)" wx:if="{{ item.selected < 1 }}">
+                <view class="pannel add-pannel" wx:for="{{ service_evaluates }}" wx:key="item" @tap="addItem({{index}},4)" wx:if="{{ item.selected < 1 }}">
                   <view class="add">
                     <view class="text">
                       +
@@ -427,11 +459,14 @@
               </view>
             </view>
           </view>
-          <view class="new-user list" wx:if="{{ select_modules.indexOf('技工评分') > -1 }}">
+          <view class="nmechanic-evaluates list" wx:if="{{ show_list.mechanic_evaluates }}">
             <view class="list-item">
-              <view class="title">新增用户个数（个）</view>
-              <view class="container" wx:for="{{ new_users }}" wx:for-item="selectItem" wx:key="index" wx:if="{{ selectItem.selected > 0 }}">
-                <view class="pannel">
+              <view class="title">
+                <text class="left">技工评价平均分（满分5分）</text>
+                <text class="del-title" wx:if="{{is_edit}}" @tap="delModule('mechanic_evaluates','技工评分')">删除模块</text>
+              </view>
+              <view class="container" wx:for="{{ mechanic_evaluates }}" wx:for-item="selectItem" wx:key="index" wx:if="{{ selectItem.selected > 0 }}">
+                <view class="pannel" data-type="14" @tap="{{is_edit ? '' : 'getDetail'}}">
                   <view class="left">
                     <view class="sub">
                       {{selectItem.title}}
@@ -440,13 +475,13 @@
                   <view class="right">
                     {{selectItem.count}}
                   </view>
-                  <view class="delete" wx:if="{{is_edit}}" wx:for-item="del" @tap="del({{index}},3)">
+                  <view class="delete" wx:if="{{is_edit}}" wx:for-item="del" @tap="del({{index}},5)">
                     <view class="text">-</view>
                   </view>
                 </view>
               </view>
               <view class="container">
-                <view class="pannel add-pannel" wx:for="{{ new_users }}" wx:key="item" @tap="addItem({{index}},3)" wx:if="{{ item.selected < 1 }}">
+                <view class="pannel add-pannel" wx:for="{{ mechanic_evaluates }}" wx:key="item" @tap="addItem({{index}},5)" wx:if="{{ item.selected < 1 }}">
                   <view class="add">
                     <view class="text">
                       +
@@ -458,6 +493,24 @@
             </view>
           </view>
           <view class="data-sum list">
+            <view class="list-item">
+              <view class="summarize" @tap="summarize">
+                <image src="../../images/analysis/summarize.png" style="width:700rpx;" mode="widthFix" lazy-load="false">
+                </image>
+                <view class="main-title">
+                  数据总结
+                </view>
+                <view class="sub-title">
+                  点击查看前段时间的数据总结
+                </view>
+                <view class="icon">
+                  <image src="../../images/analysis/data_active.png" style='width: 38rpx;' mode="widthFix" lazy-load="false">
+                  </image>
+                </view>
+              </view>
+            </view>
+          </view>
+          <view class="data-sum list" wx:if="{{ modules.length }}">
             <picker mode="selector" range="{{modules}}" value="{{index}}" @change="listenerPickerSelected">
               <view class="list-item">
                 <view class="add">
@@ -475,327 +528,434 @@
   </view>
 </template>
 <script>
-import wepy from 'wepy'
-import util from '../../utils/util'
-import Search from '../../components/search'
-import Recharge from '../../components/recharge'
-import {
-  SYSTEM_INFO,
-  SEL_CLASS_CODE
-} from '../../utils/constant';
-import Tap from '../../components/tap'
-import api from '../../api/api'
-const sliderWidth = 50 // 需要设置slider的宽度，用于计算中间位置
-export default class Home extends wepy.page {
-  config = {
-    navigationBarTitleText: '预约列表'
-  }
-  components = {
-    search: Search,
-    recharge: Recharge,
-    tap: Tap,
-  }
-  data = {
-    modules: ['营业额', '订单数', '新增用户个数', '服务评分', '技工评分', '数据总结'],
-    select_modules: [],
-    userInfo: {
-      nickName: '加载中...'
-    },
-    time: "上午好",
-    homeInfo: {
-      today_number: 0,
-      week_number: 0
-    },
-    employee: {
-      name: wepy.getStorageSync('user_info').nickName
-    },
-    is_edit: 0,
-    button_title: '编辑',
-    show_list: {
-      order_numbers: 0,
-      in_comes: 0,
-      new_users: 0
-    },
-    order_numbers: [{
-        sort: 0,
-        title: '今天 Today',
-        count: 0,
-        selected: 1
-      },
-      {
-        sort: 1,
-        title: '本周 WTD',
-        count: 0,
-        selected: 1
-      },
-      {
-        sort: 2,
-        title: '本月 MTD',
-        count: 0,
-        selected: 1
-      }
-    ],
-    in_comes: [{
-        sort: 0,
-        title: '今天 Today',
-        count: 0,
-        selected: 1
-      },
-      {
-        sort: 1,
-        title: '本周 WTD',
-        count: 0,
-        selected: 1
-      },
-      {
-        sort: 2,
-        title: '本月 MTD',
-        count: 0,
-        selected: 1
-      }
-    ],
-    new_users: [{
-        sort: 0,
-        title: '今天 Today',
-        count: 0,
-        selected: 1
-      },
-      {
-        sort: 1,
-        title: '本周 WTD',
-        count: 0,
-        selected: 1
-      },
-      {
-        sort: 2,
-        title: '本月 MTD',
-        count: 0,
-        selected: 1
-      }
-    ],
-  }
-  computed = {
-    now() {
-      let date = new Date();
-      let year = date.getFullYear();
-      let month = date.getMonth() + 1;
-      let strDate = date.getDate();
-
-      if (month >= 1 && month <= 9) {
-        month = "0" + month;
-      }
-      if (strDate >= 0 && strDate <= 9) {
-        strDate = "0" + strDate;
-      }
-
-      return `${year}-${month}-${strDate}`
+  import wepy from 'wepy'
+  import util from '../../utils/util'
+  import Search from '../../components/search'
+  import Recharge from '../../components/recharge'
+  import {
+    SYSTEM_INFO,
+    SEL_CLASS_CODE
+  } from '../../utils/constant';
+  import Tap from '../../components/tap'
+  import api from '../../api/api'
+  const sliderWidth = 50 // 需要设置slider的宽度，用于计算中间位置
+  export default class Home extends wepy.page {
+    config = {
+      navigationBarTitleText: '预约列表'
     }
-  }
-  methods = {
-    edit() {
-      if (this.is_edit === 0) {
-        this.is_edit = 1
-        this.button_title = "完成"
-      } else {
-        this.is_edit = 0
-        this.button_title = "编辑"
+    components = {
+      search: Search,
+      recharge: Recharge,
+      tap: Tap,
+    }
+    data = {
+      modules: ['营业额', '订单数', '新增用户个数', '服务评分', '技工评分'],
+      select_modules: [],
+      userInfo: {
+        nickName: '加载中...'
+      },
+      time: "上午好",
+      homeInfo: {
+        today_number: 0,
+        week_number: 0
+      },
+      employee: {
+        name: wepy.getStorageSync('user_info').nickName
+      },
+      is_edit: 0,
+      button_title: '编辑',
+      show_list: {
+        order_numbers: 0,
+        in_comes: 0,
+        new_users: 0
+      },
+      order_numbers: [{
+          sort: 0,
+          title: '今天 Today',
+          count: 0,
+          selected: 1
+        },
+        {
+          sort: 1,
+          title: '本周 WTD',
+          count: 0,
+          selected: 1
+        },
+        {
+          sort: 2,
+          title: '本月 MTD',
+          count: 0,
+          selected: 1
+        }
+      ],
+      in_comes: [{
+          sort: 0,
+          title: '今天 Today',
+          count: 0,
+          selected: 1
+        },
+        {
+          sort: 1,
+          title: '本周 WTD',
+          count: 0,
+          selected: 1
+        },
+        {
+          sort: 2,
+          title: '本月 MTD',
+          count: 0,
+          selected: 1
+        }
+      ],
+      new_users: [{
+          sort: 0,
+          title: '今天 Today',
+          count: 0,
+          selected: 1
+        },
+        {
+          sort: 1,
+          title: '本周 WTD',
+          count: 0,
+          selected: 1
+        },
+        {
+          sort: 2,
+          title: '本月 MTD',
+          count: 0,
+          selected: 1
+        }
+      ],
+      service_evaluates: [{
+          sort: 0,
+          title: '今天 Today',
+          count: 0,
+          selected: 1
+        },
+        {
+          sort: 1,
+          title: '本周 WTD',
+          count: 0,
+          selected: 1
+        },
+        {
+          sort: 2,
+          title: '本月 MTD',
+          count: 0,
+          selected: 1
+        }
+      ],
+      mechanic_evaluates: [{
+          sort: 0,
+          title: '今天 Today',
+          count: 0,
+          selected: 1
+        },
+        {
+          sort: 1,
+          title: '本周 WTD',
+          count: 0,
+          selected: 1
+        },
+        {
+          sort: 2,
+          title: '本月 MTD',
+          count: 0,
+          selected: 1
+        }
+      ],
+    }
+    computed = {
+      now() {
+        let date = new Date();
+        let year = date.getFullYear();
+        let month = date.getMonth() + 1;
+        let strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+          month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+          strDate = "0" + strDate;
+        }
+        return `${year}-${month}-${strDate}`
       }
-      this.$apply()
-    },
-    addItem(index, type) {
-      let target = ''
-      if (type == 1) {
-        target = this.order_numbers
-        target[index].selected = 1
-        wepy.setStorageSync('order_numbers', target)
-      } else if (type == 2) {
-        target = this.in_comes
-        target[index].selected = 1
-        wepy.setStorageSync('in_comes', target)
-      } else {
-        target = this.new_users
-        target[index].selected = 1
-        wepy.setStorageSync('new_users', target)
+    }
+    methods = {
+      edit() {
+        if (this.is_edit === 0) {
+          this.is_edit = 1
+          this.button_title = "完成"
+        } else {
+          this.is_edit = 0
+          this.button_title = "编辑"
+        }
+        this.$apply()
+      },
+      addItem(index, type) {
+        let target = ''
+        if (type == 1) {
+          target = this.order_numbers
+          target[index].selected = 1
+          wepy.setStorageSync('order_numbers', target)
+        } else if (type == 2) {
+          target = this.in_comes
+          target[index].selected = 1
+          wepy.setStorageSync('in_comes', target)
+        } else if (type == 3) {
+          target = this.new_users
+          target[index].selected = 1
+          wepy.setStorageSync('new_users', target)
+        } else if (type == 4) {
+          target = this.service_evaluates
+          target[index].selected = 1
+          wepy.setStorageSync('service_evaluates', target)
+        } else {
+          target = this.mechanic_evaluates
+          target[index].selected = 1
+          wepy.setStorageSync('mechanic_evaluates', target)
+        }
+        this.$apply()
+      },
+      del(index, type) {
+        let target = ''
+        if (type == 1) {
+          target = this.order_numbers
+          target[index].selected = 0
+          wepy.setStorageSync('order_numbers', target)
+        } else if (type == 2) {
+          target = this.in_comes
+          target[index].selected = 0
+          wepy.setStorageSync('in_comes', target)
+        } else if (type == 3) {
+          target = this.new_users
+          target[index].selected = 0
+          wepy.setStorageSync('new_users', target)
+        } else if (type == 4) {
+          target = this.service_evaluates
+          target[index].selected = 0
+          wepy.setStorageSync('service_evaluates', target)
+        } else {
+          target = this.mechanic_evaluates
+          target[index].selected = 0
+          wepy.setStorageSync('mechanic_evaluates', target)
+        }
+        this.$apply()
+      },
+      getDetail(e) {
+        let type = e.currentTarget.dataset.type
+        wepy.navigateTo({
+          url: `/pages/dataAnalysis/detail?type=${type}`
+        })
+      },
+      summarize () {
+        wepy.navigateTo({
+          url: `/pages/dataAnalysis/summarize`
+        })
+      },
+      listenerPickerSelected(e) {
+        let index = e.detail.value
+        this.select_modules.push(this.modules[index])
+        this.modules.splice(index, 1)
+        this.$apply()
+        if (this.select_modules.indexOf('订单数') > -1) {
+          this.show_list.order_numbers = 1
+        }
+        if (this.select_modules.indexOf('营业额') > -1) {
+          this.show_list.in_comes = 1
+        }
+        if (this.select_modules.indexOf('新增用户个数') > -1) {
+          this.show_list.new_users = 1
+        }
+        if (this.select_modules.indexOf('服务评分') > -1) {
+          this.show_list.service_evaluates = 1
+        }
+        if (this.select_modules.indexOf('技工评分') > -1) {
+          this.show_list.mechanic_evaluates = 1
+        }
+        wepy.setStorageSync('show_list', this.show_list)
+        wepy.setStorageSync('modules', this.modules)
+      },
+      delModule(index, name) {
+        console.log(name)
+        this.show_list[index] = 0
+        let modules = []
+        if (wepy.getStorageSync("modules")) {
+          modules = wepy.getStorageSync("modules")
+        }
+        modules.push(name)
+        this.modules = modules
+        wepy.setStorageSync('modules', this.modules)
+        wepy.setStorageSync('show_list', this.show_list)
+        this.$apply()
       }
-      this.$apply()
-    },
-    del(index, type) {
-      let target = ''
-      if (type == 1) {
-        target = this.order_numbers
-        target[index].selected = 0
-        wepy.setStorageSync('order_numbers', target)
-      } else if (type == 2) {
-        target = this.in_comes
-        target[index].selected = 0
-        wepy.setStorageSync('in_comes', target)
-      } else {
-        target = this.new_users
-        target[index].selected = 0
-        wepy.setStorageSync('new_users', target)
-      }
-      this.$apply()
-    },
-    getDetail() {
-      wepy.navigateTo({
-        url: `/pages/dataAnalysis/detail`
+    }
+    getIndex(obj, str) {
+      let returnIndex = 0
+      obj.forEach((item, index) => {
+        if (item.sort == str.sort) {
+          returnIndex = index
+        }
       })
-    },
-    listenerPickerSelected(e) {
-      let index = e.detail.value
-      this.select_modules.push(this.modules[index])
-      this.modules.splice(index, 1)
-      this.$apply()
-      this.updateShowList(this.select_modules)
-      wepy.setStorageSync('select_modules', this.select_modules)
-      wepy.setStorageSync('modules', this.modules)
+      return returnIndex
     }
-  }
-  getIndex(obj, str) {
-    let returnIndex = 0
-    obj.forEach((item, index) => {
-      if (item.sort == str.sort) {
-        returnIndex = index
+    async getorderoverview(employee_id) {
+      let myDate = new Date();
+      let hour = myDate.getHours();
+      if (hour > 12) {
+        this.time = "下午好"
+        this.$apply()
       }
-    })
-    return returnIndex
-  }
-  async getorderoverview(employee_id) {
-    let myDate = new Date();
-    let hour = myDate.getHours();
-    if (hour > 12) {
-      this.time = "下午好"
-      this.$apply()
-    }
-    let order_status = wepy.getStorageSync('activeIndex') ? wepy.getStorageSync('activeIndex') : 0;
-    console.log(order_status)
-    const res = await api.getorderoverview({
-      query: {
-        employee_id: employee_id,
-        order_status: order_status
-      },
-      method: 'POST'
-    });
-    if (!res.data.status > 0) {
-      wepy.setStorageSync('userid', '')
-      await this.$parent.getAuth()
-    }
-    this.homeInfo = res.data.data[0]
-    if (this.homeInfo) {
-      wepy.setStorageSync('is_root', this.homeInfo.is_root)
-      this.orderList = this.homeInfo.order_list
-    }
-    this.$apply()
-  }
-  events = {
-    //type 0 未完成 1已完成
-    'getorderlist': async (type) => {
-      const res = await api.getorderlist({
+      let order_status = wepy.getStorageSync('activeIndex') ? wepy.getStorageSync('activeIndex') : 0;
+      console.log(order_status)
+      const res = await api.getorderoverview({
         query: {
-          employee_id: wepy.getStorageSync('userid'),
-          order_status: type
+          employee_id: employee_id,
+          order_status: order_status
         },
         method: 'POST'
       });
-      this.orderList = res.data.data
-      this.$apply()
-    },
-  }
-  async onLoad() {
-    let that = this;
-    // wepy.removeStorageSync('order_number')
-    // wepy.removeStorageSync('in_come')
-    // wepy.removeStorageSync('new_user')
-    if (!wepy.getStorageSync('userid')) {
-      await this.$parent.getAuth()
-      this.userInfo = wepy.getStorageSync('user_info')
-      await this.getorderoverview(wepy.getStorageSync('userid'))
-      this.$apply()
-    } else {
-      this.userInfo = wepy.getStorageSync('user_info')
-      await this.getorderoverview(wepy.getStorageSync('userid'))
+      if (!res.data.status > 0) {
+        wepy.setStorageSync('userid', '')
+        await this.$parent.getAuth()
+      }
+      this.homeInfo = res.data.data[0]
+      if (this.homeInfo) {
+        wepy.setStorageSync('is_root', this.homeInfo.is_root)
+        this.orderList = this.homeInfo.order_list
+      }
       this.$apply()
     }
-    let res = await api.getanalysismainpage({
-      query: {
-        analysis_item_list: '1,2,3,4,5,6,7,8,9',
-        branch_id: 1,
-        // employee_id: 1,
-        merchant_id: wepy.getStorageSync('merchant_id')
+    events = {
+      //type 0 未完成 1已完成
+      'getorderlist': async(type) => {
+        const res = await api.getorderlist({
+          query: {
+            employee_id: wepy.getStorageSync('userid'),
+            order_status: type
+          },
+          method: 'POST'
+        });
+        this.orderList = res.data.data
+        this.$apply()
       },
-      method: 'POST'
-    })
-    let data = res.data.data[0]
-    if (!wepy.getStorageSync('order_numbers')) {
-      let resData = {
-        'today': data.today_orders_number,
-        'week': data.week_orders_number,
-        'month': data.month_orders_number
-      }
-      this.updateDatas(this.order_numbers, resData)
-      wepy.setStorageSync('order_numbers', this.order_numbers)
     }
-    if (!wepy.getStorageSync('in_comes')) {
-      let resData = {
-        'today': data.today_revenue,
-        'week': data.week_revenue,
-        'month': data.month_revenue
-      }
-      this.updateDatas(this.in_comes, resData)
-      wepy.setStorageSync('in_comes', this.in_comes)
-    }
-    if (!wepy.getStorageSync('new_users')) {
-      let resData = {
-        'today': data.today_new_user_number,
-        'week': data.week_new_user_number,
-        'month': data.month_new_user_number
-      }
-      this.updateDatas(this.new_users, resData)
-      wepy.setStorageSync('new_users', this.new_users)
-    }
-  }
-  updateDatas(items, resData) {
-    items.forEach(function(item) {
-      if (item.sort == 0) {
-        item.count = resData.today
-      } else if (item.sort == 1) {
-        item.count = resData.week
+    async onLoad() {
+      let that = this;
+      // wepy.removeStorageSync('order_number')
+      // wepy.removeStorageSync('in_come')
+      // wepy.removeStorageSync('new_user')
+      if (!wepy.getStorageSync('userid')) {
+        await this.$parent.getAuth()
+        this.userInfo = wepy.getStorageSync('user_info')
+        await this.getorderoverview(wepy.getStorageSync('userid'))
+        this.$apply()
       } else {
-        item.count = resData.month
+        this.userInfo = wepy.getStorageSync('user_info')
+        await this.getorderoverview(wepy.getStorageSync('userid'))
+        this.$apply()
       }
-    })
+      let res = await api.getanalysismainpage({
+        query: {
+          analysis_item_list: '1,2,3,4,5,6,7,8,9,16,17,18,19,20,21',
+          branch_id: 1,
+          // employee_id: wepy.getStorageSync('userid'),
+          merchant_id: wepy.getStorageSync('merchant_id')
+        },
+        method: 'POST'
+      })
+      let data = res.data.data[0]
+      if (!wepy.getStorageSync('order_numbers')) {
+        let resData = {
+          'today': data.today_orders_number,
+          'week': data.week_orders_number,
+          'month': data.month_orders_number
+        }
+        this.updateDatas(this.order_numbers, resData)
+        wepy.setStorageSync('order_numbers', this.order_numbers)
+      }
+      if (!wepy.getStorageSync('in_comes')) {
+        let resData = {
+          'today': data.today_revenue,
+          'week': data.week_revenue,
+          'month': data.month_revenue
+        }
+        this.updateDatas(this.in_comes, resData)
+        wepy.setStorageSync('in_comes', this.in_comes)
+      }
+      if (!wepy.getStorageSync('new_users')) {
+        let resData = {
+          'today': data.today_new_user_number,
+          'week': data.week_new_user_number,
+          'month': data.month_new_user_number
+        }
+        this.updateDatas(this.new_users, resData)
+        wepy.setStorageSync('new_users', this.new_users)
+      }
+      if (!wepy.getStorageSync('service_evaluates')) {
+        let resData = {
+          'today': data.today_average_service_rank,
+          'week': data.week_average_service_rank,
+          'month': data.month_average_service_rank
+        }
+        this.updateDatas(this.service_evaluates, resData)
+        wepy.setStorageSync('service_evaluates', this.new_users)
+      }
+      if (!wepy.getStorageSync('mechanic_evaluates')) {
+        let resData = {
+          'today': data.today_average_artisan_rank,
+          'week': data.week_average_artisan_rank,
+          'month': data.month_average_artisan_rank
+        }
+        this.updateDatas(this.mechanic_evaluates, resData)
+        wepy.setStorageSync('mechanic_evaluates', this.new_users)
+      }
+    }
+    updateDatas(items, resData) {
+      items.forEach(function(item) {
+        if (item.sort == 0) {
+          item.count = resData.today
+        } else if (item.sort == 1) {
+          item.count = resData.week
+        } else {
+          item.count = resData.month
+        }
+      })
+    }
+    updateShowList(select_modules) {
+      if (select_modules.indexOf('订单数') > -1) {
+        this.show_list.order_numbers = 1
+      }
+      if (select_modules.indexOf('营业额') > -1) {
+        this.show_list.in_comes = 1
+      }
+      if (select_modules.indexOf('新增用户个数') > -1) {
+        this.show_list.new_users = 1
+      }
+    }
+    async onShow() {
+      if (wepy.getStorageSync('order_numbers')) {
+        this.order_numbers = wepy.getStorageSync('order_numbers')
+      }
+      if (wepy.getStorageSync('in_comes')) {
+        this.in_comes = wepy.getStorageSync('in_comes')
+      }
+      if (wepy.getStorageSync('new_users')) {
+        this.new_users = wepy.getStorageSync('new_users')
+      }
+      if (wepy.getStorageSync('service_evaluates')) {
+        this.service_evaluates = wepy.getStorageSync('service_evaluates')
+      }
+      if (wepy.getStorageSync('mechanic_evaluates')) {
+        this.mechanic_evaluates = wepy.getStorageSync('mechanic_evaluates')
+      }
+      if (wepy.getStorageSync('modules').length || wepy.getStorageSync('show_list') != '') {
+        this.modules = wepy.getStorageSync('modules')
+      }
+      if (wepy.getStorageSync('show_list') != '') {
+        this.show_list = wepy.getStorageSync('show_list')
+      }
+      this.$apply()
+      //   this.getorderlist(this.activeIndex);
+    }
   }
-  updateShowList(select_modules) {
-    if (select_modules.indexOf('订单数') > -1) {
-      this.show_list.order_numbers = 1
-    }
-    if (select_modules.indexOf('营业额') > -1) {
-      this.show_list.in_comes = 1
-    }
-    if (select_modules.indexOf('新增用户个数') > -1) {
-      this.show_list.new_users = 1
-    }
-  }
-  async onShow() {
-    if (wepy.getStorageSync('order_numbers')) {
-      this.order_numbers = wepy.getStorageSync('order_numbers')
-    }
-    if (wepy.getStorageSync('in_comes')) {
-      this.in_comes = wepy.getStorageSync('in_comes')
-    }
-    if (wepy.getStorageSync('new_users')) {
-      this.new_users = wepy.getStorageSync('new_users')
-    }
-    if (wepy.getStorageSync('select_modules').length) {
-      this.select_modules = wepy.getStorageSync('select_modules')
-      this.updateShowList(this.select_modules)
-    }
-    if (wepy.getStorageSync('modules').length) {
-      this.modules = wepy.getStorageSync('modules')
-    }
-    this.$apply()
-    //   this.getorderlist(this.activeIndex);
-  }
-}
-
 </script>

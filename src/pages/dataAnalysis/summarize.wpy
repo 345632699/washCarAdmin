@@ -181,15 +181,15 @@
         <view wx:if="{{ selTime == 1}}">
           <view class="weui-tab" style="margin-top: 50rpx;">
             <!-- 顶部 -->
-            <!-- <view class="weui-navbar">
+            <view class="weui-navbar">
               <repeat for="{{tabs2}}" key="*this">
                 <view id="{{index}}" class="weui-navbar__item {{activeIndex2 == index ? 'weui-bar__item_on' : ''}}" @tap="tabClick2">
                   <view class="weui-navbar__title">{{item}}</view>
                 </view>
               </repeat>
               <view class="weui-navbar__slider" style="left:{{sliderLeft2}}px;transform:translateX({{sliderOffset2}}px);-webkit-transform:translateX({{sliderOffset2}}px);"></view>
-            </view> -->
-            <view class="weui-tab__panel" style="padding-top:0;" hidden="{{activeIndex2 != 0}}">
+            </view>
+            <view class="weui-tab__panel" hidden="{{activeIndex2 != 0}}">
               <view class="detail">
                 <view class="title">每日数据</view>
                 <view class="data">
@@ -250,15 +250,15 @@
         <view wx:if="{{ selTime == 2}}">
           <view class="weui-tab" style="margin-top: 50rpx;">
             <!-- 顶部 -->
-            <!-- <view class="weui-navbar">
+            <view class="weui-navbar">
               <repeat for="{{tabs2}}" key="*this">
                 <view id="{{index}}" class="weui-navbar__item {{activeIndex2 == index ? 'weui-bar__item_on' : ''}}" @tap="tabClick2">
                   <view class="weui-navbar__title">{{item}}</view>
                 </view>
               </repeat>
               <view class="weui-navbar__slider" style="left:{{sliderLeft2}}px;transform:translateX({{sliderOffset2}}px);-webkit-transform:translateX({{sliderOffset2}}px);"></view>
-            </view> -->
-            <view class="weui-tab__panel" style="padding-top:0;" hidden="{{activeIndex2 != 0}}">
+            </view>
+            <view class="weui-tab__panel" hidden="{{activeIndex2 != 0}}">
               <view class="detail">
                 <view class="title">每日数据</view>
                 <view class="data">
@@ -347,7 +347,7 @@
       sliderOffset: 0, //x轴上转换的值
       sliderLeft: 0, //距离左边的偏移值
       //weui的tab参数
-      tabs2: ["每日数据"],
+      tabs2: ["每日数据", "更多"],
       activeIndex2: 0, //激活项
       sliderOffset2: 0, //x轴上转换的值
       sliderLeft2: 0, //距离左边的偏移值
@@ -432,7 +432,7 @@
       this.$apply()
     }
     async onShow(option) {
-      await this.getData(1, this.select_type)
+      await this.getData(1, 10)
       //   let res1 = await api.getincordecsummary({
       //     query: {
       //       analysis_item_list: '1,2,3,4,5,6,7,8,9,16,17,18,19,20,21',

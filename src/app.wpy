@@ -61,6 +61,7 @@ export default class extends wepy.app {
     pages: [
     'pages/dataAnalysis/analysis',
     'pages/dataAnalysis/detail',
+    'pages/dataAnalysis/summarize',
     // 'pages/dataAnalysis/analysis',
     'pages/home',
     'pages/users_list',

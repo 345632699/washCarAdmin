@@ -50,6 +50,9 @@ const getanalysismainpage = (params) => wxRequest(params, api + "getanalysismain
 //分析详情
 const getanalysisdetails = (params) => wxRequest(params, api + "getanalysisdetails/");
 
+const getnumbersummarybyday = (params) => wxRequest(params, api + "getnumbersummarybyday/");
+const getincordecsummary = (params) => wxRequest(params, api + "getincordecsummary/");
+
 
 
 
@@ -73,5 +76,7 @@ module.exports = {
   servicedone,
   cancelorder,
   getanalysismainpage,
+  getnumbersummarybyday,
+  getincordecsummary,
   getanalysisdetails
 }
