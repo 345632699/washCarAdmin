@@ -1,8 +1,9 @@
 <style lang="less">
-<<<<<<< HEAD
 @import '../../style/common.less';
+
 .page {
   height: 100%;
+
   .weui-tab {
     .weui-navbar {
       border-bottom: 0;
@@ -29,14 +30,15 @@
       }
     }
 
-    .weui-tab__panel{
-      
+    .weui-tab__panel {
 
-      .sel-time{
+
+      .sel-time {
         .centerBox;
-        margin: 40rpx 0 20rpx 0;;
+        margin: 40rpx 0 20rpx 0;
+        ;
 
-        .btn{
+        .btn {
           width: 318rpx;
           height: 60rpx;
           border-radius: 16rpx;
@@ -44,7 +46,7 @@
           color: #FFFFFF;
           .centerBox;
 
-          text{
+          text {
             text-align: center;
             border-radius: 16rpx 0 0 16rpx;
             font-size: 32rpx;
@@ -52,22 +54,22 @@
             width: 158rpx;
             display: inline-block;
 
-            &:last-child{
-              border-left: 2rpx solid #4A4A4A; 
+            &:last-child {
+              border-left: 2rpx solid #4A4A4A;
               border-radius: 0 16rpx 16rpx 0;
             }
           }
         }
       }
 
-      .detail{
+      .detail {
         margin: 45rpx 24rpx 60rpx 26rpx;
         border-radius: 12rpx;
         background: @cellsBgColor;
-        box-shadow:0px 4px 8px 0px rgba(0,0,0,0.5);
+        box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.5);
         text-align: center;
 
-        .title{
+        .title {
           text-align: center;
           font-size: 32rpx;
           line-height: 44rpx;
@@ -75,18 +77,18 @@
           padding: 24rpx;
         }
 
-        .data{
+        .data {
           margin: 20rpx 36rpx;
           padding-bottom: 42rpx;
 
-          .name{
+          .name {
             display: flex;
             justify-content: space-around;
             align-items: center;
             padding: 20rpx 0 20rpx;
             border-bottom: 2rpx solid #4A4A4A;
 
-            view{
+            view {
               width: 150rpx;
               font-size: 24rpx;
               line-height: 34rpx;
@@ -94,44 +96,44 @@
             }
           }
 
-          .item{
+          .item {
             display: flex;
             justify-content: space-around;
             align-items: center;
             padding-top: 20rpx;
 
-            text{
+            text {
               width: 150rpx;
               font-size: 24rpx;
               line-height: 34rpx;
               color: #9B9B9B;
             }
 
-            &:last-child{
+            &:last-child {
               padding-bottom: 20rpx
             }
           }
         }
       }
 
-      .no-data{
+      .no-data {
         font-size: 30rpx;
         line-height: 300rpx;
         color: #6D6E71;
       }
 
-      .more-detail{
+      .more-detail {
         margin: 12rpx 24rpx 0 26rpx;
         border-radius: 12rpx;
         background: @cellsBgColor;
-        box-shadow:0px 4px 8px 0px rgba(0,0,0,0.5);
+        box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.5);
         text-align: center;
 
-        &:first-child{
+        &:first-child {
           margin-top: 45rpx;
         }
 
-        .title{
+        .title {
           text-align: center;
           font-size: 32rpx;
           line-height: 44rpx;
@@ -140,29 +142,29 @@
           margin-bottom: 10rpx;
         }
 
-        .data{
+        .data {
           .centerBox;
 
-          .item{
+          .item {
             width: 130rpx;
             text-align: center;
             margin: 0 14rpx;
 
-            .count{
+            .count {
               font-size: 64rpx;
               line-height: 60rpx;
               color: #C42B2B;
               font-weight: bold;
             }
 
-            .name{
+            .name {
               font-size: 24rpx;
               line-height: 34rpx;
               color: @titleColor;
               margin: 20rpx 0 4rpx;
             }
 
-            .txt{
+            .txt {
               font-size: 18rpx;
               line-height: 26rpx;
               color: #6D6E71;
@@ -171,7 +173,7 @@
           }
         }
 
-        .tips{
+        .tips {
           text-align: center;
           font-size: 24rpx;
           line-height: 34rpx;
@@ -182,6 +184,7 @@
     }
   }
 }
+
 </style>
 <template>
   <view class="page">
@@ -195,7 +198,6 @@
         </repeat>
         <view class="weui-navbar__slider" style="left:{{sliderLeft}}px;transform:translateX({{sliderOffset}}px);-webkit-transform:translateX({{sliderOffset}}px);"></view>
       </view>
-
       <view class="weui-tab__panel">
         <view class="sel-time">
           <view class="btn">
@@ -203,16 +205,10 @@
             <text @tap="selectTime" id="2" style="background:{{selTime==2 ? '#C42B2B' : '#212121'}}">本月</text>
           </view>
         </view>
-
         <view class="chart">
-          <line_chart 
-            :xTitle.sync="xTitle" 
-            :yTitle.sync="yTitle" 
-            :chartData.sync="chartData" 
-            :xAxisData.sync="xAxisData">
+          <line_chart :xTitle.sync="xTitle" :yTitle.sync="yTitle" :chartData.sync="chartData" :xAxisData.sync="xAxisData">
           </line_chart>
         </view>
-
         <view class="weui-tab" style="margin-top: 50rpx;">
           <!-- 顶部 -->
           <view class="weui-navbar">
@@ -223,7 +219,6 @@
             </repeat>
             <view class="weui-navbar__slider" style="left:{{sliderLeft2}}px;transform:translateX({{sliderOffset2}}px);-webkit-transform:translateX({{sliderOffset2}}px);"></view>
           </view>
-
           <view class="weui-tab__panel" hidden="{{activeIndex2 != 0}}">
             <view class="detail">
               <view class="title">每日数据</view>
@@ -251,7 +246,6 @@
               </view>
             </view>
           </view>
-
           <view class="weui-tab__panel" hidden="{{activeIndex2 != 1}}">
             <view class="more-detail">
               <view class="title">数据小结</view>
@@ -292,34 +286,8 @@
             <view class="detail no-data">
               暂未收集到充足的数据
             </view>
-            <!-- <view class="detail">
-              <view class="title">每日数据</view>
-              <view class="data">
-                <view class="name">
-                  <view>日期</view>
-                  <view>订单数(个)</view>
-                </view>
-                <view class="item">
-                  <text>9月10日</text>
-                  <text>3</text>
-                </view>
-                <view class="item">
-                  <text>9月10日</text>
-                  <text>3</text>
-                </view>
-                <view class="item">
-                  <text>9月10日</text>
-                  <text>3</text>
-                </view>
-                <view class="item">
-                  <text>9月10日</text>
-                  <text>3</text>
-                </view>
-              </view>
-            </view> -->
           </view>
         </view>
-        
       </view>
     </view>
   </view>
@@ -328,41 +296,41 @@
 import wepy from 'wepy'
 import LineChart from '../../components/lineChart'
 import util from '../../utils/util'
-  import {
-    SYSTEM_INFO,
-    SEL_CLASS_CODE
-  } from '../../utils/constant';
-  import api from '../../api/api'
+import {
+  SYSTEM_INFO,
+  SEL_CLASS_CODE
+} from '../../utils/constant';
+import api from '../../api/api'
 
 const sliderWidth = 60 // 需要设置slider的宽度，用于计算中间位置
 export default class Charts extends wepy.page {
-	config = {
+  config = {
     navigationBarTitleText: '数据统计',
     usingComponents: {
       ec_canvas: '../../plugins/ec-canvas/ec-canvas'
     }
   }
 
-	components = {
+  components = {
     line_chart: LineChart
   }
 
   data = {
     //weui的tab参数
     tabs: ["订单数", "营业额", "新用户", "服务评价", "技工评价"],
-    activeIndex: 0,//激活项
-    sliderOffset: 0,//x轴上转换的值
-    sliderLeft: 0,//距离左边的偏移值
+    activeIndex: 0, //激活项
+    sliderOffset: 0, //x轴上转换的值
+    sliderLeft: 0, //距离左边的偏移值
 
     //weui的tab参数
     tabs2: ["每日数据", "更多"],
-    activeIndex2: 1,//激活项
-    sliderOffset2: 0,//x轴上转换的值
-    sliderLeft2: 0,//距离左边的偏移值
+    activeIndex2: 1, //激活项
+    sliderOffset2: 0, //x轴上转换的值
+    sliderLeft2: 0, //距离左边的偏移值
 
 
     xTitle: '日期',
-		yTitle: '订单数(个)',
+    yTitle: '订单数(个)',
     chartData: [10, 12, 21, 54, 260, 830, 710],
     xAxisData: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
 
@@ -390,7 +358,7 @@ export default class Charts extends wepy.page {
   async onLoad(option) {
     let that = this;
     wx.getSystemInfo({
-      success: function (res) {
+      success: function(res) {
         that.sliderLeft = (res.windowWidth / that.tabs.length - sliderWidth) / 2;
         that.sliderOffset = res.windowWidth / that.tabs.length * that.activeIndex;
 
@@ -399,189 +367,25 @@ export default class Charts extends wepy.page {
       }
     });
     this.$apply()
+
+    let res = await api.getanalysisdetails({
+      query: {
+        analysis_item: '10',
+        branch_id: 1,
+        employee_id: 1,
+        time_id: 2,
+        merchant_id: wepy.getStorageSync('merchant_id')
+      },
+      method: 'POST'
+    })
+    let data = res.data.data[0]
+    console.log(data)
+    for (let index in data) {
+      console.log(index)
+      console.log(data[index])
+    }
   }
+
+  async onShow() {}
 }
 </script>
-=======
-    @import '../../style/common.less';
-    .page {
-        .identity {}
-    }
-</style>
-<template>
-    <view class="page">
-        <view class="identity">
-            <view class="line__chart">
-                <ec_canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ec }}" bind:init="echartInit"></ec_canvas>
-            </view>
-        </view>
-    </view>
-</template>
-
-<script>
-    import wepy from 'wepy'
-    import util from '../../utils/util'
-    import {
-        SYSTEM_INFO,
-        SEL_CLASS_CODE
-    } from '../../utils/constant';
-    import api from '../../api/api'
-    import tip from '../../utils/tip'
-    import Alert from '../../components/myAlert'
-    import echarts from '../../components/charts/ec-canvas/echarts.js'
-    export default class Me extends wepy.page {
-        config = {
-            navigationBarTitleText: '个人中心',
-            usingComponents: {
-                ec_canvas: '../../components/charts/ec-canvas/ec-canvas'
-            }
-        }
-        components = {
-            alert: Alert
-        }
-        data = {
-            ec: {}
-        }
-        computed = {}
-        methods = {
-            async echartInit(e) {
-                await this.initChart(e.detail.canvas, e.detail.width, e.detail.height)
-            }
-        }
-        async initChart(canvas, width, height) {
-            let systemInfo = await wx.getStorageSync(SYSTEM_INFO);
-            const chart = echarts.init(canvas, null, {
-                width: systemInfo.windowWidth,
-                height: (systemInfo.windowWidth / 1.785)
-            })
-            canvas.setChart(chart)
-            var option2 = {
-                "backgroundColor": "#212121",
-                title: {
-                    text: '',
-                    subtext: '纯属虚构',
-                    "textStyle": {
-                        "color": "#eeeeee"
-                    },
-                    "subtextStyle": {
-                        "color": "rgba(255, 255, 255, 1)"
-                    }
-                },
-                tooltip: {
-                    trigger: 'axis'
-                },
-                legend: {
-                    data: []
-                },
-                toolbox: {
-                    show: false,
-                    feature: {
-                        mark: {
-                            show: true
-                        },
-                        dataView: {
-                            show: true,
-                            readOnly: false
-                        },
-                        magicType: {
-                            show: true,
-                            type: ['line', 'bar', 'stack', 'tiled']
-                        },
-                        restore: {
-                            show: true
-                        },
-                        saveAsImage: {
-                            show: true
-                        }
-                    }
-                },
-                calculable: true,
-                xAxis: [{
-                    type: 'category',
-                    boundaryGap: false,
-                    axisLabel: {
-                        show: true,
-                        textStyle: {
-                            color: '#ffffff'
-                        }
-                    },
-                    data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-                }],
-                yAxis: [{
-                    type: 'value',
-                    axisLabel: {
-                        show: true,
-                        textStyle: {
-                            color: '#ffffff'
-                        }
-                    },
-                    splitLine: {
-                        show: true,
-                        lineStyle: {
-                            color: ['rgba(46, 46, 46, 1)'],
-                            width: 1,
-                            type: 'solid'
-                        }
-                    }
-                }],
-                series: [{
-                    name: '成交',
-                    type: 'line',
-                    smooth: true,
-                    itemStyle: {
-                        normal: {
-                            areaStyle: {
-                                width: 0,
-                                type: 'default',
-                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                    offset: 0,
-                                    color: '#F5515F'
-                                }, {
-                                    offset: 1,
-                                    color: '#9F041B'
-                                }]),
-                            }
-                        }
-                    },
-                    "lineStyle": {
-                        "normal": {
-                            "width": "0"
-                        }
-                    },
-                    "symbolSize": "0",
-                    "symbol": "circle",
-                    data: [100, 300, 600, 900, 400, 300, 100]
-                }]
-            };
-            chart.setOption(option2)
-            return chart
-        }
-        async onLoad() {
-            let res = await api.getanalysisdetails({
-                query: {
-                    analysis_item: '10',
-                    branch_id: 1,
-                    employee_id: 1,
-                    time_id: 2,
-                    merchant_id: wepy.getStorageSync('merchant_id')
-                },
-                method: 'POST'
-            })
-            let data = res.data.data[0]
-            console.log(data)
-            for (let index in data) {
-                console.log(index)
-                console.log(data[index])
-            }
-        }
-        async onShow() {}
-    }
-</script>
-<style lang="less">
-    .line__chart {
-        width: 700rpx;
-        height: 600rpx;
-        margin: 0 auto;
-    }
-</style>
->>>>>>> 0ea5f6c4700d1599a6f2937be48451747e025727
