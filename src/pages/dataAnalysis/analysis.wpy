@@ -41,6 +41,7 @@
           font-size: 28rpx;
           line-height: 40rpx;
         }
+<<<<<<< HEAD
       }
 
       .right {
@@ -147,6 +148,130 @@
               margin: auto;
               width: 52rpx;
               height: 54rpx;
+=======
+        .order {
+            .order-number,
+            .in-come,
+            .new-user {
+                .list-item {
+                    //width: 616rpx;
+                    margin: 0 24rpx 12rpx 26rpx;
+                    border-radius: 16rpx;
+                    background: #2E2E2E;
+                    height: 250rpx;
+                    .title {
+                        font-size: 28rpx;
+                        padding: 24rpx;
+                    }
+                    .container {
+                        position: relative;
+                        display: inline-block;
+                        vertical-align: middle;
+                    }
+                    .pannel {
+                        display: inline-block;
+                        margin-left: 24rpx;
+                        margin-top: 16rpx;
+                        width: 200rpx;
+                        height: 100rpx;
+                        background: #C42B2B;
+                        color: #ffffff;
+                        font-size: 20rpx;
+                        border-radius: 16rpx;
+                        overflow: hidden;
+                        vertical-align: middle;
+                        box-shadow: 2rpx 4rpx 4rpx #000000;
+                        .left {
+                            display: inline-block;
+                            width: 104rpx;
+                            text-align: center;
+                            .sub {
+                                position: relative;
+                                top: 14rpx;
+                                margin: auto;
+                                width: 52rpx;
+                                height: 54rpx;
+                            }
+                        }
+                        .right {
+                            background: #c83939;
+                            border-radius: 16rpx;
+                            border-bottom-left-radius: 30rpx;
+                            border-top-left-radius: 30rpx;
+                            display: inline-block;
+                            font-size: 32rpx;
+                            text-align: center;
+                            line-height: 100rpx;
+                            width: 96rpx;
+                            height: 100rpx;
+                        }
+                        .delete {
+                            position: absolute;
+                            top: 0rpx;
+                            left: 200rpx;
+                            width: 40rpx;
+                            height: 40rpx;
+                            border-radius: 50%;
+                            background: #D0021B;
+                            box-shadow: 2rpx 2rpx 4rpx #000000;
+                            .text {
+                                height: 40rpx;
+                                width: 40rpx;
+                                font-size: 60rpx;
+                                font-weight: 400;
+                                line-height: 30rpx;
+                                text-align: center;
+                            }
+                        }
+                        .add {
+                            .text {
+                                color: #6D6E71;
+                                text-align: center;
+                                font-size: 50rpx;
+                                font-weight: 400;
+                                height: 56rpx;
+                            }
+                        }
+                        .tips {
+                            color: #6D6E71;
+                            font-size: 20rpx;
+                            text-align: center;
+                        }
+                    }
+                    .add-pannel {
+                        background: #2E2E2E;
+                        border: 2rpx solid #6D6E71;
+                    }
+                }
+            }
+            .in-come {
+                .list-item {
+                    .pannel {
+                        background: #F5A623;
+                        .right {
+                            background: #F6B03C;
+                        }
+                    }
+                    .add-pannel {
+                        background: #2E2E2E;
+                        border: 2rpx solid #6D6E71;
+                    }
+                }
+            }
+            .new-user {
+                .list-item {
+                    .pannel {
+                        background: #8BA909;
+                        .right {
+                            background: #92AE18;
+                        }
+                    }
+                    .add-pannel {
+                        background: #2E2E2E;
+                        border: 2rpx solid #6D6E71;
+                    }
+                }
+>>>>>>> 0ea5f6c4700d1599a6f2937be48451747e025727
             }
           }
 
@@ -320,6 +445,7 @@
                     <view class="text">-</view>
                   </view>
                 </view>
+<<<<<<< HEAD
                 <view class="pannel">
                   <view class="left">
                     <view class="sub">
@@ -334,6 +460,17 @@
                   <view class="left">
                     <view class="sub">
                       本月 MTD
+=======
+                <view class="right column">
+                    <view class="book-info">
+                        <text>今日预约：{{ homeInfo.today_number }}{{is_edit}}单</text>
+                        <text>本周预约：{{ homeInfo.week_number }}单</text>
+                    </view>
+                    <!-- ！！什么时候显示空闲、火爆和正常的图片？然后红绿黄三张图片我随便截的，缺原切图。 -->
+                    <!-- <image src="../../images/book/hot.png" class="icon"></image> -->
+                    <view class="icon" @tap="edit()">
+                        {{ button_title }}
+>>>>>>> 0ea5f6c4700d1599a6f2937be48451747e025727
                     </view>
                   </view>
                   <view class="right">
@@ -342,6 +479,7 @@
                 </view>
               </view>
             </view>
+<<<<<<< HEAD
           </view>
           <view class="in-come list">
             <view class="list-item">
@@ -408,6 +546,174 @@
                   <view class="add">
                     <view class="text">
                       +
+=======
+        </view>
+        <view class="weui-tab">
+            <!-- 内容 -->
+            <view class="weui-tab__panel">
+                <view class="weui-tab__content order">
+                    <view class="order-number list" wx:if="{{ show_list.order_numbers }}">
+                        <view class="list-item">
+                            <view class="title">订单数（个）</view>
+                            <view class="container" wx:for="{{ order_numbers }}" wx:for-item="selectItem" wx:key="index" wx:if="{{ selectItem.selected > 0 }}">
+                                <view class="pannel" @tap="getDetail">
+                                    <view class="left">
+                                        <view class="sub">
+                                            {{selectItem.title}}
+                                        </view>
+                                    </view>
+                                    <view class="right">
+                                        {{selectItem.count}}
+                                    </view>
+                                    <view class="delete" wx:if="{{is_edit}}" wx:for-item="del" @tap="del({{index}},1)">
+                                        <view class="text">-</view>
+                                    </view>
+                                </view>
+                            </view>
+                            <view class="container">
+                                <view class="pannel add-pannel" wx:for="{{ order_numbers }}" wx:key="item" @tap="addItem({{index}},1)" wx:if="{{ item.selected < 1 }}">
+                                    <view class="add">
+                                        <view class="text">
+                                            +
+                                        </view>
+                                    </view>
+                                    <view class="tips"> {{ item.title }}</view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="in-come list" wx:if="{{ show_list.in_comes }}">
+                        <view class="list-item">
+                            <view class="title">营业额（元）</view>
+                            <view class="container" wx:for="{{ in_comes }}" wx:for-item="selectItem" wx:key="index" wx:if="{{ selectItem.selected > 0 }}">
+                                <view class="pannel">
+                                    <view class="left">
+                                        <view class="sub">
+                                            {{selectItem.title}}
+                                        </view>
+                                    </view>
+                                    <view class="right">
+                                        {{selectItem.count}}
+                                    </view>
+                                    <view class="delete" wx:if="{{is_edit}}" wx:for-item="del" @tap="del({{index}},2)">
+                                        <view class="text">-</view>
+                                    </view>
+                                </view>
+                            </view>
+                            <view class="container">
+                                <view class="pannel add-pannel" wx:for="{{ in_comes }}" wx:key="item" @tap="addItem({{index}},2)" wx:if="{{ item.selected < 1 }}">
+                                    <view class="add">
+                                        <view class="text">
+                                            +
+                                        </view>
+                                    </view>
+                                    <view class="tips"> {{ item.title }}</view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="new-user list" wx:if="{{ show_list.new_users }}">
+                        <view class="list-item">
+                            <view class="title">新增用户个数（个）</view>
+                            <view class="container" wx:for="{{ new_users }}" wx:for-item="selectItem" wx:key="index" wx:if="{{ selectItem.selected > 0 }}">
+                                <view class="pannel">
+                                    <view class="left">
+                                        <view class="sub">
+                                            {{selectItem.title}}
+                                        </view>
+                                    </view>
+                                    <view class="right">
+                                        {{selectItem.count}}
+                                    </view>
+                                    <view class="delete" wx:if="{{is_edit}}" wx:for-item="del" @tap="del({{index}},3)">
+                                        <view class="text">-</view>
+                                    </view>
+                                </view>
+                            </view>
+                            <view class="container">
+                                <view class="pannel add-pannel" wx:for="{{ new_users }}" wx:key="item" @tap="addItem({{index}},3)" wx:if="{{ item.selected < 1 }}">
+                                    <view class="add">
+                                        <view class="text">
+                                            +
+                                        </view>
+                                    </view>
+                                    <view class="tips"> {{ item.title }}</view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="new-user list" wx:if="{{ select_modules.indexOf('服务评分') > -1 }}">
+                        <view class="list-item">
+                            <view class="title">新增用户个数（个）</view>
+                            <view class="container" wx:for="{{ new_users }}" wx:for-item="selectItem" wx:key="index" wx:if="{{ selectItem.selected > 0 }}">
+                                <view class="pannel">
+                                    <view class="left">
+                                        <view class="sub">
+                                            {{selectItem.title}}
+                                        </view>
+                                    </view>
+                                    <view class="right">
+                                        {{selectItem.count}}
+                                    </view>
+                                    <view class="delete" wx:if="{{is_edit}}" wx:for-item="del" @tap="del({{index}},3)">
+                                        <view class="text">-</view>
+                                    </view>
+                                </view>
+                            </view>
+                            <view class="container">
+                                <view class="pannel add-pannel" wx:for="{{ new_users }}" wx:key="item" @tap="addItem({{index}},3)" wx:if="{{ item.selected < 1 }}">
+                                    <view class="add">
+                                        <view class="text">
+                                            +
+                                        </view>
+                                    </view>
+                                    <view class="tips"> {{ item.title }}</view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="new-user list" wx:if="{{ select_modules.indexOf('技工评分') > -1 }}">
+                        <view class="list-item">
+                            <view class="title">新增用户个数（个）</view>
+                            <view class="container" wx:for="{{ new_users }}" wx:for-item="selectItem" wx:key="index" wx:if="{{ selectItem.selected > 0 }}">
+                                <view class="pannel">
+                                    <view class="left">
+                                        <view class="sub">
+                                            {{selectItem.title}}
+                                        </view>
+                                    </view>
+                                    <view class="right">
+                                        {{selectItem.count}}
+                                    </view>
+                                    <view class="delete" wx:if="{{is_edit}}" wx:for-item="del" @tap="del({{index}},3)">
+                                        <view class="text">-</view>
+                                    </view>
+                                </view>
+                            </view>
+                            <view class="container">
+                                <view class="pannel add-pannel" wx:for="{{ new_users }}" wx:key="item" @tap="addItem({{index}},3)" wx:if="{{ item.selected < 1 }}">
+                                    <view class="add">
+                                        <view class="text">
+                                            +
+                                        </view>
+                                    </view>
+                                    <view class="tips"> {{ item.title }}</view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="data-sum list">
+                        <picker mode="selector" range="{{modules}}" value="{{index}}" @change="listenerPickerSelected">
+                            <view class="list-item">
+                                <view class="add">
+                                    +
+                                </view>
+                                <view class="tips">
+                                    添加模块
+                                </view>
+                            </view>
+                        </picker>
+>>>>>>> 0ea5f6c4700d1599a6f2937be48451747e025727
                     </view>
                   </view>
                   <view class="tips"> 本周</view>
@@ -431,6 +737,7 @@
   </view>
 </template>
 <script>
+<<<<<<< HEAD
 import wepy from 'wepy'
 import util from '../../utils/util'
 import Search from '../../components/search'
@@ -503,6 +810,316 @@ export default class Home extends wepy.page {
         rootCate.active = false;
         if (rootCate.code == code) {
           rootCate.active = true;
+=======
+    import wepy from 'wepy'
+    import util from '../../utils/util'
+    import Search from '../../components/search'
+    import Recharge from '../../components/recharge'
+    import {
+        SYSTEM_INFO,
+        SEL_CLASS_CODE
+    } from '../../utils/constant';
+    import Tap from '../../components/tap'
+    import api from '../../api/api'
+    const sliderWidth = 50 // 需要设置slider的宽度，用于计算中间位置
+    export default class Home extends wepy.page {
+        config = {
+            navigationBarTitleText: '预约列表'
+        }
+        components = {
+            search: Search,
+            recharge: Recharge,
+            tap: Tap,
+        }
+        data = {
+            modules: ['营业额', '订单数', '新增用户个数', '服务评分', '技工评分', '数据总结'],
+            select_modules: [],            
+            userInfo: {
+                nickName: '加载中...'
+            },
+            time: "上午好",
+            homeInfo: {
+                today_number: 0,
+                week_number: 0
+            },
+            employee: {
+                name: wepy.getStorageSync('user_info').nickName
+            },
+            is_edit: 0,
+            button_title: '编辑',
+            show_list: {
+                order_numbers: 0,
+                in_comes: 0,
+                new_users: 0
+            },
+            order_numbers: [{
+                    sort: 0,
+                    title: '今天 Today',
+                    count: 0,
+                    selected: 1
+                },
+                {
+                    sort: 1,
+                    title: '本周 WTD',
+                    count: 0,
+                    selected: 1
+                },
+                {
+                    sort: 2,
+                    title: '本月 MTD',
+                    count: 0,
+                    selected: 1
+                }
+            ],
+            in_comes: [{
+                    sort: 0,
+                    title: '今天 Today',
+                    count: 0,
+                    selected: 1
+                },
+                {
+                    sort: 1,
+                    title: '本周 WTD',
+                    count: 0,
+                    selected: 1
+                },
+                {
+                    sort: 2,
+                    title: '本月 MTD',
+                    count: 0,
+                    selected: 1
+                }
+            ],
+            new_users: [{
+                    sort: 0,
+                    title: '今天 Today',
+                    count: 0,
+                    selected: 1
+                },
+                {
+                    sort: 1,
+                    title: '本周 WTD',
+                    count: 0,
+                    selected: 1
+                },
+                {
+                    sort: 2,
+                    title: '本月 MTD',
+                    count: 0,
+                    selected: 1
+                }
+            ],
+        }
+        computed = {
+            now() {
+                return +new Date()
+            }
+        }
+        methods = {
+            edit() {
+                if (this.is_edit === 0) {
+                    this.is_edit = 1
+                    this.button_title = "完成"
+                } else {
+                    this.is_edit = 0
+                    this.button_title = "编辑"
+                }
+                this.$apply()
+            },
+            addItem(index, type) {
+                let target = ''
+                if (type == 1) {
+                    target = this.order_numbers
+                    target[index].selected = 1
+                    wepy.setStorageSync('order_numbers', target)
+                } else if (type == 2) {
+                    target = this.in_comes
+                    target[index].selected = 1
+                    wepy.setStorageSync('in_comes', target)
+                } else {
+                    target = this.new_users
+                    target[index].selected = 1
+                    wepy.setStorageSync('new_users', target)
+                }
+                this.$apply()
+            },
+            del(index, type) {
+                let target = ''
+                if (type == 1) {
+                    target = this.order_numbers
+                    target[index].selected = 0
+                    wepy.setStorageSync('order_numbers', target)
+                } else if (type == 2) {
+                    target = this.in_comes
+                    target[index].selected = 0
+                    wepy.setStorageSync('in_comes', target)
+                } else {
+                    target = this.new_users
+                    target[index].selected = 0
+                    wepy.setStorageSync('new_users', target)
+                }
+                this.$apply()
+            },
+            getDetail() {
+                wepy.navigateTo({
+                    url: `/pages/dataAnalysis/detail`
+                })
+            },
+            listenerPickerSelected (e) {
+                let index = e.detail.value
+                this.select_modules.push(this.modules[index])
+                this.modules.splice(index,1)
+                this.$apply()
+                this.updateShowList(this.select_modules)
+                wepy.setStorageSync('select_modules',this.select_modules)
+                wepy.setStorageSync('modules',this.modules)
+            }
+        }
+        getIndex(obj, str) {
+            let returnIndex = 0
+            obj.forEach((item, index) => {
+                if (item.sort == str.sort) {
+                    returnIndex = index
+                }
+            })
+            return returnIndex
+        }
+        async getorderoverview(employee_id) {
+            let myDate = new Date();
+            let hour = myDate.getHours();
+            if (hour > 12) {
+                this.time = "下午好"
+                this.$apply()
+            }
+            let order_status = wepy.getStorageSync('activeIndex') ? wepy.getStorageSync('activeIndex') : 0;
+            console.log(order_status)
+            const res = await api.getorderoverview({
+                query: {
+                    employee_id: employee_id,
+                    order_status: order_status
+                },
+                method: 'POST'
+            });
+            if (!res.data.status > 0) {
+                wepy.setStorageSync('userid', '')
+                await this.$parent.getAuth()
+            }
+            this.homeInfo = res.data.data[0]
+            if (this.homeInfo) {
+                wepy.setStorageSync('is_root', this.homeInfo.is_root)
+                this.orderList = this.homeInfo.order_list
+            }
+            this.$apply()
+        }
+        events = {
+            //type 0 未完成 1已完成
+            'getorderlist': async(type) => {
+                const res = await api.getorderlist({
+                    query: {
+                        employee_id: wepy.getStorageSync('userid'),
+                        order_status: type
+                    },
+                    method: 'POST'
+                });
+                this.orderList = res.data.data
+                this.$apply()
+            },
+        }
+        async onLoad() {
+            let that = this;
+            // wepy.removeStorageSync('order_number')
+            // wepy.removeStorageSync('in_come')
+            // wepy.removeStorageSync('new_user')
+            if (!wepy.getStorageSync('userid')) {
+                await this.$parent.getAuth()
+                this.userInfo = wepy.getStorageSync('user_info')
+                await this.getorderoverview(wepy.getStorageSync('userid'))
+                this.$apply()
+            } else {
+                this.userInfo = wepy.getStorageSync('user_info')
+                await this.getorderoverview(wepy.getStorageSync('userid'))
+                this.$apply()
+            }
+            let res = await api.getanalysismainpage({
+                query: {
+                    analysis_item_list: '1,2,3,4,5,6,7,8,9',
+                    branch_id: 1,
+                    // employee_id: 1,
+                    merchant_id: wepy.getStorageSync('merchant_id')
+                },
+                method: 'POST'
+            })
+            let data = res.data.data[0]
+            if (!wepy.getStorageSync('order_numbers')) {
+                let resData = {
+                    'today': data.today_orders_number,
+                    'week': data.week_orders_number,
+                    'month': data.month_orders_number
+                }
+                this.updateDatas(this.order_numbers, resData)
+                wepy.setStorageSync('order_numbers', this.order_numbers)
+            }
+            if (!wepy.getStorageSync('in_comes')) {
+                let resData = {
+                    'today': data.today_revenue,
+                    'week': data.week_revenue,
+                    'month': data.month_revenue
+                }
+                this.updateDatas(this.in_comes, resData)
+                wepy.setStorageSync('in_comes', this.in_comes)
+            }
+            if (!wepy.getStorageSync('new_users')) {
+                let resData = {
+                    'today': data.today_new_user_number,
+                    'week': data.week_new_user_number,
+                    'month': data.month_new_user_number
+                }
+                this.updateDatas(this.new_users, resData)
+                wepy.setStorageSync('new_users', this.new_users)
+            }
+        }
+        updateDatas(items, resData) {
+            items.forEach(function(item) {
+                if (item.sort == 0) {
+                    item.count = resData.today
+                } else if (item.sort == 1) {
+                    item.count = resData.week
+                } else {
+                    item.count = resData.month
+                }
+            })
+        }
+        updateShowList (select_modules) {
+            if (select_modules.indexOf('订单数') > -1) {
+                this.show_list.order_numbers = 1
+            }
+            if (select_modules.indexOf('营业额') > -1) {
+                this.show_list.in_comes = 1
+            }
+            if (select_modules.indexOf('新增用户个数') > -1) {
+                this.show_list.new_users = 1
+            }
+        }
+        async onShow() {
+            if (wepy.getStorageSync('order_numbers')) {
+                this.order_numbers = wepy.getStorageSync('order_numbers')
+            }
+            if (wepy.getStorageSync('in_comes')) {
+                this.in_comes = wepy.getStorageSync('in_comes')
+            }
+            if (wepy.getStorageSync('new_users')) {
+                this.new_users = wepy.getStorageSync('new_users')
+            }
+            if (wepy.getStorageSync('select_modules').length) {
+                this.select_modules = wepy.getStorageSync('select_modules')
+                this.updateShowList(this.select_modules)
+            }
+            if(wepy.getStorageSync('modules').length){
+                this.modules = wepy.getStorageSync('modules')
+            }
+            this.$apply()
+            //   this.getorderlist(this.activeIndex);
+>>>>>>> 0ea5f6c4700d1599a6f2937be48451747e025727
         }
       }
     },

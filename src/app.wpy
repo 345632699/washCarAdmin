@@ -70,6 +70,7 @@ export default class extends wepy.app {
     'pages/auth',
     'pages/identify',
     'pages/employee_manage',
+    'pages/dataAnalysis/detail',
     ],
     window: {
       backgroundTextStyle: 'light',
