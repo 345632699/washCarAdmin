@@ -47,11 +47,14 @@ const servicedone = (params) => wxRequest(params, api + "servicedone/");
 const cancelorder = (params) => wxRequest(params, api + "cancelorder/");
 //数据分析首页
 const getanalysismainpage = (params) => wxRequest(params, api + "getanalysismainpage/");
-//分析详情
+//分析详情 通过分析的首页，点击每个细项，进入的本周、本月的详情页
 const getanalysisdetails = (params) => wxRequest(params, api + "getanalysisdetails/");
-
+//获取上周、上月或者往前第几周、第几月每个细项的信息，按天分
 const getnumbersummarybyday = (params) => wxRequest(params, api + "getnumbersummarybyday/");
+//获取指定某两个周或者某两个月，希望分析的所有项的数值比较，返回变化和变化率
 const getincordecsummary = (params) => wxRequest(params, api + "getincordecsummary/");
+//获取上周或者上月或者上几周或者上几月的各项指标的异常数据
+const getabnormaldata = (params) => wxRequest(params, api + "getabnormaldata/");
 
 
 
@@ -78,5 +81,6 @@ module.exports = {
   getanalysismainpage,
   getnumbersummarybyday,
   getincordecsummary,
+  getabnormaldata,
   getanalysisdetails
 }

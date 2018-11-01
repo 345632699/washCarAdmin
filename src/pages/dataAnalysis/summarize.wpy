@@ -1,449 +1,577 @@
 <style lang="less">
-  @import '../../style/common.less';
-  .page {
-    height: 100%;
-    .weui-tab {
-      .weui-navbar {
-        border-bottom: 0;
-        box-shadow: none;
-        .weui-navbar__item {
-          color: #9B9B9B;
-          font-weight: 400;
-          .weui-navbar__title {
-            font-size: 32rpx;
-            line-height: 44rpx;
-          }
-        }
-        .weui-bar__item_on {
-          color: @txtColor;
-        }
-        .weui-navbar__slider {
-          width: 60px;
-          background: #C42B2B;
-          height: 4rpx;
-        }
-      }
-      .weui-tab__panel {
-        .sel-time {
-          .centerBox;
-          margin: 40rpx 0 20rpx 0;
-          ;
-          .btn {
-            width: 318rpx;
-            height: 60rpx;
-            border-radius: 16rpx;
-            border: 2rpx solid #4A4A4A;
-            color: #FFFFFF;
-            .centerBox;
-            text {
-              text-align: center;
-              border-radius: 16rpx 0 0 16rpx;
-              font-size: 32rpx;
-              line-height: 58rpx;
-              width: 158rpx;
-              display: inline-block;
-              &:last-child {
-                border-left: 2rpx solid #4A4A4A;
-                border-radius: 0 16rpx 16rpx 0;
-              }
+    @import '../../style/common.less';
+    .page {
+        height: 100%;
+        .weui-tab {
+            .weui-navbar {
+                border-bottom: 0;
+                box-shadow: none;
+                .weui-navbar__item {
+                    color: #9B9B9B;
+                    font-weight: 400;
+                    .weui-navbar__title {
+                        font-size: 32rpx;
+                        line-height: 44rpx;
+                    }
+                }
+                .weui-bar__item_on {
+                    color: @txtColor;
+                }
+                .weui-navbar__slider {
+                    width: 60px;
+                    background: #C42B2B;
+                    height: 4rpx;
+                }
             }
-          }
-        }
-        .detail {
-          margin: 45rpx 24rpx 60rpx 26rpx;
-          border-radius: 12rpx;
-          background: @cellsBgColor;
-          box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.5);
-          text-align: center;
-          .title {
-            text-align: center;
-            font-size: 32rpx;
-            line-height: 44rpx;
-            color: @titleColor;
-            padding: 24rpx;
-          }
-          .data {
-            margin: 20rpx 36rpx;
-            padding-bottom: 42rpx;
-            .name {
-              display: flex;
-              justify-content: space-around;
-              align-items: center;
-              padding: 20rpx 0 20rpx;
-              border-bottom: 2rpx solid #4A4A4A;
-              view {
-                width: 150rpx;
-                font-size: 24rpx;
-                line-height: 34rpx;
-                color: @titleColor;
-              }
+            .weui-tab__panel {
+                .sel-time {
+                    .centerBox;
+                    margin: 40rpx 0 20rpx 0;
+                    ;
+                    .btn {
+                        width: 318rpx;
+                        height: 60rpx;
+                        border-radius: 16rpx;
+                        border: 2rpx solid #4A4A4A;
+                        color: #FFFFFF;
+                        .centerBox;
+                        text {
+                            text-align: center;
+                            border-radius: 16rpx 0 0 16rpx;
+                            font-size: 32rpx;
+                            line-height: 58rpx;
+                            width: 158rpx;
+                            display: inline-block;
+                            &:last-child {
+                                border-left: 2rpx solid #4A4A4A;
+                                border-radius: 0 16rpx 16rpx 0;
+                            }
+                        }
+                    }
+                }
+                .detail {
+                    margin: 45rpx 24rpx 60rpx 26rpx;
+                    border-radius: 12rpx;
+                    background: @cellsBgColor;
+                    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.5);
+                    text-align: center;
+                    .title {
+                        text-align: center;
+                        font-size: 32rpx;
+                        line-height: 44rpx;
+                        color: @titleColor;
+                        padding: 24rpx;
+                    }
+                    .data {
+                        margin: 20rpx 36rpx;
+                        padding-bottom: 42rpx;
+                        .name {
+                            display: flex;
+                            justify-content: space-around;
+                            align-items: center;
+                            padding: 20rpx 0 20rpx;
+                            border-bottom: 2rpx solid #4A4A4A;
+                            view {
+                                width: 150rpx;
+                                font-size: 24rpx;
+                                line-height: 34rpx;
+                                color: @titleColor;
+                            }
+                        }
+                        .item {
+                            display: flex;
+                            justify-content: space-around;
+                            align-items: center;
+                            padding-top: 20rpx;
+                            text {
+                                width: 150rpx;
+                                font-size: 24rpx;
+                                line-height: 34rpx;
+                                color: #9B9B9B;
+                            }
+                            &:last-child {
+                                padding-bottom: 20rpx
+                            }
+                        }
+                    }
+                }
+                .no-data {
+                    font-size: 30rpx;
+                    line-height: 300rpx;
+                    color: #6D6E71;
+                }
+                .more-detail {
+                    margin: 12rpx 24rpx 0 26rpx;
+                    border-radius: 12rpx;
+                    background: @cellsBgColor;
+                    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.5);
+                    text-align: center;
+                    &:first-child {
+                        margin-top: 45rpx;
+                    }
+                    .title {
+                        text-align: center;
+                        font-size: 32rpx;
+                        line-height: 44rpx;
+                        color: @titleColor;
+                        padding: 28rpx;
+                        margin-bottom: 10rpx;
+                    }
+                    .data {
+                        .centerBox;
+                        .item {
+                            width: 130rpx;
+                            text-align: center;
+                            margin: 0 14rpx;
+                            .count {
+                                font-size: 64rpx;
+                                line-height: 60rpx;
+                                color: #C42B2B;
+                                font-weight: bold;
+                            }
+                            .name {
+                                font-size: 24rpx;
+                                line-height: 34rpx;
+                                color: @titleColor;
+                                margin: 20rpx 0 4rpx;
+                            }
+                            .txt {
+                                font-size: 18rpx;
+                                line-height: 26rpx;
+                                color: #6D6E71;
+                                margin: 3rpx 0 3rpx;
+                            }
+                        }
+                    }
+                    .tips {
+                        text-align: center;
+                        font-size: 24rpx;
+                        line-height: 34rpx;
+                        color: #9B9B9B;
+                        padding: 26rpx 38rpx 30rpx 22rpx;
+                    }
+                    .detail {
+                        margin: 45rpx 24rpx 60rpx 26rpx;
+                        border-radius: 12rpx;
+                        background: @cellsBgColor;
+                        box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.5);
+                        text-align: center;
+                        .title {
+                            text-align: center;
+                            font-size: 32rpx;
+                            line-height: 44rpx;
+                            color: @titleColor;
+                            padding: 24rpx;
+                        }
+                        .data {
+                            margin: 20rpx 36rpx;
+                            padding-bottom: 42rpx;
+                            .name {
+                                display: flex;
+                                justify-content: space-around;
+                                align-items: center;
+                                padding: 20rpx 0 20rpx;
+                                border-bottom: 2rpx solid #4A4A4A;
+                                view {
+                                    width: 150rpx;
+                                    font-size: 24rpx;
+                                    line-height: 34rpx;
+                                    color: @titleColor;
+                                }
+                            }
+                            .item {
+                                display: flex;
+                                justify-content: space-around;
+                                align-items: center;
+                                padding-top: 20rpx;
+                                text {
+                                    width: 150rpx;
+                                    font-size: 24rpx;
+                                    line-height: 34rpx;
+                                    color: #9B9B9B;
+                                }
+                                &:last-child {
+                                    padding-bottom: 20rpx
+                                }
+                            }
+                        }
+                    }
+                }
             }
-            .item {
-              display: flex;
-              justify-content: space-around;
-              align-items: center;
-              padding-top: 20rpx;
-              text {
-                width: 150rpx;
-                font-size: 24rpx;
-                line-height: 34rpx;
-                color: #9B9B9B;
-              }
-              &:last-child {
-                padding-bottom: 20rpx
-              }
-            }
-          }
         }
-        .no-data {
-          font-size: 30rpx;
-          line-height: 300rpx;
-          color: #6D6E71;
-        }
-        .more-detail {
-          margin: 12rpx 24rpx 0 26rpx;
-          border-radius: 12rpx;
-          background: @cellsBgColor;
-          box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.5);
-          text-align: center;
-          &:first-child {
-            margin-top: 45rpx;
-          }
-          .title {
-            text-align: center;
-            font-size: 32rpx;
-            line-height: 44rpx;
-            color: @titleColor;
-            padding: 28rpx;
-            margin-bottom: 10rpx;
-          }
-          .data {
-            .centerBox;
-            .item {
-              width: 130rpx;
-              text-align: center;
-              margin: 0 14rpx;
-              .count {
-                font-size: 64rpx;
-                line-height: 60rpx;
-                color: #C42B2B;
-                font-weight: bold;
-              }
-              .name {
-                font-size: 24rpx;
-                line-height: 34rpx;
-                color: @titleColor;
-                margin: 20rpx 0 4rpx;
-              }
-              .txt {
-                font-size: 18rpx;
-                line-height: 26rpx;
-                color: #6D6E71;
-                margin: 3rpx 0 3rpx;
-              }
-            }
-          }
-          .tips {
-            text-align: center;
-            font-size: 24rpx;
-            line-height: 34rpx;
-            color: #9B9B9B;
-            padding: 26rpx 38rpx 30rpx 22rpx;
-          }
-        }
-      }
     }
-  }
 </style>
+
 <template>
-  <view class="page">
-    <view class="weui-tab">
-      <!-- 顶部 -->
-      <view class="weui-navbar">
-        <repeat for="{{tabs}}" key="*this">
-          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" @tap="tabClick">
-            <view class="weui-navbar__title">{{item}}</view>
-          </view>
-        </repeat>
-        <view class="weui-navbar__slider" style="left:{{sliderLeft}}px;transform:translateX({{sliderOffset}}px);-webkit-transform:translateX({{sliderOffset}}px);"></view>
-      </view>
-      <view class="weui-tab__panel">
-        <view class="sel-time">
-          <view class="btn">
-            <text @tap="selectTime" id="1" style="background:{{selTime==1 ? '#C42B2B' : '#212121'}}">本周</text>
-            <text @tap="selectTime" id="2" style="background:{{selTime==2 ? '#C42B2B' : '#212121'}}">本月</text>
-          </view>
-        </view>
-        <view class="chart">
-          <line_chart :xTitle.sync="xTitle" :yTitle.sync="yTitle" :chartData.sync="chartData" :xAxisData.sync="xAxisData">
-          </line_chart>
-        </view>
-        <view wx:if="{{ selTime == 1}}">
-          <view class="weui-tab" style="margin-top: 50rpx;">
+    <view class="page">
+        <view class="weui-tab">
             <!-- 顶部 -->
             <view class="weui-navbar">
-              <repeat for="{{tabs2}}" key="*this">
-                <view id="{{index}}" class="weui-navbar__item {{activeIndex2 == index ? 'weui-bar__item_on' : ''}}" @tap="tabClick2">
-                  <view class="weui-navbar__title">{{item}}</view>
-                </view>
-              </repeat>
-              <view class="weui-navbar__slider" style="left:{{sliderLeft2}}px;transform:translateX({{sliderOffset2}}px);-webkit-transform:translateX({{sliderOffset2}}px);"></view>
+                <repeat for="{{tabs}}" key="*this">
+                    <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" @tap="tabClick">
+                        <view class="weui-navbar__title">{{item}}</view>
+                    </view>
+                </repeat>
+                <view class="weui-navbar__slider" style="left:{{sliderLeft}}px;transform:translateX({{sliderOffset}}px);-webkit-transform:translateX({{sliderOffset}}px);"></view>
             </view>
-            <view class="weui-tab__panel" hidden="{{activeIndex2 != 0}}">
-              <view class="detail">
-                <view class="title">每日数据</view>
-                <view class="data">
-                  <view class="name">
-                    <view>日期</view>
-                    <view>订单数(个)</view>
-                  </view>
-                  <view class="item" wx:for="{{ dataList }}" wx:key="{{ index }}">
-                    <text>{{ index }}</text>
-                    <text>{{ item }}</text>
-                  </view>
+            <view class="weui-tab__panel">
+                <view class="sel-time">
+                    <view class="btn">
+                        <text @tap="selectTime" id="1" style="background:{{selTime==1 ? '#C42B2B' : '#212121'}}">上周</text>
+                        <text @tap="selectTime" id="2" style="background:{{selTime==2 ? '#C42B2B' : '#212121'}}">上月</text>
+                    </view>
                 </view>
-              </view>
+                <view class="chart">
+                    <line_chart :xTitle.sync="xTitle" :yTitle.sync="yTitle" :chartData.sync="chartData" :xAxisData.sync="xAxisData">
+                    </line_chart>
+                </view>
+                <view wx:if="{{ selTime == 1}}">
+                    <view class="weui-tab" style="margin-top: 50rpx;">
+                        <!-- 顶部 -->
+                        <view class="weui-navbar">
+                            <repeat for="{{tabs2}}" key="*this">
+                                <view id="{{index}}" class="weui-navbar__item {{activeIndex2 == index ? 'weui-bar__item_on' : ''}}" @tap="tabClick2">
+                                    <view class="weui-navbar__title">{{item}}</view>
+                                </view>
+                            </repeat>
+                            <view class="weui-navbar__slider" style="left:{{sliderLeft2}}px;transform:translateX({{sliderOffset2}}px);-webkit-transform:translateX({{sliderOffset2}}px);"></view>
+                        </view>
+                        <view class="weui-tab__panel" hidden="{{activeIndex2 != 0}}">
+                            <view class="detail">
+                                <view class="title">每日数据</view>
+                                <view class="data">
+                                    <view class="name">
+                                        <view>日期</view>
+                                        <view>{{ item_name }}</view>
+                                    </view>
+                                    <view class="item" wx:for="{{ dataList }}" wx:key="{{ index }}">
+                                        <text>{{ index }}</text>
+                                        <text>{{ item }}</text>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                        <view class="weui-tab__panel" hidden="{{activeIndex2 != 1}}">
+                            <view class="more-detail">
+                                <view class="title">数据小结</view>
+                                <view class="data">
+                                    <view class="item">
+                                        <view class="count">
+                                            {{ compare.active_users_detail_compare[0] }}
+                                        </view>
+                                        <view class="name">订单数</view>
+                                        <view class="txt" wx:if="{{ compare.orders_detail_compare[1] > -1  }}">环比增加{{ compare.orders_detail_compare[1] }}%</view>
+                                        <view class="txt" wx:else>数据不足</view>
+                                    </view>
+                                    <view class="item">
+                                        <view class="count">
+                                            {{compare.revenue_detail_compare[0]}}
+                                        </view>
+                                        <view class="name">营业额</view>
+                                        <view class="txt" wx:if="{{ compare.revenue_detail_compare[1] > -1  }}">环比增加{{ compare.revenue_detail_compare[1] }}%</view>
+                                        <view class="txt" wx:else>数据不足</view>
+                                    </view>
+                                    <view class="item">
+                                        <view class="count">
+                                            {{compare.average_service_rank_detail_compare[0] > -1 ? compare.average_service_rank_detail_compare[0] : "--"}}
+                                        </view>
+                                        <view class="name">服务平均分</view>
+                                        <view class="txt" wx:if="{{ compare.average_service_rank_detail_compare[1] > -1  }}">环比增加{{ compare.average_service_rank_detail_compare[1] }}%</view>
+                                        <view class="txt" wx:else>数据不足</view>
+                                    </view>
+                                    <view class="item">
+                                        <view class="count">
+                                            {{compare.total_average_artisan_rank_detail[0] > -1 ? compare.total_average_artisan_rank_detail[0] : "--"}}
+                                        </view>
+                                        <view class="name">技工平均分</view>
+                                        <view class="txt" wx:if="{{ compare.total_average_artisan_rank_detail[1] > -1  }}">环比增加{{ compare.total_average_artisan_rank_detail[1] }}%</view>
+                                        <view class="txt" wx:else>数据不足</view>
+                                    </view>
+                                </view>
+                                <view class="tips">
+                                    本月订单数增加原因可能为服务提升、用户数增长、天气晴朗的天数多等（当数据充足时可以预期下一个月的订单数）
+                                </view>
+                            </view>
+                            <view class="detail" wx:if="{{abnormalData.length > 0}}">
+                                <view class="title">异常数据</view>
+                                <view class="data">
+                                    <view class="name">
+                                        <view>日期</view>
+                                        <view>{{item_name}}</view>
+                                    </view>
+                                    <view class="item" wx:for="{{ abnormalData }}" wx:key="{{ index }}">
+                                        <text>{{ index }}</text>
+                                        <text>{{ item }}</text>
+                                    </view>
+                                </view>
+                            </view>
+                            <view wx:else class="detail no-data">
+                                暂未收集到充足的数据
+                            </view>
+                        </view>
+                    </view>
+                </view>
+                <view wx:if="{{ selTime == 2}}">
+                    <view class="weui-tab" style="margin-top: 50rpx;">
+                        <!-- 顶部 -->
+                        <view class="weui-navbar">
+                            <repeat for="{{tabs2}}" key="*this">
+                                <view id="{{index}}" class="weui-navbar__item {{activeIndex2 == index ? 'weui-bar__item_on' : ''}}" @tap="tabClick2">
+                                    <view class="weui-navbar__title">{{item}}</view>
+                                </view>
+                            </repeat>
+                            <view class="weui-navbar__slider" style="left:{{sliderLeft2}}px;transform:translateX({{sliderOffset2}}px);-webkit-transform:translateX({{sliderOffset2}}px);"></view>
+                        </view>
+                        <view class="weui-tab__panel" hidden="{{activeIndex2 != 0}}">
+                            <view class="detail">
+                                <view class="title">每日数据</view>
+                                <view class="data">
+                                    <view class="name">
+                                        <view>日期</view>
+                                        <view>{{item_name}}</view>
+                                    </view>
+                                    <view class="item" wx:for="{{ dataList }}" wx:key="{{ index }}">
+                                        <text>{{ index }}</text>
+                                        <text>{{ item }}</text>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                        <view class="weui-tab__panel" hidden="{{activeIndex2 != 1}}">
+                            <view class="more-detail">
+                                <view class="title">数据小结</view>
+                                <view class="data">
+                                    <view class="item">
+                                        <view class="count">
+                                            {{ compare.active_users_detail_compare[0] }}
+                                        </view>
+                                        <view class="name">订单数</view>
+                                        <view class="txt" wx:if="{{ compare.orders_detail_compare[1] > -1  }}">环比增加{{ compare.orders_detail_compare[1] }}%</view>
+                                        <view class="txt" wx:else>数据不足</view>
+                                    </view>
+                                    <view class="item">
+                                        <view class="count">
+                                            {{compare.revenue_detail_compare[0]}}
+                                        </view>
+                                        <view class="name">营业额</view>
+                                        <view class="txt" wx:if="{{ compare.revenue_detail_compare[1] > -1  }}">环比增加{{ compare.revenue_detail_compare[1] }}%</view>
+                                        <view class="txt" wx:else>数据不足</view>
+                                    </view>
+                                    <view class="item">
+                                        <view class="count">
+                                            {{compare.average_service_rank_detail_compare[0] > -1 ? compare.average_service_rank_detail_compare[0] : "--"}}
+                                        </view>
+                                        <view class="name">服务平均分</view>
+                                        <view class="txt" wx:if="{{ compare.average_service_rank_detail_compare[1] > -1  }}">环比增加{{ compare.average_service_rank_detail_compare[1] }}%</view>
+                                        <view class="txt" wx:else>数据不足</view>
+                                    </view>
+                                    <view class="item">
+                                        <view class="count">
+                                            {{compare.total_average_artisan_rank_detail[0] > -1 ? compare.total_average_artisan_rank_detail[0] : "--"}}
+                                        </view>
+                                        <view class="name">技工平均分</view>
+                                        <view class="txt" wx:if="{{ compare.total_average_artisan_rank_detail[1] > -1  }}">环比增加{{ compare.total_average_artisan_rank_detail[1] }}%</view>
+                                        <view class="txt" wx:else>数据不足</view>
+                                    </view>
+                                </view>
+                                <view class="tips">
+                                    本月订单数增加原因可能为服务提升、用户数增长、天气晴朗的天数多等（当数据充足时可以预期下一个月的订单数）
+                                </view>
+                            </view>
+                            <view class="detail" wx:if="{{abnormalData.length > 0}}">
+                                <view class="title">异常数据</view>
+                                <view class="data">
+                                    <view class="name">
+                                        <view>日期</view>
+                                        <view>{{item_name}}</view>
+                                    </view>
+                                    <view class="item" wx:for="{{ abnormalData }}" wx:key="{{ index }}">
+                                        <text>{{ index }}</text>
+                                        <text>{{ item }}</text>
+                                    </view>
+                                </view>
+                            </view>
+                            <view wx:else class="detail no-data">
+                                暂未收集到充足的数据
+                            </view>
+                        </view>
+                    </view>
+                </view>
             </view>
-            <view class="weui-tab__panel" hidden="{{activeIndex2 != 1}}">
-              <view class="more-detail">
-                <view class="title">数据小结</view>
-                <view class="data">
-                  <view class="item">
-                    <view class="count">
-                      65
-                    </view>
-                    <view class="name">订单数</view>
-                    <view class="txt">比上月增加12%</view>
-                  </view>
-                  <view class="item">
-                    <view class="count">
-                      65
-                    </view>
-                    <view class="name">订单数</view>
-                    <view class="txt">比上月增加12%</view>
-                  </view>
-                  <view class="item">
-                    <view class="count">
-                      65
-                    </view>
-                    <view class="name">订单数</view>
-                    <view class="txt">比上月增加12%</view>
-                  </view>
-                  <view class="item">
-                    <view class="count">
-                      65
-                    </view>
-                    <view class="name">订单数</view>
-                    <view class="txt">比上月增加12%</view>
-                  </view>
-                </view>
-                <view class="tips">
-                  本月订单数增加原因可能为服务提升、用户数增长、天气晴朗的天数多等（当数据充足时可以预期下一个月的订单数）
-                </view>
-              </view>
-              <view class="detail no-data">
-                暂未收集到充足的数据
-              </view>
-            </view>
-          </view>
         </view>
-        <view wx:if="{{ selTime == 2}}">
-          <view class="weui-tab" style="margin-top: 50rpx;">
-            <!-- 顶部 -->
-            <view class="weui-navbar">
-              <repeat for="{{tabs2}}" key="*this">
-                <view id="{{index}}" class="weui-navbar__item {{activeIndex2 == index ? 'weui-bar__item_on' : ''}}" @tap="tabClick2">
-                  <view class="weui-navbar__title">{{item}}</view>
-                </view>
-              </repeat>
-              <view class="weui-navbar__slider" style="left:{{sliderLeft2}}px;transform:translateX({{sliderOffset2}}px);-webkit-transform:translateX({{sliderOffset2}}px);"></view>
-            </view>
-            <view class="weui-tab__panel" hidden="{{activeIndex2 != 0}}">
-              <view class="detail">
-                <view class="title">每日数据</view>
-                <view class="data">
-                  <view class="name">
-                    <view>日期</view>
-                    <view>订单数(个)</view>
-                  </view>
-                  <view class="item" wx:for="{{ dataList }}" wx:key="{{ index }}">
-                    <text>{{ index }}</text>
-                    <text>{{ item }}</text>
-                  </view>
-                </view>
-              </view>
-            </view>
-            <view class="weui-tab__panel" hidden="{{activeIndex2 != 1}}">
-              <view class="more-detail">
-                <view class="title">数据小结</view>
-                <view class="data">
-                  <view class="item">
-                    <view class="count">
-                      65
-                    </view>
-                    <view class="name">订单数</view>
-                    <view class="txt">比上月增加12%</view>
-                  </view>
-                  <view class="item">
-                    <view class="count">
-                      65
-                    </view>
-                    <view class="name">订单数</view>
-                    <view class="txt">比上月增加12%</view>
-                  </view>
-                  <view class="item">
-                    <view class="count">
-                      65
-                    </view>
-                    <view class="name">订单数</view>
-                    <view class="txt">比上月增加12%</view>
-                  </view>
-                  <view class="item">
-                    <view class="count">
-                      65
-                    </view>
-                    <view class="name">订单数</view>
-                    <view class="txt">比上月增加12%</view>
-                  </view>
-                </view>
-                <view class="tips">
-                  本月订单数增加原因可能为服务提升、用户数增长、天气晴朗的天数多等（当数据充足时可以预期下一个月的订单数）
-                </view>
-              </view>
-              <view class="detail no-data">
-                暂未收集到充足的数据
-              </view>
-            </view>
-          </view>
-        </view>
-      </view>
     </view>
-  </view>
 </template>
+
 <script>
-  import wepy from 'wepy'
-  import LineChart from '../../components/lineChart'
-  import util from '../../utils/util'
-  import {
-    SYSTEM_INFO,
-    SEL_CLASS_CODE
-  } from '../../utils/constant';
-  import api from '../../api/api'
-  const sliderWidth = 60 // 需要设置slider的宽度，用于计算中间位置
-  export default class Charts extends wepy.page {
-    config = {
-      navigationBarTitleText: '数据统计',
-      usingComponents: {
-        ec_canvas: '../../plugins/ec-canvas/ec-canvas'
-      }
-    }
-    components = {
-      line_chart: LineChart
-    }
-    data = {
-      //weui的tab参数
-      tabs: ["订单数", "营业额", "新用户", "服务评价", "技工评价"],
-      activeIndex: 0, //激活项
-      sliderOffset: 0, //x轴上转换的值
-      sliderLeft: 0, //距离左边的偏移值
-      //weui的tab参数
-      tabs2: ["每日数据", "更多"],
-      activeIndex2: 0, //激活项
-      sliderOffset2: 0, //x轴上转换的值
-      sliderLeft2: 0, //距离左边的偏移值
-      xTitle: '日期',
-      yTitle: '订单数(个)',
-      xAxisData: [],
-      chartData: [],
-      dataList: {},
-      // xAxisData: ["11月26日", "11月03日", "11月17日", "11月20日", "11月29日", "11月01日", "11月25日", "11月30日", "11月11日", "11月02日", "11月23日", "11月14日", "11月16日", "11月18日", "11月13日", "11月05日", "11月27日", "11月21日", "11月06日", "11月24日", "11月28日", "11月22日", "11月09日", "11月07日", "11月08日", "11月04日", "11月19日", "11月12日", "11月10日", "11月15日"],
-      // chartData: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      selTime: 1,
-      select_type: 0
-    }
-    methods = {
-      async tabClick(e) {
-        this.sliderOffset = e.currentTarget.offsetLeft;
-        this.activeIndex = e.currentTarget.id;
-        this.$apply();
-        await this.getDataByType(e.currentTarget.id)
-      },
-      async tabClick2(e) {
-        this.sliderOffset2 = e.currentTarget.offsetLeft;
-        this.activeIndex2 = e.currentTarget.id;
-        this.$apply();
-      },
-      async selectTime(e) {
-        this.selTime = e.currentTarget.id
-        console.log(e.currentTarget.id)
-        await this.getData(e.currentTarget.id, this.select_type)
-      }
-    }
-    async getDataByType(index) {
-      let select_type = 10
-      if (index == 0) {
-        select_type = 10
-      } else if (index == 1) {
-        select_type = 11
-      } else if (index == 2) {
-        select_type = 12
-      } else if (index == 3) {
-        select_type = 15
-      } else {
-        select_type = 14
-      }
-      await this.getData(1, select_type)
-    }
-    async getData(type = 1, select_type) {
-      let res = await api.getanalysisdetails({
-        query: {
-          analysis_item: select_type,
-          branch_id: 1,
-          employee_id: wepy.getStorageSync('userid'),
-          time_id: type,
-          merchant_id: wepy.getStorageSync('merchant_id')
-        },
-        method: 'POST'
-      })
-      let data = res.data.data[0]
-      this.dataList = data
-      let chartData = []
-      let xAxisData = []
-      for (let index in data) {
-        chartData.push(data[index])
-        xAxisData.push(index)
-      }
-      this.chartData = chartData
-      this.xAxisData = xAxisData
-      this.$apply()
-      this.$invoke('line_chart', 'doInit')
-    }
-    async onLoad(option) {
-      this.select_type = option.type
-      let that = this;
-      wx.getSystemInfo({
-        success: function(res) {
-          that.sliderLeft = (res.windowWidth / that.tabs.length - sliderWidth) / 2;
-          that.sliderOffset = res.windowWidth / that.tabs.length * that.activeIndex;
-          that.sliderLeft2 = (res.windowWidth / that.tabs2.length - sliderWidth) / 2;
-          that.sliderOffset2 = res.windowWidth / that.tabs2.length * that.activeIndex2;
+    import wepy from 'wepy'
+    import LineChart from '../../components/lineChart'
+    import util from '../../utils/util'
+    import {
+        SYSTEM_INFO,
+        SEL_CLASS_CODE
+    } from '../../utils/constant';
+    import api from '../../api/api'
+    const sliderWidth = 60 // 需要设置slider的宽度，用于计算中间位置
+    export default class Charts extends wepy.page {
+        config = {
+            navigationBarTitleText: '数据统计',
+            usingComponents: {
+                ec_canvas: '../../plugins/ec-canvas/ec-canvas'
+            }
         }
-      });
-      this.$apply()
+        components = {
+            line_chart: LineChart
+        }
+        data = {
+            //weui的tab参数
+            tabs: ["订单数", "营业额", "新用户", "服务评价", "技工评价"],
+            activeIndex: 0, //激活项
+            sliderOffset: 0, //x轴上转换的值
+            sliderLeft: 0, //距离左边的偏移值
+            //weui的tab参数
+            tabs2: ["每日数据", "更多"],
+            activeIndex2: 0, //激活项
+            sliderOffset2: 0, //x轴上转换的值
+            sliderLeft2: 0, //距离左边的偏移值
+            xTitle: '日期',
+            yTitle: '订单数(个)',
+            xAxisData: [],
+            chartData: [],
+            dataList: {},
+            // xAxisData: ["11月26日", "11月03日", "11月17日", "11月20日", "11月29日", "11月01日", "11月25日", "11月30日", "11月11日", "11月02日", "11月23日", "11月14日", "11月16日", "11月18日", "11月13日", "11月05日", "11月27日", "11月21日", "11月06日", "11月24日", "11月28日", "11月22日", "11月09日", "11月07日", "11月08日", "11月04日", "11月19日", "11月12日", "11月10日", "11月15日"],
+            // chartData: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            selTime: 1,
+            select_type: 10,
+            analysis_item: 22,
+            item_name: '订单数(个)',
+            abnormalData: {},
+            compare: {}
+        }
+        methods = {
+            async tabClick(e) {
+                this.sliderOffset = e.currentTarget.offsetLeft;
+                this.activeIndex = e.currentTarget.id;
+                this.$apply();
+                await this.getDataByType(e.currentTarget.id)
+            },
+            async tabClick2(e) {
+                this.sliderOffset2 = e.currentTarget.offsetLeft;
+                this.activeIndex2 = e.currentTarget.id;
+                this.$apply();
+            },
+            async selectTime(e) {
+                this.selTime = e.currentTarget.id
+                let type = ''
+                if (e.currentTarget.id == 1) {
+                    type = 'week'
+                } else {
+                    type = 'month'
+                }
+                await this.getData(type, this.select_type)
+                await this.getabnormaldata(type, this.analysis_item)
+            }
+        }
+        async getDataByType(index) {
+            if (index == 0) {
+                this.select_type = 10
+                this.analysis_item = 22
+                this.item_name = "订单数(个)"
+                this.$apply()
+            } else if (index == 1) {
+                this.select_type = 11
+                this.analysis_item = 23
+                this.item_name = "营业额(元)"
+                this.$apply()
+            } else if (index == 2) {
+                this.select_type = 12
+                this.analysis_item = 24
+                this.item_name = "新增用户(个)"
+                this.$apply()
+            } else if (index == 3) {
+                this.select_type = 15
+                this.analysis_item = 26
+                this.item_name = "服务评价(分)"
+                this.$apply()
+            } else {
+                this.select_type = 14
+                this.analysis_item = 25
+                this.item_name = "技工评价(分)"
+                this.$apply()
+            }
+            await this.getData('week', this.select_type)
+            await this.getabnormaldata('week', this.analysis_item)
+        }
+        async getData(type = 'week', select_type) {
+            console.log('select_type', select_type)
+            let res = await api.getnumbersummarybyday({
+                query: {
+                    analysis_item: select_type,
+                    employee_id: wepy.getStorageSync('userid'),
+                    flag: type,
+                    flag_num: 1,
+                    merchant_id: wepy.getStorageSync('merchant_id')
+                },
+                method: 'POST'
+            })
+            let data = res.data.data[0]
+            this.dataList = data
+            let chartData = []
+            let xAxisData = []
+            for (let index in data) {
+                chartData.push(data[index])
+                xAxisData.push(index)
+            }
+            this.chartData = chartData
+            this.xAxisData = xAxisData
+            this.$apply()
+            this.$invoke('line_chart', 'doInit')
+        }
+        async onLoad(option) {
+            this.select_type = 10
+            let that = this;
+            wx.getSystemInfo({
+                success: function(res) {
+                    that.sliderLeft = (res.windowWidth / that.tabs.length - sliderWidth) / 2;
+                    that.sliderOffset = res.windowWidth / that.tabs.length * that.activeIndex;
+                    that.sliderLeft2 = (res.windowWidth / that.tabs2.length - sliderWidth) / 2;
+                    that.sliderOffset2 = res.windowWidth / that.tabs2.length * that.activeIndex2;
+                }
+            });
+            this.$apply()
+        }
+        async getincordecsummary(type = 'week') {
+            let summaryData = await api.getincordecsummary({
+                query: {
+                    analysis_item_list: '10,11,12,13,14,15',
+                    flag: type,
+                    flag_num: 1,
+                    flag_num_compare: 2,
+                    employee_id: wepy.getStorageSync('userid'),
+                    merchant_id: wepy.getStorageSync('merchant_id')
+                },
+                method: 'POST'
+            })
+            this.compare = summaryData.data.data[1].compare
+            this.$apply()
+        }
+        async getabnormaldata(type = 'week', analysis_item = '22') {
+            let abnormalData = await api.getabnormaldata({
+                query: {
+                    analysis_item: analysis_item,
+                    flag: type,
+                    flag_num: 1,
+                    employee_id: wepy.getStorageSync('userid'),
+                    merchant_id: wepy.getStorageSync('merchant_id')
+                },
+                method: 'POST'
+            })
+            this.abnormalData = abnormalData.data.data[0]
+            this.$apply()
+        }
+        async onShow(option) {
+            await this.getData('week', this.select_type)
+            await this.getincordecsummary()
+            await this.getabnormaldata()
+        }
     }
-    async onShow(option) {
-      await this.getData(1, 10)
-      //   let res1 = await api.getincordecsummary({
-      //     query: {
-      //       analysis_item_list: '1,2,3,4,5,6,7,8,9,16,17,18,19,20,21',
-      //       flag: 'week',
-      //       flag_num: 2,
-      //       flag_num_compare: 1,
-      //       employee_id: 1,
-      //       merchant_id: wepy.getStorageSync('merchant_id')
-      //     },
-      //     method: 'POST'
-      //   })
-    }
-  }
 </script>
