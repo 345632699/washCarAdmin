@@ -565,9 +565,11 @@
       is_edit: 0,
       button_title: '编辑',
       show_list: {
-        order_numbers: 0,
-        in_comes: 0,
-        new_users: 0
+        order_numbers: 1,
+        in_comes: 1,
+        new_users: 1,
+        service_evaluates: 1,
+        mechanic_evaluates: 1
       },
       order_numbers: [{
           sort: 0,
@@ -841,11 +843,12 @@
     }
     async onLoad() {
       let that = this;
-      wepy.removeStorageSync('order_number')
-      wepy.removeStorageSync('in_come')
-      wepy.removeStorageSync('new_user')
+      wepy.removeStorageSync('order_numbers')
+      wepy.removeStorageSync('in_comes')
+      wepy.removeStorageSync('new_users')
       wepy.removeStorageSync('service_evaluates')
       wepy.removeStorageSync('mechanic_evaluates')
+
       if (!wepy.getStorageSync('userid')) {
         await this.$parent.getAuth()
         this.userInfo = wepy.getStorageSync('user_info')
@@ -867,6 +870,7 @@
       })
       let data = res.data.data[0]
       if (!wepy.getStorageSync('order_numbers')) {
+          console.log('3333322222')
         let resData = {
           'today': data.today_orders_number,
           'week': data.week_orders_number,
