@@ -106,9 +106,9 @@ Page,
 </style>
 <template>
   <view class="page">
-    <view class="search">
+    <!-- <view class="search">
       <input bindconfirm="searchInfo" confirm-type="搜索" placeholder="请输入用户名/微信号等信息" placeholder-class="placeholder"/>
-    </view>
+    </view> -->
     <view class="list">
       <view class="no-data" wx:if="{{!user_list.length}}">暂无数据</view>
       <view class="list-item" wx:for="{{ user_list }}" wx:key="item">

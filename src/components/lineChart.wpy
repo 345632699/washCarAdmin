@@ -175,7 +175,8 @@
 			chart.setOption(option)
 			return chart
 		}
-		doInit () {
+		doInit (yTitle) {
+			this.yTitle = yTitle
 			let that = this
 			this.barComponent.init((canvas, width, height) => {
 				that.initChart(canvas, width, height, that.xTitle, that.yTitle, that.chartData, that.xAxisData)

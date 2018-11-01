@@ -183,13 +183,13 @@
                     <view class="weui-tab" style="margin-top: 50rpx;">
                         <!-- 顶部 -->
                         <!-- <view class="weui-navbar">
-                  <repeat for="{{tabs2}}" key="*this">
-                    <view id="{{index}}" class="weui-navbar__item {{activeIndex2 == index ? 'weui-bar__item_on' : ''}}" @tap="tabClick2">
-                      <view class="weui-navbar__title">{{item}}</view>
-                    </view>
-                  </repeat>
-                  <view class="weui-navbar__slider" style="left:{{sliderLeft2}}px;transform:translateX({{sliderOffset2}}px);-webkit-transform:translateX({{sliderOffset2}}px);"></view>
-                </view> -->
+                      <repeat for="{{tabs2}}" key="*this">
+                        <view id="{{index}}" class="weui-navbar__item {{activeIndex2 == index ? 'weui-bar__item_on' : ''}}" @tap="tabClick2">
+                          <view class="weui-navbar__title">{{item}}</view>
+                        </view>
+                      </repeat>
+                      <view class="weui-navbar__slider" style="left:{{sliderLeft2}}px;transform:translateX({{sliderOffset2}}px);-webkit-transform:translateX({{sliderOffset2}}px);"></view>
+                    </view> -->
                         <view class="weui-tab__panel" style="padding-top:0;" hidden="{{activeIndex2 != 0}}">
                             <view class="detail">
                                 <view class="title">每日数据</view>
@@ -252,13 +252,13 @@
                     <view class="weui-tab" style="margin-top: 50rpx;">
                         <!-- 顶部 -->
                         <!-- <view class="weui-navbar">
-                  <repeat for="{{tabs2}}" key="*this">
-                    <view id="{{index}}" class="weui-navbar__item {{activeIndex2 == index ? 'weui-bar__item_on' : ''}}" @tap="tabClick2">
-                      <view class="weui-navbar__title">{{item}}</view>
-                    </view>
-                  </repeat>
-                  <view class="weui-navbar__slider" style="left:{{sliderLeft2}}px;transform:translateX({{sliderOffset2}}px);-webkit-transform:translateX({{sliderOffset2}}px);"></view>
-                </view> -->
+                      <repeat for="{{tabs2}}" key="*this">
+                        <view id="{{index}}" class="weui-navbar__item {{activeIndex2 == index ? 'weui-bar__item_on' : ''}}" @tap="tabClick2">
+                          <view class="weui-navbar__title">{{item}}</view>
+                        </view>
+                      </repeat>
+                      <view class="weui-navbar__slider" style="left:{{sliderLeft2}}px;transform:translateX({{sliderOffset2}}px);-webkit-transform:translateX({{sliderOffset2}}px);"></view>
+                    </view> -->
                         <view class="weui-tab__panel" style="padding-top:0;" hidden="{{activeIndex2 != 0}}">
                             <view class="detail">
                                 <view class="title">每日数据</view>
@@ -406,7 +406,7 @@
             }
             await this.getData(1, this.select_type)
         }
-        async getData(type = 1, select_type=10) {
+        async getData(type = 1, select_type = 10) {
             let res = await api.getanalysisdetails({
                 query: {
                     analysis_item: select_type,
@@ -428,10 +428,26 @@
             this.chartData = chartData
             this.xAxisData = xAxisData
             this.$apply()
-            this.$invoke('line_chart', 'doInit')
+            this.$invoke('line_chart', 'doInit', this.item_name)
         }
         async onLoad(option) {
             this.select_type = option.type
+            if (this.select_type == 10) {
+                this.activeIndex = 0
+                this.item_name = "订单数(个)"
+            } else if (this.select_type == 11) {
+                this.activeIndex = 1
+                this.item_name = "营业额(元)"
+            } else if (this.select_type == 12) {
+                this.activeIndex = 2
+                this.item_name = "新增用户(个)"
+            } else if (this.select_type == 14) {
+                this.activeIndex = 4
+                this.item_name = "技工评分(分)"
+            } else if (this.select_type == 15) {
+                this.activeIndex = 3
+                this.item_name = "服务评价(分)"
+            }
             let that = this;
             wx.getSystemInfo({
                 success: function(res) {

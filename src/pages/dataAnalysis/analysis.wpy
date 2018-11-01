@@ -309,7 +309,7 @@
         <view class="left column">
           <view class="user-name">{{time}}，{{userInfo.nickName}}</view>
           <!-- ！！这里需要后台返回日期 -->
-          <view class="date">2018年9月6日</view>
+          <view class="date">{{ now }}</view>
         </view>
         <view class="right column">
           <view class="book-info">
@@ -325,7 +325,7 @@
     </view>
     <view class="weui-tab">
       <!-- 内容 -->
-      <view class="weui-tab__panel">
+      <view class="weui-tab__panel" style="overflow:hidden">
         <view class="weui-tab__content order">
           <view class="order-number list" wx:if="{{ show_list.order_numbers }}">
             <view class="list-item">
@@ -348,7 +348,7 @@
                   </view>
                 </view>
               </view>
-              <view class="container">
+              <view class="container" wx:if="{{is_edit}}">
                 <view class="pannel add-pannel" wx:for="{{ order_numbers }}" wx:key="item" @tap="addItem({{index}},1)" wx:if="{{ item.selected < 1 }}">
                   <view class="add">
                     <view class="text">
@@ -381,7 +381,7 @@
                   </view>
                 </view>
               </view>
-              <view class="container">
+              <view class="container" wx:if="{{is_edit}}">
                 <view class="pannel add-pannel" wx:for="{{ in_comes }}" wx:key="item" @tap="addItem({{index}},2)" wx:if="{{ item.selected < 1 }}">
                   <view class="add">
                     <view class="text">
@@ -414,7 +414,7 @@
                   </view>
                 </view>
               </view>
-              <view class="container">
+              <view class="container" wx:if="{{is_edit}}">
                 <view class="pannel add-pannel" wx:for="{{ new_users }}" wx:key="item" @tap="addItem({{index}},3)" wx:if="{{ item.selected < 1 }}">
                   <view class="add">
                     <view class="text">
@@ -440,14 +440,14 @@
                     </view>
                   </view>
                   <view class="right">
-                    {{selectItem.count}}
+                    {{selectItem.count > 0 ? selectItem.count : '--'}}
                   </view>
                   <view class="delete" wx:if="{{is_edit}}" wx:for-item="del" @tap="del({{index}},4)">
                     <view class="text">-</view>
                   </view>
                 </view>
               </view>
-              <view class="container">
+              <view class="container" wx:if="{{is_edit}}">
                 <view class="pannel add-pannel" wx:for="{{ service_evaluates }}" wx:key="item" @tap="addItem({{index}},4)" wx:if="{{ item.selected < 1 }}">
                   <view class="add">
                     <view class="text">
@@ -473,14 +473,14 @@
                     </view>
                   </view>
                   <view class="right">
-                    {{selectItem.count}}
+                    {{selectItem.count > 0 ? selectItem.count : '--'}}
                   </view>
                   <view class="delete" wx:if="{{is_edit}}" wx:for-item="del" @tap="del({{index}},5)">
                     <view class="text">-</view>
                   </view>
                 </view>
               </view>
-              <view class="container">
+              <view class="container" wx:if="{{is_edit}}">
                 <view class="pannel add-pannel" wx:for="{{ mechanic_evaluates }}" wx:key="item" @tap="addItem({{index}},5)" wx:if="{{ item.selected < 1 }}">
                   <view class="add">
                     <view class="text">

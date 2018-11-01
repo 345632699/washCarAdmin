@@ -141,7 +141,7 @@
               <view class="top">
                 <image wx:if="{{ item.position == '店长' }}" class="avatar" src="../images/mine/shopkeeper.png" />
                 <image wx:if="{{ item.position == '管理员' }}" class="avatar" src="../images/mine/manager.png" />
-                <image wx:if="{{ item.position == '职员' }}" class="avatar" src="../images/mine/staff.png" />
+                <image wx:if="{{ item.position == '普通员工' }}" class="avatar" src="../images/mine/staff.png" />
                 <view class="name">
                   <view class="one">{{ item.name }}</view>
                   <view class="two">{{ item.position }}</view>
@@ -241,10 +241,12 @@ export default class EmployeeManage extends wepy.page {
     async agree (e) {
       let employee_id = e.currentTarget.id;
       await this.updatestaffauth(employee_id,0)
+      await this.getstafflist(employee_id)
     },
     async reject (e) {
       let employee_id = e.currentTarget.id;
       await this.updatestaffauth(employee_id,1)
+      await this.getstafflist(employee_id)
     },
   }
 

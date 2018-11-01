@@ -164,7 +164,7 @@
           <image src="../images/mine/user.png" class="cell-icon"></image>
           <view class="cell-input">
             <view class="title">基本信息</view>
-            <input @tap="changeName" placeholder="请输入姓名" maxlength="8" placeholder-class="placeholder" />
+            <input @change="changeName" placeholder="请输入姓名" maxlength="8" placeholder-class="placeholder" />
           </view>
         </view>
         <view class="cell-right">
@@ -183,7 +183,7 @@
           <image src="../images/mine/phone.png" class="cell-icon"></image>
           <view class="cell-input">
             <view class="title">联系电话</view>
-            <input @tap="changePhone" type="number" maxlength="11" placeholder="请输入手机号码" placeholder-class="placeholder" />
+            <input @change="changePhone" type="number" maxlength="11" placeholder="请输入手机号码" placeholder-class="placeholder" />
           </view>
         </view>
       </vlew>
@@ -349,7 +349,9 @@ export default class Identify extends wepy.page {
     },
     async bindBranchChange(e) {
       this.branchIndex = e.currentTarget.id;
-      this.branch.branch_name = this.branchList[this.branchIndex].branch_name
+      console.log(this.branch)
+      let branch_name = this.branchList[ this.branchIndex].branch_name
+      this.branch.branch_name = branch_name
       this.branch_id = this.branchList[this.branchIndex].branch_id
       this.$apply()
     },
@@ -385,6 +387,7 @@ export default class Identify extends wepy.page {
     },
     changePhone(e) {
       this.employee.phone_number = e.detail.value
+      console.log(this.employee)
       this.$apply()
     }
   }
@@ -418,8 +421,8 @@ export default class Identify extends wepy.page {
       this.employee.sex = "女"
       this.sexIndex = 2
     }
-    this.branch = this.employee.branch_list[0]
-    if(this.branch){
+    if(this.employee.branch_list[0]){
+      this.branch = this.employee.branch_list[0]
       this.branch_id = this.branch.branch_id;
     }
     this.$apply()

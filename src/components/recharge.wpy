@@ -83,7 +83,7 @@
         <view class="user">用户：{{ username }}</view>
         <view class="font-red">*请确认好充值金额</view>
         <view class="code">
-          <input type="number" @input="watchMoney" maxlength="4" placeholder="请输入充值金额" class="number" />
+          <input type="number" @input="watchMoney" maxlength="6" placeholder="请输入充值金额" class="number" />
         </view>
       </view>
 

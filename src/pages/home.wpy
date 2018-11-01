@@ -189,16 +189,16 @@
             <text>本周预约：{{ homeInfo.week_number }}单</text>
           </view>
 
-          <!-- <view class="sign" style="background: #C42B2B">
-            <image src="../../images/book/hot.png"></image>
+          <view class="sign" wx:if="{{ homeInfo.busy_status == 'busy' }}" style="background: #C42B2B">
+            <image src="../../images/book/hot_icon.png"></image>
             <text>火爆</text>
-          </view> -->
-          <!-- <view class="sign" style="background: #F5A623">
-            <image src="../../images/book/normal.png"></image>
+          </view>
+          <view class="sign" wx:if="{{ homeInfo.busy_status == 'normal' }}" style="background: #F5A623">
+            <image src="../../images/book/normal_icon.png"></image>
             <text>正常</text>
-          </view> -->
-          <view class="sign" style="background: #8BA909">
-            <image src="../../images/book/free.png"></image>
+          </view>
+          <view class="sign" wx:if="{{ homeInfo.busy_status == 'free' }}" style="background: #8BA909">
+            <image src="../images/book/free_icon.png"></image>
             <text>空闲</text>
           </view>
         </view>
