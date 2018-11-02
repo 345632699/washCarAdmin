@@ -556,7 +556,7 @@
               data.success = success;
               data.fail = fail;
               wx.showLoading({
-                title: '正在上传' + i + '/9张',
+                title: '正在上传' + i + '/' + that.number + '张',
                 mask: true
               });
               that.uploadimg(data);

@@ -229,8 +229,7 @@
 
                 <view class="bottom">
                   <view class="car-num">{{ item.car_number }}</view>
-                  <!-- ！！这里需要后台返回评分 -->
-                  <view wx:if="{{ item.is_evaluate }}" class="rate">评分：{{ item.evaluation_service_rank }}</view>
+                  <view wx:if="{{ item.is_evaluate }}" class="rate">技工评分：{{ item.evaluation_service_rank }}</view>
                 </view>
               </view>
             </navigator>
