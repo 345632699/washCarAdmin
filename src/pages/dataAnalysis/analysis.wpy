@@ -541,7 +541,7 @@
   const sliderWidth = 50 // 需要设置slider的宽度，用于计算中间位置
   export default class Home extends wepy.page {
     config = {
-      navigationBarTitleText: '预约列表'
+      navigationBarTitleText: '数据统计'
     }
     components = {
       search: Search,
@@ -679,7 +679,7 @@
         if (strDate >= 0 && strDate <= 9) {
           strDate = "0" + strDate;
         }
-        return `${year}-${month}-${strDate}`
+        return `${year}年${month}月${strDate}日`
       }
     }
     methods = {
@@ -778,7 +778,6 @@
         wepy.setStorageSync('modules', this.modules)
       },
       delModule(index, name) {
-        console.log(name)
         this.show_list[index] = 0
         let modules = []
         if (wepy.getStorageSync("modules")) {
@@ -808,7 +807,6 @@
         this.$apply()
       }
       let order_status = wepy.getStorageSync('activeIndex') ? wepy.getStorageSync('activeIndex') : 0;
-      console.log(order_status)
       const res = await api.getorderoverview({
         query: {
           employee_id: employee_id,
@@ -870,7 +868,6 @@
       })
       let data = res.data.data[0]
       if (!wepy.getStorageSync('order_numbers')) {
-          console.log('3333322222')
         let resData = {
           'today': data.today_orders_number,
           'week': data.week_orders_number,

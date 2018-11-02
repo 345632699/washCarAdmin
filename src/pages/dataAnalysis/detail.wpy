@@ -366,6 +366,7 @@
         }
         methods = {
             async tabClick(e) {
+                this.selTime = 1
                 this.sliderOffset = e.currentTarget.offsetLeft;
                 this.activeIndex = e.currentTarget.id;
                 this.$apply();
@@ -378,7 +379,6 @@
             },
             async selectTime(e) {
                 this.selTime = e.currentTarget.id
-                console.log(e.currentTarget.id)
                 await this.getData(e.currentTarget.id, this.select_type)
             }
         }

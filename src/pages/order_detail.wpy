@@ -200,7 +200,7 @@
   <view class="page">
     <view class="page-bd">
       <view class="cells">
-        <block wx:if="{{ (true == has_done) ? '' : 'true' }}">
+         <block>
           <!-- 预约时间 -->
           <view class="cell">
             <view class="cell-left">
@@ -285,17 +285,19 @@
                 <image src="../images/book/photo.png"></image>
               </view>
               <view class="cell-right">
-                <view class="title">添加照片</view>
-                <view class="count">{{ number }}/9</view>
+                <view class="title" wx:if="{{ order_detail.image_list.length < 1 }}">添加照片</view>
+                <view class="title" wx:else>效果展示</view>
+                <view class="count" wx:if="{{ order_detail.image_list.length < 1 }}">{{ number }}/9</view>
+                <view class="count" wx:else>{{ number }}/{{ number }}</view>
               </view>
             </view>
             <view class="bottom">
               <view class="photo" wx:for="{{imgs}}" wx:for-item="item" wx:key="*this" style="position:relative">
                 <image src="{{item}}" data-index="{{index}}" mode="aspectFill" bindtap="previewImg"></image>
-                <view class="weui-badge" data-index="{{index}}" @tap="deleteImg" style="margin-left: 6rpx;position: absolute;left:150rpx;top:-8rpx;">x</view>
+                <view wx:if="{{ order_detail.image_list.length < 1 }}" class="weui-badge" data-index="{{index}}" @tap="deleteImg" style="margin-left: 6rpx;position: absolute;left:150rpx;top:-8rpx;">x</view>
               </view>
-              <view class="photo" @tap="choose" wx:if="{{ (imgs.length > 8) ? false : true }}">
-                <view class="add">
+              <view class="photo" @tap="choose" wx:if="{{ (imgs.length > 8) ? false : true}}">
+                <view class="add" wx:if="{{ order_detail.image_list.length < 1 }}">
                   <image src="../images/mine/fail.png"></image>
                 </view>
               </view>
@@ -312,10 +314,10 @@
                 <view class="title">车型</view>
                 <view class="subtitle" wx:if="{{ order_detail.car_model }}">{{ order_detail.car_model }}</view>
                 <view class="subtitle" wx:else>
-                  <input type="text" @change="changeCarModel" value="{{ carModel }}" placeholder="请输入车型">
+                  <input type="text" @change="changeCarModel" value="{{ carModel }}" placeholder="请输入车型" />
                 </view>
               </view>
-              <image wx:if="{{ order_detail.order_status < 3 }}" class="skip" src="../images/book/more.png"></image>
+              <!-- <image wx:if="{{ order_detail.order_status < 3 }}" class="skip" src="../images/book/more.png"></image>   -->
             </view>
           </view>
         </block>
@@ -471,8 +473,8 @@
           tip.error('车型不能为空')
           return
         }
-        if (imgs.length < 9) {
-          tip.error('图片少于9张')
+        if (imgs.length < 1) {
+          tip.error('图片少于1张')
           return
         }
         wx.showLoading({
@@ -545,7 +547,7 @@
             //console.log('执行完毕');
             //console.log('成功：'+success+" 失败："+fail);
             //完成订单
-            if (success == 9) {
+            if (success == that.data.imgs.length) {
               this.servicedone()
             }
           } else { //若图片还没有传完，则继续调用函数
@@ -595,10 +597,10 @@
         method: 'POST'
       })
       this.order_detail = res.data.data[0]
-      if (this.order_detail.image_list.length >= 9) {
+      if (this.order_detail.image_list.length >= 1) {
         this.imgs = this.order_detail.thumbnail_image_list
         this.source_imgs = this.order_detail.image_list
-        this.number = 9
+        this.number = this.order_detail.image_list.length
       }
       let order_status = this.order_detail.order_status
       if (order_status > 1 && order_status < 5) {
@@ -607,6 +609,9 @@
       this.evaluate_service = this.order_detail.commit_rank
       this.evaluate_artisan = this.order_detail.artisan_rank
       this.comment = this.order_detail.comment
+      if (this.comment == '') {
+          this.comment = '暂无评论'
+      }
       this.$apply()
     }
     // events对象中所声明的函数为用于监听组件之间的通信与交互事件的事件处理函数

@@ -414,7 +414,7 @@
     const sliderWidth = 60 // 需要设置slider的宽度，用于计算中间位置
     export default class Charts extends wepy.page {
         config = {
-            navigationBarTitleText: '数据统计',
+            navigationBarTitleText: '数据总结',
             usingComponents: {
                 ec_canvas: '../../plugins/ec-canvas/ec-canvas'
             }
@@ -502,7 +502,6 @@
             await this.getabnormaldata('week', this.analysis_item)
         }
         async getData(type = 'week', select_type) {
-            console.log('select_type', select_type)
             let res = await api.getnumbersummarybyday({
                 query: {
                     analysis_item: select_type,

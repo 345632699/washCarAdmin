@@ -68,7 +68,7 @@
 <template>
 <view class="page">
   <view class="identity">
-    <block wx:if="{{ 'none'==auth_status }}">
+    <block wx:if="{{ 'none'==auth_status || 'delete'==auth_status  }}">
       <view class="top no-identity">
         <image src="../images/mine/identity.png"></image>
         <text>验证身份之后才可以使用所有功能</text>

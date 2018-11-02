@@ -149,7 +149,7 @@
               </view>
               <view class="foot" wx:if="{{ is_root }}">
                 <navigator  url="/pages/identify?employee_id={{ item.employee_id }}&target=2" hover-class="none" class="btn">修改资料</navigator>
-                <view data-id="{{ item.employee_id }}" @tap="deleteStaff" class="btn">删除员工</view>
+                <view data-name="{{ item.name }}" data-id="{{ item.employee_id }}" @tap="deleteStaff" class="btn">删除员工</view>
               </view>
             </view>
           </view>
@@ -237,6 +237,8 @@ export default class EmployeeManage extends wepy.page {
       this.is_active = 1
       let employee_id = e.currentTarget.dataset.id
       this.alertInfo.employee_id = employee_id
+      let msg = "确认要删除员工"+ e.currentTarget.dataset.name +"？删除后不可撤回操作！\n"
+      this.alertInfo.msg = msg
     },
     async agree (e) {
       let employee_id = e.currentTarget.id;
@@ -300,8 +302,9 @@ export default class EmployeeManage extends wepy.page {
   }
 
   events = {
-    'comfirmAction': async  (comfirm,employee_id) => {
-      console.log(employee_id)
+    'comfirmAction': async  (comfirm,e) => {
+      console.log()
+      let employee_id = e.source.alertInfo.employee_id
       if (comfirm == 1) {
         const res = await api.updatestaffauth({
           query: {
@@ -312,7 +315,7 @@ export default class EmployeeManage extends wepy.page {
         })
         if (res.data.status) {
           tip.success("删除成功")
-          await this.getstafflist(wepy.getStorageSync("userid"))
+          await this.getstaffauthlist(wepy.getStorageSync("userid"))
         }
       }
     }

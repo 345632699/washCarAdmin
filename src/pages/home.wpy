@@ -188,17 +188,16 @@
             <text>今日预约：{{ homeInfo.today_number }}单</text>
             <text>本周预约：{{ homeInfo.week_number }}单</text>
           </view>
-
           <view class="sign" wx:if="{{ homeInfo.busy_status == 'busy' }}" style="background: #C42B2B">
-            <image src="../../images/book/hot_icon.png"></image>
+        <image src="../images/home/hot.png"></image>
             <text>火爆</text>
           </view>
           <view class="sign" wx:if="{{ homeInfo.busy_status == 'normal' }}" style="background: #F5A623">
-            <image src="../../images/book/normal_icon.png"></image>
+        <image src="../images/home/normal.png"></image>
             <text>正常</text>
           </view>
           <view class="sign" wx:if="{{ homeInfo.busy_status == 'free' }}" style="background: #8BA909">
-            <image src="../images/book/free_icon.png"></image>
+        <image src="../images/home/free.png"></image>
             <text>空闲</text>
           </view>
         </view>
@@ -231,7 +230,7 @@
                 <view class="bottom">
                   <view class="car-num">{{ item.car_number }}</view>
                   <!-- ！！这里需要后台返回评分 -->
-                  <view class="rate">评分：5</view>
+                  <view wx:if="{{ item.is_evaluate }}" class="rate">评分：{{ item.evaluation_service_rank }}</view>
                 </view>
               </view>
             </navigator>
@@ -302,7 +301,7 @@ import api from '../api/api'
           strDate = "0" + strDate;
         }
 
-        return `${year}-${month}-${strDate}`
+        return `${year}年${month}月${strDate}日`
       }
     }
 
