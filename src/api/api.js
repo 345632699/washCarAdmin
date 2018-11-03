@@ -56,6 +56,8 @@ const getincordecsummary = (params) => wxRequest(params, api + "getincordecsumma
 //获取上周或者上月或者上几周或者上几月的各项指标的异常数据
 const getabnormaldata = (params) => wxRequest(params, api + "getabnormaldata/");
 
+const getmerchantmainpage = (params) => wxRequest(params, api + "getmerchantmainpage/");
+
 
 
 
@@ -82,5 +84,6 @@ module.exports = {
   getnumbersummarybyday,
   getincordecsummary,
   getabnormaldata,
+  getmerchantmainpage,
   getanalysisdetails
 }

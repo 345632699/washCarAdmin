@@ -325,7 +325,7 @@
     </view>
     <view class="weui-tab">
       <!-- 内容 -->
-      <view class="weui-tab__panel" style="overflow:hidden">
+      <view wx:if="{{ is_root }}" class="weui-tab__panel" style="overflow:hidden">
         <view class="weui-tab__content order">
           <view class="order-number list" wx:if="{{ show_list.order_numbers }}">
             <view class="list-item">
@@ -524,6 +524,9 @@
           </view>
         </view>
       </view>
+      <view wx:else class="none" style="text-align:center">
+        暂无权限
+      </view>
     </view>
   </view>
 </template>
@@ -551,6 +554,7 @@
     data = {
       modules: ['营业额', '订单数', '新增用户个数', '服务评分', '技工评分'],
       select_modules: [],
+      is_root: 0,
       userInfo: {
         nickName: '加载中...'
       },
@@ -846,7 +850,8 @@
       wepy.removeStorageSync('new_users')
       wepy.removeStorageSync('service_evaluates')
       wepy.removeStorageSync('mechanic_evaluates')
-
+      this.is_root = wepy.getStorageSync('is_root')
+      
       if (!wepy.getStorageSync('userid')) {
         await this.$parent.getAuth()
         this.userInfo = wepy.getStorageSync('user_info')
@@ -856,6 +861,9 @@
         this.userInfo = wepy.getStorageSync('user_info')
         await this.getorderoverview(wepy.getStorageSync('userid'))
         this.$apply()
+      }
+      if(!this.is_root){
+        return
       }
       let res = await api.getanalysismainpage({
         query: {
@@ -957,6 +965,7 @@
       if (wepy.getStorageSync('show_list') != '') {
         this.show_list = wepy.getStorageSync('show_list')
       }
+      this.is_root = wepy.getStorageSync('is_root')
       this.$apply()
       //   this.getorderlist(this.activeIndex);
     }

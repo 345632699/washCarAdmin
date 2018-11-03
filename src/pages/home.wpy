@@ -344,15 +344,15 @@ import api from '../api/api'
       this.$apply()
     }
 
-    async getorderoverview (employee_id) {
+    async getorderoverview (employee_id,order_status = 0) {
       let myDate = new Date();
       let hour = myDate.getHours();
       if (hour > 12){
         this.time = "下午好"
         this.$apply()
       }
-      let order_status = wepy.getStorageSync('activeIndex') ? wepy.getStorageSync('activeIndex') : 0;
-      console.log(order_status)
+      // let order_status = wepy.getStorageSync('activeIndex') ? wepy.getStorageSync('activeIndex') : 0;
+      // console.log(order_status)
       const res = await api.getorderoverview({
         query: {
           employee_id: employee_id,
@@ -411,10 +411,10 @@ import api from '../api/api'
         this.$apply()
       }else{
         this.userInfo = wepy.getStorageSync('user_info')
-        await this.getorderoverview(wepy.getStorageSync('userid'))
+        await this.getorderoverview(wepy.getStorageSync('userid'),this.activeIndex)
         this.$apply()
       }
-      this.getorderlist(this.activeIndex);
+      // this.getorderlist(this.activeIndex);
     }
   }
 </script>

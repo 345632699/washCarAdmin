@@ -200,7 +200,7 @@
   <view class="page">
     <view class="page-bd">
       <view class="cells">
-         <block>
+        <block wx:if="{{ !has_done || order_detail.order_status == 4 }}">
           <!-- 预约时间 -->
           <view class="cell">
             <view class="cell-left">
@@ -255,7 +255,7 @@
           <!-- ！！这里需要后台返回该订单的用户评价数据 -->
         </block>
         <!-- 客户评价 -->
-        <view class="cell rate" wx:if="{{ evaluate_artisan }}">
+        <view class="cell rate" wx:if="{{ is_evaluate }}">
           <view class="top">
             <view class="cell-left">
               <image src="../images/book/rate.png"></image>
@@ -277,7 +277,7 @@
             </view>
           </view>
         </view>
-        <block wx:if="{{ has_done }}">
+        <block wx:if="{{ has_done && order_detail.order_status != 4 }}">
           <!-- 添加照片 -->
           <view class="cell add-photo">
             <view class="top">
@@ -382,6 +382,7 @@
       evaluate_service: 0, //服务
       evaluate_artisan: 0, //技工
       comment: '', //评价内容
+      is_evaluate: 0, //评价内容
       //--------------------------------------------
     }
     methods = {
@@ -609,8 +610,9 @@
       this.evaluate_service = this.order_detail.commit_rank
       this.evaluate_artisan = this.order_detail.artisan_rank
       this.comment = this.order_detail.comment
+      this.is_evaluate = this.order_detail.is_evaluate
       if (this.comment == '') {
-          this.comment = '暂无评论'
+        this.comment = '暂无评论'
       }
       this.$apply()
     }
