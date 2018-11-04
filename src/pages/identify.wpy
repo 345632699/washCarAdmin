@@ -164,7 +164,7 @@
           <image src="../images/mine/user.png" class="cell-icon"></image>
           <view class="cell-input">
             <view class="title">基本信息</view>
-            <input @change="changeName" placeholder="请输入姓名" maxlength="8" placeholder-class="placeholder" />
+            <input @change="changeName" value="{{ employee.real_name }}" placeholder="请输入姓名" maxlength="8" placeholder-class="placeholder" />
           </view>
         </view>
         <view class="cell-right">
@@ -183,7 +183,7 @@
           <image src="../images/mine/phone.png" class="cell-icon"></image>
           <view class="cell-input">
             <view class="title">联系电话</view>
-            <input @change="changePhone" type="number" maxlength="11" placeholder="请输入手机号码" placeholder-class="placeholder" />
+            <input @change="changePhone" value="{{ employee.phone_number }}" type="number" maxlength="11" placeholder="请输入手机号码" placeholder-class="placeholder" />
           </view>
         </view>
       </vlew>
@@ -219,7 +219,7 @@
 
       <!-- ！！这里需要后台返回职位种类 -->
       <!-- 工作职位 -->
-      <view class="column-cell" wx:if="{{target == 2}}">
+      <view class="column-cell" wx:if="{{target == 2 && hide_position_root == 0}}">
         <vlew class="cell-top info-cell">
           <view class="cell-left">
             <image src="../images/mine/work.png" class="cell-icon"></image>
@@ -248,7 +248,7 @@
       </view>
 
       <!-- 设置管理员 -->
-      <view class="column-cell" wx:if="{{target == 2}}">
+      <view class="column-cell" wx:if="{{target == 2 && hide_position_root == 0}}">
         <vlew class="cell-top info-cell">
           <view class="cell-left">
             <image src="../images/mine/fingerprint.png" class="cell-icon"></image>
@@ -258,7 +258,7 @@
           </view>
           <view class="cell-right" @tap="setAdmin">
             <!-- ！！开关图片我随便选的，记得放原切图(￣▽￣) -->
-            <image class="set-admin" src="{{adminFlag ? '../images/mine/female_selected.png' : '../images/mine/female.png'}}"></image>
+            <image class="set-admin" src="{{adminFlag ? '../images/user/switch_select.png' : '../images/user/switch_normal.png'}}"></image>
           </view>
         </vlew>
       </view>
@@ -317,8 +317,9 @@ export default class Identify extends wepy.page {
     activeSelect: false,
     jobIndex: -1,
     //这里要赋值职位信息
-    jobList:['职位一','职位二','职位三'],
+    jobList:['店长','管理员','普通员工'],
     adminFlag: true,
+    hide_position_root: 0
     //--------------------------------
   }
 
@@ -442,6 +443,9 @@ export default class Identify extends wepy.page {
     }
     let employee_id = option.employee_id
     this.employee_id = employee_id
+    if (employee_id == wepy.getStorageSync('userid')) {
+        this.hide_position_root = 1    
+    }
     await this.getstaffinfo(employee_id)
     await this.getbranchlist()
     this.$apply()

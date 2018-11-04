@@ -257,40 +257,36 @@
                                 <view class="data">
                                     <view class="item">
                                         <view class="count">
-                                            {{ compare.active_users_detail_compare[0] }}
+                                            {{ compare.active_users_detail_compare[0] != null ? compare.active_users_detail_compare[0] : '--' }}
                                         </view>
                                         <view class="name">订单数</view>
-                                        <view class="txt" wx:if="{{ compare.orders_detail_compare[1] > -1  }}">环比增加{{ compare.orders_detail_compare[1] }}%</view>
-                                        <view class="txt" wx:else>数据不足</view>
+                                        <view class="txt" wx:if="{{ compare.orders_detail_compare[1] != null  }}">环比增加{{ compare.orders_detail_compare[1] }}%</view>
                                     </view>
                                     <view class="item">
                                         <view class="count">
-                                            {{compare.revenue_detail_compare[0]}}
+                                            {{compare.revenue_detail_compare[0] != null ? compare.revenue_detail_compare[0] : '--'}}
                                         </view>
                                         <view class="name">营业额</view>
-                                        <view class="txt" wx:if="{{ compare.revenue_detail_compare[1] > -1  }}">环比增加{{ compare.revenue_detail_compare[1] }}%</view>
-                                        <view class="txt" wx:else>数据不足</view>
+                                        <view class="txt" wx:if="{{ compare.revenue_detail_compare[1] != null  }}">环比增加{{ compare.revenue_detail_compare[1] }}%</view>
                                     </view>
                                     <view class="item">
                                         <view class="count">
-                                            {{compare.average_service_rank_detail_compare[0] > -1 ? compare.average_service_rank_detail_compare[0] : "--"}}
+                                            {{compare.average_service_rank_detail_compare[0] != null ? compare.average_service_rank_detail_compare[0] : "--"}}
                                         </view>
                                         <view class="name">服务平均分</view>
-                                        <view class="txt" wx:if="{{ compare.average_service_rank_detail_compare[1] > -1  }}">环比增加{{ compare.average_service_rank_detail_compare[1] }}%</view>
-                                        <view class="txt" wx:else>数据不足</view>
+                                        <view class="txt" wx:if="{{ compare.average_service_rank_detail_compare[1] != null  }}">环比增加{{ compare.average_service_rank_detail_compare[1] }}%</view>
                                     </view>
                                     <view class="item">
                                         <view class="count">
-                                            {{compare.total_average_artisan_rank_detail[0] > -1 ? compare.total_average_artisan_rank_detail[0] : "--"}}
+                                            {{compare.total_average_artisan_rank_detail[0] != null ? compare.total_average_artisan_rank_detail[0] : "--"}}
                                         </view>
                                         <view class="name">技工平均分</view>
-                                        <view class="txt" wx:if="{{ compare.total_average_artisan_rank_detail[1] > -1  }}">环比增加{{ compare.total_average_artisan_rank_detail[1] }}%</view>
-                                        <view class="txt" wx:else>数据不足</view>
+                                        <view class="txt" wx:if="{{ compare.total_average_artisan_rank_detail[1] != null  }}">环比增加{{ compare.total_average_artisan_rank_detail[1] }}%</view>
                                     </view>
                                 </view>
-                                <view class="tips">
+                                <!-- <view class="tips">
                                     本月订单数增加原因可能为服务提升、用户数增长、天气晴朗的天数多等（当数据充足时可以预期下一个月的订单数）
-                                </view>
+                                </view> -->
                             </view>
                             <view class="detail" wx:if="{{abnormalData.length > 0}}">
                                 <view class="title">异常数据</view>
@@ -305,9 +301,9 @@
                                     </view>
                                 </view>
                             </view>
-                            <view wx:else class="detail no-data">
+                            <!-- <view wx:else class="detail no-data">
                                 暂未收集到充足的数据
-                            </view>
+                            </view> -->
                         </view>
                     </view>
                 </view>
@@ -343,43 +339,39 @@
                                 <view class="data">
                                     <view class="item">
                                         <view class="count">
-                                            {{ compare.active_users_detail_compare[0] }}
+                                            {{ compare.active_users_detail_compare[0] != null ? compare.active_users_detail_compare[0] : '--' }}
                                         </view>
                                         <view class="name">订单数</view>
-                                        <view class="txt" wx:if="{{ compare.orders_detail_compare[1] > -1  }}">环比增加{{ compare.orders_detail_compare[1] }}%</view>
-                                        <view class="txt" wx:else>数据不足</view>
+                                        <view class="txt" wx:if="{{ compare.orders_detail_compare[1] !== null  }}">环比增加{{ compare.orders_detail_compare[1] }}%</view>
                                     </view>
                                     <view class="item">
                                         <view class="count">
-                                            {{compare.revenue_detail_compare[0]}}
+                                            {{compare.revenue_detail_compare[0] != null ? compare.revenue_detail_compare[0] : '--'}}
                                         </view>
                                         <view class="name">营业额</view>
-                                        <view class="txt" wx:if="{{ compare.revenue_detail_compare[1] > -1  }}">环比增加{{ compare.revenue_detail_compare[1] }}%</view>
-                                        <view class="txt" wx:else>数据不足</view>
+                                        <view class="txt" wx:if="{{ compare.revenue_detail_compare[1] != null  }}">环比增加{{ compare.revenue_detail_compare[1] }}%</view>
                                     </view>
                                     <view class="item">
                                         <view class="count">
-                                            {{compare.average_service_rank_detail_compare[0] > -1 ? compare.average_service_rank_detail_compare[0] : "--"}}
+                                            {{compare.average_service_rank_detail_compare[0] != null ? compare.average_service_rank_detail_compare[0] : "--"}}
                                         </view>
                                         <view class="name">服务平均分</view>
-                                        <view class="txt" wx:if="{{ compare.average_service_rank_detail_compare[1] > -1  }}">环比增加{{ compare.average_service_rank_detail_compare[1] }}%</view>
-                                        <view class="txt" wx:else>数据不足</view>
+                                        <view class="txt" wx:if="{{ compare.average_service_rank_detail_compare[1] != null  }}">环比增加{{ compare.average_service_rank_detail_compare[1] }}%</view>
                                     </view>
                                     <view class="item">
                                         <view class="count">
-                                            {{compare.total_average_artisan_rank_detail[0] > -1 ? compare.total_average_artisan_rank_detail[0] : "--"}}
+                                            {{compare.total_average_artisan_rank_detail[0] != null ? compare.total_average_artisan_rank_detail[0] : "--"}}
                                         </view>
                                         <view class="name">技工平均分</view>
-                                        <view class="txt" wx:if="{{ compare.total_average_artisan_rank_detail[1] > -1  }}">环比增加{{ compare.total_average_artisan_rank_detail[1] }}%</view>
-                                        <view class="txt" wx:else>数据不足</view>
+                                        <view class="txt" wx:if="{{ compare.total_average_artisan_rank_detail[1] != null  }}">环比增加{{ compare.total_average_artisan_rank_detail[1] }}%</view>
                                     </view>
                                 </view>
-                                <view class="tips">
+                                <!-- <view class="tips">
                                     本月订单数增加原因可能为服务提升、用户数增长、天气晴朗的天数多等（当数据充足时可以预期下一个月的订单数）
-                                </view>
+                                </view> -->
                             </view>
                             <view class="detail" wx:if="{{abnormalData.length > 0}}">
-                                <view class="title">异常数据</view>
+                                <view class="title">数据波动</view>
                                 <view class="data">
                                     <view class="name">
                                         <view>日期</view>
@@ -391,9 +383,9 @@
                                     </view>
                                 </view>
                             </view>
-                            <view wx:else class="detail no-data">
+                            <!-- <view wx:else class="detail no-data">
                                 暂未收集到充足的数据
-                            </view>
+                            </view> -->
                         </view>
                     </view>
                 </view>

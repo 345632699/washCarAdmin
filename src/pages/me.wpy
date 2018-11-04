@@ -1,176 +1,156 @@
 <style lang="less">
-@import '../style/common.less';
-.page{
-  .identity{
-    .top{
-      .centerBox;
-      border-radius: 16rpx;
-      margin: 60rpx 24rpx 60rpx 26rpx;
-      background: @cellsBgColor;
-
-      image{
-        height: 160rpx;
-        width: 160rpx;
-        margin-bottom: 45rpx;
-      }
-
-      text{
-        color: #4A4A4A;
-        font-size: 28rpx;
-        line-height: 40rpx;
-      }
-    }
-
-    .no-identity{
-      flex-direction: column;
-      height: 380rpx;
-    }
-
-    .role{
-      justify-content: flex-start;
-
-      .role-img{
-        width: 116rpx;
-        height: 116rpx;
-        margin: 40rpx;
-      }
-
-      .role-msg{
-        .betweenBox;
-        flex-direction: column;
-        margin-right: 40rpx;
-
-        .name{
-          color: #FAFAFA;
-          font-size: 32rpx;
-          line-height: 44rpx;
-          margin-bottom: 12rpx;
+    @import '../style/common.less';
+    .page {
+        .identity {
+            .top {
+                .centerBox;
+                border-radius: 16rpx;
+                margin: 60rpx 24rpx 60rpx 26rpx;
+                background: @cellsBgColor;
+                image {
+                    height: 160rpx;
+                    width: 160rpx;
+                    margin-bottom: 45rpx;
+                }
+                text {
+                    color: #4A4A4A;
+                    font-size: 28rpx;
+                    line-height: 40rpx;
+                }
+            }
+            .no-identity {
+                flex-direction: column;
+                height: 380rpx;
+            }
+            .role {
+                justify-content: flex-start;
+                .role-img {
+                    width: 116rpx;
+                    height: 116rpx;
+                    margin: 40rpx;
+                }
+                .role-msg {
+                    .betweenBox;
+                    flex-direction: column;
+                    margin-right: 40rpx;
+                    .name {
+                        color: #FAFAFA;
+                        font-size: 32rpx;
+                        line-height: 44rpx;
+                        margin-bottom: 12rpx;
+                    }
+                    .phone {
+                        color: #9B9B9B;
+                        font-size: 28rpx;
+                        line-height: 40rpx;
+                    }
+                }
+            }
+            .btn {
+                .longBtn(@normalBtnBgColor, @normalBtnBorderColor);
+                line-height: 80rpx;
+                height: 80rpx;
+                width: 608rpx;
+                margin-bottom: 40rpx;
+            }
         }
-
-        .phone{
-          color: #9B9B9B;
-          font-size: 28rpx;
-          line-height: 40rpx;
-        }
-      }
     }
-
-    .btn{
-      .longBtn(@normalBtnBgColor,@normalBtnBorderColor);
-      line-height: 80rpx;
-      height: 80rpx;
-      width: 608rpx;
-      margin-bottom: 40rpx;
-    }
-  }
-}
 </style>
+
 <template>
-<view class="page">
-  <view class="identity">
-    <block wx:if="{{ 'none'==auth_status || 'delete'==auth_status  }}">
-      <view class="top no-identity">
-        <image src="../images/mine/identity.png"></image>
-        <text>验证身份之后才可以使用所有功能</text>
-      </view>
-
-      <button class="btn" @tap="doVerify" id="1">马上验证</button>
-    </block>
-
-    <block wx:if="{{ 'processing'==auth_status }}">
-      <view class="top no-identity">
-        <image src="../images/mine/identity.png"></image>
-        <text>审核中，请等待</text>
-      </view>
-    </block>
-
-    <block wx:if="{{ 'authed'==auth_status }}">
-      <view class="top role">
-        <image class="role-img" src="../images/mine/manager.png"></image>
-        <view class="role-msg">
-          <text class="name">{{nickName}}</text>
-          <text class="phone">{{phone}}</text>
+    <view class="page">
+        <view class="identity">
+            <block wx:if="{{ 'none'==auth_status || 'delete'==auth_status  }}">
+                <view class="top no-identity">
+                    <image src="../images/mine/identity.png"></image>
+                    <text>验证身份之后才可以使用所有功能</text>
+                </view>
+                <button class="btn" @tap="doVerify" id="1">马上验证</button>
+            </block>
+            <block wx:if="{{ 'processing'==auth_status }}">
+                <view class="top no-identity">
+                    <image src="../images/mine/identity.png"></image>
+                    <text>审核中，请等待</text>
+                </view>
+            </block>
+            <block wx:if="{{ 'authed'==auth_status }}">
+                <view class="top role">
+                    <image class="role-img" wx:if="{{ position == '店长' }}" src="../images/mine/shopkeeper.png" />
+                    <image class="role-img" wx:if="{{ position == '管理员' }}" src="../images/mine/manager.png" />
+                    <image class="role-img" wx:if="{{ position == '普通员工' }}" src="../images/mine/staff.png" />
+                    <view class="role-msg">
+                        <text class="name">{{nickName}}</text>
+                        <text class="phone">{{phone}}</text>
+                    </view>
+                </view>
+                <button class="btn" @tap="doVerify" id="2">修改资料</button>
+                <button class="btn" @tap="toEmployeeManage">员工管理</button>
+            </block>
         </view>
-      </view>
-
-      <button class="btn" @tap="doVerify" id="2">修改资料</button>
-      <button class="btn" @tap="toEmployeeManage">员工管理</button>
-    </block>
-  </view>
-</view>
+    </view>
 </template>
 
 <script>
-import wepy from 'wepy'
-import util from '../utils/util'
-import {
-  SYSTEM_INFO,
-  SEL_CLASS_CODE
-} from '../utils/constant';
-import api from '../api/api'
-import tip from '../utils/tip'
-import Alert from '../components/myAlert'
-export default class Me extends wepy.page {
-  config = {
-    navigationBarTitleText: '个人中心'
-  }
-  
-  components = {
-    alert:Alert
-  }
-
-  data = {
-    nickName: '',
-    phone: '',
-
-    employee_id: '',
-    auth_status:"none",
-
-    is_root:wepy.getStorageSync('is_root'),
-
-  }
-
-  computed = {
-  }
-
-  methods = {
-    doVerify (e) {
-      let target = e.currentTarget.id;
-      wepy.navigateTo({
-        url: `/pages/identify?employee_id=${this.employee_id}&target=${target}`
-      })
-    },
-    toEmployeeManage (e) {
-      wepy.navigateTo({
-        url: `/pages/employee_manage`
-      })
+    import wepy from 'wepy'
+    import util from '../utils/util'
+    import {
+        SYSTEM_INFO,
+        SEL_CLASS_CODE
+    } from '../utils/constant';
+    import api from '../api/api'
+    import tip from '../utils/tip'
+    import Alert from '../components/myAlert'
+    export default class Me extends wepy.page {
+        config = {
+            navigationBarTitleText: '个人中心'
+        }
+        components = {
+            alert: Alert
+        }
+        data = {
+            nickName: '',
+            phone: '',
+            employee_id: '',
+            auth_status: "none",
+            position: "",
+            is_root: wepy.getStorageSync('is_root'),
+        }
+        computed = {}
+        methods = {
+            doVerify(e) {
+                let target = e.currentTarget.id;
+                wepy.navigateTo({
+                    url: `/pages/identify?employee_id=${this.employee_id}&target=${target}`
+                })
+            },
+            toEmployeeManage(e) {
+                wepy.navigateTo({
+                    url: `/pages/employee_manage`
+                })
+            }
+        }
+        async getstaffinfo(employee_id) {
+            const res = await api.getstaffinfo({
+                query: {
+                    employee_id: employee_id,
+                },
+                method: 'POST'
+            });
+            this.phone = res.data.data[0].phone_number;
+            this.nickName = res.data.data[0].nick_name;
+            this.auth_status = res.data.data[0].auth_status
+            this.is_root = res.data.data[0].is_root
+            this.position = res.data.data[0].position
+            this.$apply()
+        }
+        async onLoad() {
+            let self = this
+            self.userInfo = wepy.getStorageSync('user_info')
+        }
+        async onShow() {
+            let employee_id = wepy.getStorageSync("userid")
+            this.employee_id = employee_id;
+            await this.getstaffinfo(employee_id)
+        }
     }
-  }
-
-  async getstaffinfo (employee_id) {
-    const res = await api.getstaffinfo({
-      query: {
-        employee_id: employee_id,
-      },
-      method: 'POST'
-    });
-    this.phone = res.data.data[0].phone_number;
-    this.nickName = res.data.data[0].nick_name;
-    this.auth_status = res.data.data[0].auth_status
-    this.is_root = res.data.data[0].is_root
-    this.$apply()
-  }
-
-  async onLoad() {
-    let self = this
-    self.userInfo = wepy.getStorageSync('user_info')
-  }
-
-  async onShow() {
-    let employee_id = wepy.getStorageSync("userid")
-    this.employee_id = employee_id;
-    await this.getstaffinfo(employee_id)
-  }
-
-}
 </script>

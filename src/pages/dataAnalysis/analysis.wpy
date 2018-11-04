@@ -343,9 +343,9 @@
                   <view class="right">
                     {{selectItem.count}}
                   </view>
-                  <view class="delete" wx:if="{{is_edit}}" wx:for-item="del" @tap="del({{index}},1)">
+                  <!-- <view class="delete" wx:if="{{is_edit}}" wx:for-item="del" @tap="del({{index}},1)">
                     <view class="text">-</view>
-                  </view>
+                  </view> -->
                 </view>
               </view>
               <view class="container" wx:if="{{is_edit}}">
@@ -376,9 +376,9 @@
                   <view class="right">
                     {{selectItem.count}}
                   </view>
-                  <view class="delete" wx:if="{{is_edit}}" wx:for-item="del" @tap="del({{index}},2)">
+                  <!-- <view class="delete" wx:if="{{is_edit}}" wx:for-item="del" @tap="del({{index}},2)">
                     <view class="text">-</view>
-                  </view>
+                  </view> -->
                 </view>
               </view>
               <view class="container" wx:if="{{is_edit}}">
@@ -409,9 +409,9 @@
                   <view class="right">
                     {{selectItem.count}}
                   </view>
-                  <view class="delete" wx:if="{{is_edit}}" wx:for-item="del" @tap="del({{index}},3)">
+                  <!-- <view class="delete" wx:if="{{is_edit}}" wx:for-item="del" @tap="del({{index}},3)">
                     <view class="text">-</view>
-                  </view>
+                  </view> -->
                 </view>
               </view>
               <view class="container" wx:if="{{is_edit}}">
@@ -855,11 +855,11 @@
       if (!wepy.getStorageSync('userid')) {
         await this.$parent.getAuth()
         this.userInfo = wepy.getStorageSync('user_info')
-        await this.getorderoverview(wepy.getStorageSync('userid'))
+        // await this.getorderoverview(wepy.getStorageSync('userid'))
         this.$apply()
       } else {
         this.userInfo = wepy.getStorageSync('user_info')
-        await this.getorderoverview(wepy.getStorageSync('userid'))
+        // await this.getorderoverview(wepy.getStorageSync('userid'))
         this.$apply()
       }
       if(!this.is_root){
@@ -966,6 +966,10 @@
         this.show_list = wepy.getStorageSync('show_list')
       }
       this.is_root = wepy.getStorageSync('is_root')
+      this.homeInfo = wepy.getStorageSync('homeInfo')
+       if (hour > 12) {
+        this.time = "下午好"
+      }
       this.$apply()
       //   this.getorderlist(this.activeIndex);
     }

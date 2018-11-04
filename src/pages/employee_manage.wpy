@@ -243,12 +243,12 @@ export default class EmployeeManage extends wepy.page {
     async agree (e) {
       let employee_id = e.currentTarget.id;
       await this.updatestaffauth(employee_id,0)
-      await this.getstafflist(employee_id)
+      await this.getstaffauthlist(employee_id)
     },
     async reject (e) {
       let employee_id = e.currentTarget.id;
       await this.updatestaffauth(employee_id,1)
-      await this.getstafflist(employee_id)
+      await this.getstaffauthlist(employee_id)
     },
   }
 
@@ -315,7 +315,7 @@ export default class EmployeeManage extends wepy.page {
         })
         if (res.data.status) {
           tip.success("删除成功")
-          await this.getstaffauthlist(wepy.getStorageSync("userid"))
+          await this.getstafflist(wepy.getStorageSync("userid"))
         }
       }
     }
