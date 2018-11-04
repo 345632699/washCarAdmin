@@ -316,10 +316,6 @@
             <text>今日预约：{{ homeInfo.today_number }}单</text>
             <text>本周预约：{{ homeInfo.week_number }}单</text>
           </view>
-          <view class="sign" @tap="edit" style="background: #C42B2B">
-            <image src="../../images/book/edit.png"></image>
-            <text>{{button_title}}</text>
-          </view>
         </view>
       </view>
     </view>
@@ -331,9 +327,8 @@
             <view class="list-item">
               <view class="title">
                 <text class="left">订单数（个）</text>
-                <text class="del-title" wx:if="{{is_edit}}" @tap="delModule('order_numbers','订单数')">删除模块</text>
               </view>
-              <view class="container" wx:for="{{ order_numbers }}" wx:for-item="selectItem" wx:key="index" wx:if="{{ selectItem.selected > 0 }}">
+              <view class="container" wx:for="{{ order_numbers }}" wx:for-item="selectItem" wx:key="index">
                 <view class="pannel" data-type="10" @tap="{{is_edit ? '' : 'getDetail'}}">
                   <view class="left">
                     <view class="sub">
@@ -341,21 +336,9 @@
                     </view>
                   </view>
                   <view class="right">
-                    {{selectItem.count}}
+                    {{selectItem.count != null ? selectItem.count : '--'}}
                   </view>
-                  <!-- <view class="delete" wx:if="{{is_edit}}" wx:for-item="del" @tap="del({{index}},1)">
-                    <view class="text">-</view>
-                  </view> -->
-                </view>
-              </view>
-              <view class="container" wx:if="{{is_edit}}">
-                <view class="pannel add-pannel" wx:for="{{ order_numbers }}" wx:key="item" @tap="addItem({{index}},1)" wx:if="{{ item.selected < 1 }}">
-                  <view class="add">
-                    <view class="text">
-                      +
-                    </view>
-                  </view>
-                  <view class="tips"> {{ item.title }}</view>
+                  
                 </view>
               </view>
             </view>
@@ -364,9 +347,8 @@
             <view class="list-item">
               <view class="title">
                 <text class="left">营业额（元）</text>
-                <text class="del-title" wx:if="{{is_edit}}" @tap="delModule('in_comes','营业额')">删除模块</text>
               </view>
-              <view class="container" wx:for="{{ in_comes }}" wx:for-item="selectItem" wx:key="index" wx:if="{{ selectItem.selected > 0 }}">
+              <view class="container" wx:for="{{ in_comes }}" wx:for-item="selectItem" wx:key="index">
                 <view class="pannel" data-type="11" @tap="{{is_edit ? '' : 'getDetail'}}">
                   <view class="left">
                     <view class="sub">
@@ -374,21 +356,8 @@
                     </view>
                   </view>
                   <view class="right">
-                    {{selectItem.count}}
+                    {{selectItem.count != null ? selectItem.count : '--'}}
                   </view>
-                  <!-- <view class="delete" wx:if="{{is_edit}}" wx:for-item="del" @tap="del({{index}},2)">
-                    <view class="text">-</view>
-                  </view> -->
-                </view>
-              </view>
-              <view class="container" wx:if="{{is_edit}}">
-                <view class="pannel add-pannel" wx:for="{{ in_comes }}" wx:key="item" @tap="addItem({{index}},2)" wx:if="{{ item.selected < 1 }}">
-                  <view class="add">
-                    <view class="text">
-                      +
-                    </view>
-                  </view>
-                  <view class="tips"> {{ item.title }}</view>
                 </view>
               </view>
             </view>
@@ -397,9 +366,8 @@
             <view class="list-item">
               <view class="title">
                 <text class="left">新增用户个数（个）</text>
-                <text class="del-title" wx:if="{{is_edit}}" @tap="delModule('new_users','新增用户个数')">删除模块</text>
               </view>
-              <view class="container" wx:for="{{ new_users }}" wx:for-item="selectItem" wx:key="index" wx:if="{{ selectItem.selected > 0 }}">
+              <view class="container" wx:for="{{ new_users }}" wx:for-item="selectItem" wx:key="index">
                 <view class="pannel" data-type="12" @tap="{{is_edit ? '' : 'getDetail'}}">
                   <view class="left">
                     <view class="sub">
@@ -407,21 +375,8 @@
                     </view>
                   </view>
                   <view class="right">
-                    {{selectItem.count}}
+                    {{selectItem.count != null ? selectItem.count : '--'}}
                   </view>
-                  <!-- <view class="delete" wx:if="{{is_edit}}" wx:for-item="del" @tap="del({{index}},3)">
-                    <view class="text">-</view>
-                  </view> -->
-                </view>
-              </view>
-              <view class="container" wx:if="{{is_edit}}">
-                <view class="pannel add-pannel" wx:for="{{ new_users }}" wx:key="item" @tap="addItem({{index}},3)" wx:if="{{ item.selected < 1 }}">
-                  <view class="add">
-                    <view class="text">
-                      +
-                    </view>
-                  </view>
-                  <view class="tips"> {{ item.title }}</view>
                 </view>
               </view>
             </view>
@@ -430,9 +385,8 @@
             <view class="list-item">
               <view class="title">
                 <text class="left">服务评价均分（满分5分）</text>
-                <text class="del-title" wx:if="{{is_edit}}" @tap="delModule('service_evaluates','服务评分')">删除模块</text>
               </view>
-              <view class="container" wx:for="{{ service_evaluates }}" wx:for-item="selectItem" wx:key="index" wx:if="{{ selectItem.selected > 0 }}">
+              <view class="container" wx:for="{{ service_evaluates }}" wx:for-item="selectItem" wx:key="index" >
                 <view class="pannel" data-type="15" @tap="{{is_edit ? '' : 'getDetail'}}">
                   <view class="left">
                     <view class="sub">
@@ -440,21 +394,11 @@
                     </view>
                   </view>
                   <view class="right">
-                    {{selectItem.count > 0 ? selectItem.count : '--'}}
+                    {{selectItem.count != null ? selectItem.count : '--'}}
                   </view>
                   <view class="delete" wx:if="{{is_edit}}" wx:for-item="del" @tap="del({{index}},4)">
                     <view class="text">-</view>
                   </view>
-                </view>
-              </view>
-              <view class="container" wx:if="{{is_edit}}">
-                <view class="pannel add-pannel" wx:for="{{ service_evaluates }}" wx:key="item" @tap="addItem({{index}},4)" wx:if="{{ item.selected < 1 }}">
-                  <view class="add">
-                    <view class="text">
-                      +
-                    </view>
-                  </view>
-                  <view class="tips"> {{ item.title }}</view>
                 </view>
               </view>
             </view>
@@ -463,9 +407,8 @@
             <view class="list-item">
               <view class="title">
                 <text class="left">技工评价平均分（满分5分）</text>
-                <text class="del-title" wx:if="{{is_edit}}" @tap="delModule('mechanic_evaluates','技工评分')">删除模块</text>
               </view>
-              <view class="container" wx:for="{{ mechanic_evaluates }}" wx:for-item="selectItem" wx:key="index" wx:if="{{ selectItem.selected > 0 }}">
+              <view class="container" wx:for="{{ mechanic_evaluates }}" wx:for-item="selectItem" wx:key="index" >
                 <view class="pannel" data-type="14" @tap="{{is_edit ? '' : 'getDetail'}}">
                   <view class="left">
                     <view class="sub">
@@ -473,21 +416,11 @@
                     </view>
                   </view>
                   <view class="right">
-                    {{selectItem.count > 0 ? selectItem.count : '--'}}
+                    {{selectItem.count != null ? selectItem.count : '--'}}
                   </view>
                   <view class="delete" wx:if="{{is_edit}}" wx:for-item="del" @tap="del({{index}},5)">
                     <view class="text">-</view>
                   </view>
-                </view>
-              </view>
-              <view class="container" wx:if="{{is_edit}}">
-                <view class="pannel add-pannel" wx:for="{{ mechanic_evaluates }}" wx:key="item" @tap="addItem({{index}},5)" wx:if="{{ item.selected < 1 }}">
-                  <view class="add">
-                    <view class="text">
-                      +
-                    </view>
-                  </view>
-                  <view class="tips"> {{ item.title }}</view>
                 </view>
               </view>
             </view>
@@ -509,18 +442,6 @@
                 </view>
               </view>
             </view>
-          </view>
-          <view class="data-sum list" wx:if="{{ modules.length }}">
-            <picker mode="selector" range="{{modules}}" value="{{index}}" @change="listenerPickerSelected">
-              <view class="list-item">
-                <view class="add">
-                  +
-                </view>
-                <view class="tips">
-                  添加模块
-                </view>
-              </view>
-            </picker>
           </view>
         </view>
       </view>
@@ -592,8 +513,7 @@
           title: '本月 MTD',
           count: 0,
           selected: 1
-        }
-      ],
+        }],
       in_comes: [{
           sort: 0,
           title: '今天 Today',
@@ -697,102 +617,17 @@
         }
         this.$apply()
       },
-      addItem(index, type) {
-        let target = ''
-        if (type == 1) {
-          target = this.order_numbers
-          target[index].selected = 1
-          wepy.setStorageSync('order_numbers', target)
-        } else if (type == 2) {
-          target = this.in_comes
-          target[index].selected = 1
-          wepy.setStorageSync('in_comes', target)
-        } else if (type == 3) {
-          target = this.new_users
-          target[index].selected = 1
-          wepy.setStorageSync('new_users', target)
-        } else if (type == 4) {
-          target = this.service_evaluates
-          target[index].selected = 1
-          wepy.setStorageSync('service_evaluates', target)
-        } else {
-          target = this.mechanic_evaluates
-          target[index].selected = 1
-          wepy.setStorageSync('mechanic_evaluates', target)
-        }
-        this.$apply()
-      },
-      del(index, type) {
-        let target = ''
-        if (type == 1) {
-          target = this.order_numbers
-          target[index].selected = 0
-          wepy.setStorageSync('order_numbers', target)
-        } else if (type == 2) {
-          target = this.in_comes
-          target[index].selected = 0
-          wepy.setStorageSync('in_comes', target)
-        } else if (type == 3) {
-          target = this.new_users
-          target[index].selected = 0
-          wepy.setStorageSync('new_users', target)
-        } else if (type == 4) {
-          target = this.service_evaluates
-          target[index].selected = 0
-          wepy.setStorageSync('service_evaluates', target)
-        } else {
-          target = this.mechanic_evaluates
-          target[index].selected = 0
-          wepy.setStorageSync('mechanic_evaluates', target)
-        }
-        this.$apply()
-      },
       getDetail(e) {
         let type = e.currentTarget.dataset.type
         wepy.navigateTo({
           url: `/pages/dataAnalysis/detail?type=${type}`
         })
       },
-      summarize () {
+      summarize() {
         wepy.navigateTo({
           url: `/pages/dataAnalysis/summarize`
         })
       },
-      listenerPickerSelected(e) {
-        let index = e.detail.value
-        this.select_modules.push(this.modules[index])
-        this.modules.splice(index, 1)
-        this.$apply()
-        if (this.select_modules.indexOf('订单数') > -1) {
-          this.show_list.order_numbers = 1
-        }
-        if (this.select_modules.indexOf('营业额') > -1) {
-          this.show_list.in_comes = 1
-        }
-        if (this.select_modules.indexOf('新增用户个数') > -1) {
-          this.show_list.new_users = 1
-        }
-        if (this.select_modules.indexOf('服务评分') > -1) {
-          this.show_list.service_evaluates = 1
-        }
-        if (this.select_modules.indexOf('技工评分') > -1) {
-          this.show_list.mechanic_evaluates = 1
-        }
-        wepy.setStorageSync('show_list', this.show_list)
-        wepy.setStorageSync('modules', this.modules)
-      },
-      delModule(index, name) {
-        this.show_list[index] = 0
-        let modules = []
-        if (wepy.getStorageSync("modules")) {
-          modules = wepy.getStorageSync("modules")
-        }
-        modules.push(name)
-        this.modules = modules
-        wepy.setStorageSync('modules', this.modules)
-        wepy.setStorageSync('show_list', this.show_list)
-        this.$apply()
-      }
     }
     getIndex(obj, str) {
       let returnIndex = 0
@@ -845,25 +680,26 @@
     }
     async onLoad() {
       let that = this;
-      wepy.removeStorageSync('order_numbers')
-      wepy.removeStorageSync('in_comes')
-      wepy.removeStorageSync('new_users')
-      wepy.removeStorageSync('service_evaluates')
-      wepy.removeStorageSync('mechanic_evaluates')
       this.is_root = wepy.getStorageSync('is_root')
-      
       if (!wepy.getStorageSync('userid')) {
         await this.$parent.getAuth()
         this.userInfo = wepy.getStorageSync('user_info')
-        // await this.getorderoverview(wepy.getStorageSync('userid'))
         this.$apply()
       } else {
         this.userInfo = wepy.getStorageSync('user_info')
-        // await this.getorderoverview(wepy.getStorageSync('userid'))
         this.$apply()
       }
-      if(!this.is_root){
+      if (!this.is_root) {
         return
+      }
+      
+    }
+    async onShow() {
+      let myDate = new Date();
+      let hour = myDate.getHours();
+      if (hour > 12) {
+        this.time = "下午好"
+        this.$apply()
       }
       let res = await api.getanalysismainpage({
         query: {
@@ -875,103 +711,94 @@
         method: 'POST'
       })
       let data = res.data.data[0]
-      if (!wepy.getStorageSync('order_numbers')) {
-        let resData = {
-          'today': data.today_orders_number,
-          'week': data.week_orders_number,
-          'month': data.month_orders_number
+     
+     
+      this.service_evaluates = [{
+          sort: 0,
+          title: '今天 Today',
+          count: data.today_average_service_rank,
+          selected: 1
+        },
+        {
+          sort: 1,
+          title: '本周 WTD',
+          count: data.week_average_service_rank,
+          selected: 1
+        },
+        {
+          sort: 2,
+          title: '本月 MTD',
+          count: data.month_average_service_rank,
+          selected: 1
         }
-        this.updateDatas(this.order_numbers, resData)
-        wepy.setStorageSync('order_numbers', this.order_numbers)
-      }
-      if (!wepy.getStorageSync('in_comes')) {
-        let resData = {
-          'today': data.today_revenue,
-          'week': data.week_revenue,
-          'month': data.month_revenue
+      ],
+      this.mechanic_evaluates = [{
+          sort: 0,
+          title: '今天 Today',
+          count: data.today_average_artisan_rank,
+        },
+        {
+          sort: 1,
+          title: '本周 WTD',
+          count: data.week_average_artisan_rank,
+        },
+        {
+          sort: 2,
+          title: '本月 MTD',
+          count: data.month_average_artisan_rank,
         }
-        this.updateDatas(this.in_comes, resData)
-        wepy.setStorageSync('in_comes', this.in_comes)
-      }
-      if (!wepy.getStorageSync('new_users')) {
-        let resData = {
-          'today': data.today_new_user_number,
-          'week': data.week_new_user_number,
-          'month': data.month_new_user_number
+      ],
+      this.order_numbers = [{
+          sort: 0,
+          title: '今天 Today',
+          count: data.today_orders_number,
+        },
+        {
+          sort: 1,
+          title: '本周 WTD',
+          count: data.week_orders_number,
+        },
+        {
+          sort: 2,
+          title: '本月 MTD',
+          count: data.month_orders_number
         }
-        this.updateDatas(this.new_users, resData)
-        wepy.setStorageSync('new_users', this.new_users)
-      }
-      if (!wepy.getStorageSync('service_evaluates')) {
-        let resData = {
-          'today': data.today_average_service_rank,
-          'week': data.week_average_service_rank,
-          'month': data.month_average_service_rank
+      ]
+      this.in_comes = [{
+          sort: 0,
+          title: '今天 Today',
+          count: data.today_revenue,
+        },
+        {
+          sort: 1,
+          title: '本周 WTD',
+          count: data.week_revenue,
+        },
+        {
+          sort: 2,
+          title: '本月 MTD',
+          count: data.month_revenue,
         }
-        this.updateDatas(this.service_evaluates, resData)
-        wepy.setStorageSync('service_evaluates', this.new_users)
-      }
-      if (!wepy.getStorageSync('mechanic_evaluates')) {
-        let resData = {
-          'today': data.today_average_artisan_rank,
-          'week': data.week_average_artisan_rank,
-          'month': data.month_average_artisan_rank
+      ],
+      this.new_users= [{
+          sort: 0,
+          title: '今天 Today',
+          count: data.today_new_user_number,
+        },
+        {
+          sort: 1,
+          title: '本周 WTD',
+          count: data.week_new_user_number,
+        },
+        {
+          sort: 2,
+          title: '本月 MTD',
+          count: data.month_new_user_number,
         }
-        this.updateDatas(this.mechanic_evaluates, resData)
-        wepy.setStorageSync('mechanic_evaluates', this.new_users)
-      }
-    }
-    updateDatas(items, resData) {
-      items.forEach(function(item) {
-        if (item.sort == 0) {
-          item.count = resData.today
-        } else if (item.sort == 1) {
-          item.count = resData.week
-        } else {
-          item.count = resData.month
-        }
-      })
-    }
-    updateShowList(select_modules) {
-      if (select_modules.indexOf('订单数') > -1) {
-        this.show_list.order_numbers = 1
-      }
-      if (select_modules.indexOf('营业额') > -1) {
-        this.show_list.in_comes = 1
-      }
-      if (select_modules.indexOf('新增用户个数') > -1) {
-        this.show_list.new_users = 1
-      }
-    }
-    async onShow() {
-      if (wepy.getStorageSync('order_numbers')) {
-        this.order_numbers = wepy.getStorageSync('order_numbers')
-      }
-      if (wepy.getStorageSync('in_comes')) {
-        this.in_comes = wepy.getStorageSync('in_comes')
-      }
-      if (wepy.getStorageSync('new_users')) {
-        this.new_users = wepy.getStorageSync('new_users')
-      }
-      if (wepy.getStorageSync('service_evaluates')) {
-        this.service_evaluates = wepy.getStorageSync('service_evaluates')
-      }
-      if (wepy.getStorageSync('mechanic_evaluates')) {
-        this.mechanic_evaluates = wepy.getStorageSync('mechanic_evaluates')
-      }
-      if (wepy.getStorageSync('modules').length || wepy.getStorageSync('show_list') != '') {
-        this.modules = wepy.getStorageSync('modules')
-      }
-      if (wepy.getStorageSync('show_list') != '') {
-        this.show_list = wepy.getStorageSync('show_list')
-      }
+      ],
       this.is_root = wepy.getStorageSync('is_root')
       this.homeInfo = wepy.getStorageSync('homeInfo')
-       if (hour > 12) {
-        this.time = "下午好"
-      }
       this.$apply()
-      //   this.getorderlist(this.activeIndex);
     }
   }
 </script>

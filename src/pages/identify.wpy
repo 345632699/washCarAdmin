@@ -317,7 +317,7 @@ export default class Identify extends wepy.page {
     activeSelect: false,
     jobIndex: -1,
     //这里要赋值职位信息
-    jobList:['店长','管理员','普通员工'],
+    jobList:['普通员工','店长','老板'],
     adminFlag: true,
     hide_position_root: 0
     //--------------------------------
@@ -363,6 +363,7 @@ export default class Identify extends wepy.page {
           gender: parseInt(this.sexIndex),
           phone_number: parseInt(this.employee.phone_number),
           branch_id: parseInt(this.branch_id),
+          position: parseInt(this.jobIndex + 1),
           name: this.employee.real_name,
           is_root: parseInt(this.is_root),
         },
