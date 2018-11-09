@@ -315,7 +315,7 @@ export default class Identify extends wepy.page {
     }
     ],
     activeSelect: false,
-    jobIndex: -1,
+    jobIndex: 0,
     //这里要赋值职位信息
     jobList:['普通员工','店长','老板'],
     adminFlag: true,
