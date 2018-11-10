@@ -140,7 +140,7 @@
             <view class="list-item" wx:for="{{ employee_list }}" wx:key="item">
               <view class="top">
                 <image wx:if="{{ item.position == '店长' }}" class="avatar" src="../images/mine/shopkeeper.png" />
-                <image wx:if="{{ item.position == '管理员' }}" class="avatar" src="../images/mine/manager.png" />
+                <image wx:if="{{ item.position == '老板' }}" class="avatar" src="../images/mine/manager.png" />
                 <image wx:if="{{ item.position == '普通员工' }}" class="avatar" src="../images/mine/staff.png" />
                 <view class="name">
                   <view class="one">{{ item.name }}</view>

@@ -360,10 +360,6 @@ import api from '../api/api'
         },
         method: 'POST'
       });
-      if (!res.data.status > 0){
-        wepy.setStorageSync('userid','')
-        await this.$parent.getAuth()
-      }
       this.homeInfo = res.data.data[0]
       wepy.setStorageSync('homeInfo',this.homeInfo)
       if (this.homeInfo){
@@ -371,6 +367,11 @@ import api from '../api/api'
         this.orderList = this.homeInfo.order_list
       }
       this.$apply()
+      if (!res.data.status > 0){
+        wepy.setStorageSync('userid','')
+        await this.$parent.getAuth()
+        await this.getorderoverview(wepy.getStorageSync('userid'))
+      }
     }
 
     events = {
