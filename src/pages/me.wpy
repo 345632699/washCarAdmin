@@ -76,7 +76,7 @@
             <block wx:if="{{ 'authed'==auth_status }}">
                 <view class="top role">
                     <image class="role-img" wx:if="{{ position == '店长' }}" src="../images/mine/shopkeeper.png" />
-                    <image class="role-img" wx:if="{{ position == '管理员' }}" src="../images/mine/manager.png" />
+                    <image class="role-img" wx:if="{{ position == '老板' }}" src="../images/mine/shopkeeper.png" />
                     <image class="role-img" wx:if="{{ position == '普通员工' }}" src="../images/mine/staff.png" />
                     <view class="role-msg">
                         <text class="name">{{nickName}}</text>
