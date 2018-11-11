@@ -416,7 +416,7 @@
         }
         data = {
             //weui的tab参数
-            tabs: ["订单数", "营业额", "新用户", "服务评价", "技工评价"],
+            tabs: ["订单数", "营业额", "新用户", "服务评价"],
             activeIndex: 0, //激活项
             sliderOffset: 0, //x轴上转换的值
             sliderLeft: 0, //距离左边的偏移值

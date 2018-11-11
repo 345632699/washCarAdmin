@@ -372,7 +372,7 @@
       title: '加载中',
       alertInfo: {
         alert_title: "取消订单",
-        msg: "确认要取消预约吗？取消后可能无法选择同一时间\n",
+        msg: "请确认是否已经与用户协商，且确认取消这个订单？\n",
         comfirm: 0,
         confirmText: '确认取消',
       },

@@ -427,6 +427,7 @@ export default class Identify extends wepy.page {
       this.branch = this.employee.branch_list[0]
       this.branch_id = this.branch.branch_id;
     }
+    console.log(this.employee)
     this.$apply()
   }
 

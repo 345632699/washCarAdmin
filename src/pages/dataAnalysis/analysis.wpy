@@ -403,7 +403,7 @@
               </view>
             </view>
           </view>
-          <view class="nmechanic-evaluates list" wx:if="{{ show_list.mechanic_evaluates }}">
+          <!-- <view class="nmechanic-evaluates list" wx:if="{{ show_list.mechanic_evaluates }}">
             <view class="list-item">
               <view class="title">
                 <text class="left">技工评价平均分（满分5分）</text>
@@ -424,7 +424,7 @@
                 </view>
               </view>
             </view>
-          </view>
+          </view> -->
           <view class="data-sum list">
             <view class="list-item">
               <view class="summarize" @tap="summarize">
