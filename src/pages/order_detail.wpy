@@ -265,10 +265,10 @@
                 <view class="title">服务评分</view>
                 <rate1 :key.sync="evaluate_service"></rate1>
               </view>
-              <view class="rating">
+              <!-- <view class="rating">
                 <view class="title">技工评分</view>
                 <rate2 :key.sync="evaluate_artisan"></rate2>
-              </view>
+              </view> -->
             </view>
           </view>
           <view class="bottom">
@@ -314,7 +314,7 @@
                 <view class="title">车型</view>
                 <view class="subtitle" wx:if="{{ order_detail.car_model }}">{{ order_detail.car_model }}</view>
                 <view class="subtitle" wx:else>
-                  <input type="text" @change="changeCarModel" value="{{ carModel }}" placeholder="请输入车型" />
+                  <input type="text" @input="changeCarModel" value="{{ carModel }}" placeholder="请输入车型" />
                 </view>
               </view>
               <!-- <image wx:if="{{ order_detail.order_status < 3 }}" class="skip" src="../images/book/more.png"></image>   -->

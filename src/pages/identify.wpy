@@ -363,7 +363,7 @@ export default class Identify extends wepy.page {
           gender: parseInt(this.sexIndex),
           phone_number: parseInt(this.employee.phone_number),
           branch_id: parseInt(this.branch_id),
-          position: parseInt(this.jobIndex + 1),
+          position: parseInt(this.jobIndex) + 1,
           name: this.employee.real_name,
           is_root: parseInt(this.is_root),
         },
@@ -423,10 +423,19 @@ export default class Identify extends wepy.page {
       this.employee.sex = "女"
       this.sexIndex = 2
     }
-    if(this.employee.branch_list[0]){
+    if(this.employee.branch_list[0]){   
       this.branch = this.employee.branch_list[0]
       this.branch_id = this.branch.branch_id;
     }
+
+    this.adminFlag = this.employee.is_root > 0 ? true : false
+
+    this.jobList.forEach((item,index) => {
+        if (item == this.employee.position) {
+            this.jobIndex = index
+            this.$apply()
+        }
+    })
     console.log(this.employee)
     this.$apply()
   }

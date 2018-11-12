@@ -106,6 +106,7 @@
                     background: @cellsBgColor;
                     box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.5);
                     text-align: center;
+                    padding-bottom:40rpx;
                     &:first-child {
                         margin-top: 45rpx;
                     }
