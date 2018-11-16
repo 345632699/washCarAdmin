@@ -303,7 +303,7 @@
               </view>
             </view>
           </view>
-          <!-- ！！选择车型这里下一步不清楚是什么操作，选择or输入？弹框形式？UI没给喔 -->
+          
           <!-- 车型 -->
           <view class="cell">
             <view class="cell-left">
