@@ -301,7 +301,7 @@ export default class Identify extends wepy.page {
 
     employee_id: 0,
     branch_id: 0,
-    is_root: 1,
+    is_root: 0,
     //--------------------------------
     sexOption: [{
       pic: "../images/mine/male.png",
@@ -318,7 +318,7 @@ export default class Identify extends wepy.page {
     jobIndex: 0,
     //这里要赋值职位信息
     jobList:['普通员工','店长','老板'],
-    adminFlag: true,
+    adminFlag: false,
     hide_position_root: 0
     //--------------------------------
   }

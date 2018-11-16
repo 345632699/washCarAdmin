@@ -367,11 +367,11 @@ import api from '../api/api'
         this.orderList = this.homeInfo.order_list
       }
       this.$apply()
-      if (!res.data.status > 0){
-        wepy.setStorageSync('userid','')
-        await this.$parent.getAuth()
-        await this.getorderoverview(wepy.getStorageSync('userid'))
-      }
+    //   if (!res.data.status > 0){
+    //     wepy.setStorageSync('userid','')
+    //     await this.$parent.getAuth()
+    //     await this.getorderoverview(wepy.getStorageSync('userid'))
+    //   }
     }
 
     events = {

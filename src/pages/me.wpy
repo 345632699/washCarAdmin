@@ -84,7 +84,7 @@
                     </view>
                 </view>
                 <button class="btn" @tap="doVerify" id="2">修改资料</button>
-                <button class="btn" @tap="toEmployeeManage">员工管理</button>
+                <button wx:if="{{ is_root }}" class="btn" @tap="toEmployeeManage">员工管理</button>
             </block>
         </view>
     </view>

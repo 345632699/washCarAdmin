@@ -247,7 +247,13 @@
               <view style="width:100%;display:flex;align-items:center;">
                 <view class="txt">
                   <view class="title">套餐信息</view>
-                  <view class="subtitle">{{ order_detail.product_name }}</view>
+                  <view class="subtitle" wx:if="{{ order_detail.order_status >= 3 }}">
+                    <view wx:if="{{ orderDetail.actual_cost_time > 0 }}">{{ order_detail.product_name }} 实际用时：{{ orderDetail.actual_cost_time >= 60 ? ((orderDetail.actual_cost_time / 60 | Int) + '小时 ') : '' }} {{ orderDetail.actual_cost_time % 60 > 0 ? ( (orderDetail.actual_cost_time % 60 | Int) + '分钟') : '' }}</view>
+                    <view wx:else>{{ order_detail.product_name }} 实际用时：0分钟</view>
+                  </view>
+                  <view class="subtitle" wx:else>
+                      {{ order_detail.product_name }}
+                  </view>
                 </view>
               </view>
             </view>
@@ -312,9 +318,9 @@
             <view class="cell-right">
               <view class="txt">
                 <view class="title">车型</view>
-                <view class="subtitle" wx:if="{{ order_detail.car_model }}">{{ order_detail.car_model }}</view>
+                <view class="subtitle" wx:if="{{ order_detail.order_status >= 3 }}">{{ order_detail.car_model }}</view>
                 <view class="subtitle" wx:else>
-                  <input type="text" @input="changeCarModel" value="{{ carModel }}" placeholder="请输入车型" />
+                  <input type="text" @input="changeCarModel" value="{{ order_detail.car_model }}" placeholder="请输入车型" />
                 </view>
               </view>
               <!-- <image wx:if="{{ order_detail.order_status < 3 }}" class="skip" src="../images/book/more.png"></image>   -->
@@ -347,7 +353,8 @@
   import {
     SYSTEM_INFO,
     SEL_CLASS_CODE,
-    APPID
+    APPID,
+    API_URL
   } from '../utils/constant';
   import Alert from '../components/myAlert'
   import api from '../api/api'
@@ -482,7 +489,7 @@
           title: '程序加载中',
         })
         await this.uploadimg({
-          url: 'https://test.cy1993.cn/cy1993_app/uploadcarimage/', //这里是你图片上传的接口
+          url: API_URL+'uploadcarimage/', //这里是你图片上传的接口
           path: imgs //这里是选取的图片的地址数组
         })
       },
@@ -610,6 +617,7 @@
       this.evaluate_service = this.order_detail.commit_rank
       this.evaluate_artisan = this.order_detail.artisan_rank
       this.comment = this.order_detail.comment
+      this.carModel = this.order_detail.car_model
       this.is_evaluate = this.order_detail.is_evaluate
       if (this.comment == '') {
         this.comment = '暂无评论'
