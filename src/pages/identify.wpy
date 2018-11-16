@@ -357,6 +357,11 @@ export default class Identify extends wepy.page {
       this.$apply()
     },
     async validate() {
+      let isRoot = this.is_root;
+      //新员工认证非root
+      if(this.target == 1){
+        isRoot = 0
+      }
       const res = await api.updatestaffinfo({
         query: {
           employee_id: parseInt(this.employee_id),
@@ -365,7 +370,7 @@ export default class Identify extends wepy.page {
           branch_id: parseInt(this.branch_id),
           position: parseInt(this.jobIndex) + 1,
           name: this.employee.real_name,
-          is_root: parseInt(this.is_root),
+          is_root: parseInt(isRoot),
         },
         method: 'POST'
       });
