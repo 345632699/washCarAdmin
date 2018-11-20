@@ -23,4 +23,5 @@ export const SEL_CLASS_CODE = "selClassCode";
 
 export const APPID = "wxd2b1f049d88ddca4"
 
-export const API_URL = 'https://wx.cy1993.cn/cy1993_app/'
+// export const API_URL = 'https://wx.cy1993.cn/cy1993_app/'
+export const API_URL = 'https://test.cy1993.cn/cy1993_app/'

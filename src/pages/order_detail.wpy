@@ -391,6 +391,7 @@
       comment: '', //评价内容
       is_evaluate: 0, //评价内容
       //--------------------------------------------
+      repeat_upload: false
     }
     methods = {
       //--------------------------------------------
@@ -488,10 +489,13 @@
         wx.showLoading({
           title: '程序加载中',
         })
-        await this.uploadimg({
-          url: API_URL+'uploadcarimage/', //这里是你图片上传的接口
-          path: imgs //这里是选取的图片的地址数组
-        })
+        if(!this.repeat_upload){
+          await this.uploadimg({
+            url: API_URL+'uploadcarimage/', //这里是你图片上传的接口
+            path: imgs //这里是选取的图片的地址数组
+          })
+        }
+       
       },
       async cancelOrder() {
         this.is_active = 1
@@ -514,6 +518,8 @@
       }
     }
     async uploadimg(data) {
+      this.repeat_upload = true
+      this.$apply()
       let that = this,
         i = data.i ? data.i : 0, //当前上传的哪张图片
         success = data.success ? data.success : 0, //上传成功的个数

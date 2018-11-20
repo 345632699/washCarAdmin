@@ -1,14 +1,14 @@
 import {
-  wxRequest
+    wxRequest
 } from '../utils/wxRequest';
 
 let env = "-test" //-dev 或者 -test
-const api = 'https://wx.cy1993.cn/cy1993_app/'
-const apiMall = 'https://wx.cy1993.cn/cy1993_app/merchant/'
-// const api = 'https://test.cy1993.cn/cy1993_app/'
-// const apiMall = 'https://test.cy1993.cn/cy1993_app/merchant/'
-//appid = "wx234f1e50c0aeb853"
-//secret = "64336a6964d9f53d6dc31c26fdea970c"
+    // const api = 'https://wx.cy1993.cn/cy1993_app/'
+    // const apiMall = 'https://wx.cy1993.cn/cy1993_app/merchant/'
+const api = 'https://test.cy1993.cn/cy1993_app/'
+const apiMall = 'https://test.cy1993.cn/cy1993_app/merchant/'
+    //appid = "wx234f1e50c0aeb853"
+    //secret = "64336a6964d9f53d6dc31c26fdea970c"
 const login = (params) => wxRequest(params, api + "login/");
 const getorderoverview = (params) => wxRequest(params, apiMall + "getorderoverview/");
 //获取订单列表
@@ -62,28 +62,28 @@ const getmerchantmainpage = (params) => wxRequest(params, api + "getmerchantmain
 
 
 module.exports = {
-  login,
-  getorderoverview,
-  getorderlist,
-  getuserlist,
-  getviplevel,
-  getorderdetails,
-  uploadcarimage,
-  getstafflist,
-  getstaffinfo,
-  updatestaffinfo,
-  updatebalance,
-  updateviplevel,
-  getstaffauthlist,
-  updatestaffauth,
-  getbranchlist,
-  updateorderstatus,
-  servicedone,
-  cancelorder,
-  getanalysismainpage,
-  getnumbersummarybyday,
-  getincordecsummary,
-  getabnormaldata,
-  getmerchantmainpage,
-  getanalysisdetails
+    login,
+    getorderoverview,
+    getorderlist,
+    getuserlist,
+    getviplevel,
+    getorderdetails,
+    uploadcarimage,
+    getstafflist,
+    getstaffinfo,
+    updatestaffinfo,
+    updatebalance,
+    updateviplevel,
+    getstaffauthlist,
+    updatestaffauth,
+    getbranchlist,
+    updateorderstatus,
+    servicedone,
+    cancelorder,
+    getanalysismainpage,
+    getnumbersummarybyday,
+    getincordecsummary,
+    getabnormaldata,
+    getmerchantmainpage,
+    getanalysisdetails
 }
