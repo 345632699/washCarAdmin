@@ -42,7 +42,7 @@
                 padding-bottom: 8rpx;
               }
               .subtitle {
-                color: #9B9B9B;
+                color: #9b9b9b;
                 font-size: @normalFontSize;
                 line-height: 34rpx;
                 .sub-item {
@@ -105,7 +105,7 @@
               margin: 24rpx 24rpx 0 0;
               width: 180rpx;
               height: 180rpx;
-              &:nth-last-child(3n+1) {
+              &:nth-last-child(3n + 1) {
                 //3是计数器，1是偏移值
                 margin-right: 0;
               }
@@ -123,13 +123,13 @@
             .comment {
               .centerBox;
               border-radius: 12rpx;
-              border: 2rpx solid #6D6E71;
+              border: 2rpx solid #6d6e71;
               padding: 14rpx 16rpx;
               margin: 40rpx 0;
               font-size: 24rpx;
               line-height: 34rpx;
               text {
-                color: #6D6E71;
+                color: #6d6e71;
                 width: 586rpx;
               }
             }
@@ -170,7 +170,7 @@
                 height: 100%;
                 margin-bottom: 0;
                 margin-right: 0;
-                background: #D8D8D8;
+                background: #d8d8d8;
                 .centerBox;
                 image {
                   width: 50rpx;
@@ -248,11 +248,12 @@
                 <view class="txt">
                   <view class="title">套餐信息</view>
                   <view class="subtitle" wx:if="{{ order_detail.order_status >= 3 }}">
-                    <view wx:if="{{ orderDetail.actual_cost_time > 0 }}">{{ order_detail.product_name }} 实际用时：{{ orderDetail.actual_cost_time >= 60 ? ((orderDetail.actual_cost_time / 60 | Int) + '小时 ') : '' }} {{ orderDetail.actual_cost_time % 60 > 0 ? ( (orderDetail.actual_cost_time % 60 | Int) + '分钟') : '' }}</view>
-                    <view wx:else>{{ order_detail.product_name }} 实际用时：0分钟</view>
+                    {{ orderDetail.product_name }} 
+                    <view wx:if="{{ order_detail.actual_cost_time > 0 }}" class="subtitle">实际用时：{{ order_detail.actual_cost_time >= 60 ? ((order_detail.actual_cost_time / 60 | Int) + '小时 ') : '' }} {{ order_detail.actual_cost_time % 60 > 0 ? ( (order_detail.actual_cost_time % 60 | Int) + '分钟') : '' }}</view>
+                    <view wx:else class="subtitle">实际用时：0分钟</view>
                   </view>
                   <view class="subtitle" wx:else>
-                      {{ order_detail.product_name }}
+                    {{ order_detail.product_name }}
                   </view>
                 </view>
               </view>
@@ -272,9 +273,9 @@
                 <rate1 :key.sync="evaluate_service"></rate1>
               </view>
               <!-- <view class="rating">
-                <view class="title">技工评分</view>
-                <rate2 :key.sync="evaluate_artisan"></rate2>
-              </view> -->
+                  <view class="title">技工评分</view>
+                  <rate2 :key.sync="evaluate_artisan"></rate2>
+                </view> -->
             </view>
           </view>
           <view class="bottom">
@@ -309,7 +310,6 @@
               </view>
             </view>
           </view>
-          
           <!-- 车型 -->
           <view class="cell">
             <view class="cell-left">
@@ -347,41 +347,41 @@
 </template>
 
 <script>
-  import wepy from 'wepy'
-  import util from '../utils/util'
-  import tip from '../utils/tip'
+  import wepy from 'wepy';
+  import util from '../utils/util';
+  import tip from '../utils/tip';
   import {
     SYSTEM_INFO,
     SEL_CLASS_CODE,
     APPID,
     API_URL
   } from '../utils/constant';
-  import Alert from '../components/myAlert'
-  import api from '../api/api'
-  import Rate from '../components/rate'
+  import Alert from '../components/myAlert';
+  import api from '../api/api';
+  import Rate from '../components/rate';
   export default class OrderDetail extends wepy.page {
     config = {
       navigationBarTitleText: '预约详情'
-    }
+    };
     components = {
       alert: Alert,
       rate1: Rate,
-      rate2: Rate,
-    }
+      rate2: Rate
+    };
     data = {
       order_id: 0,
       order_detail: {},
       imgs: [],
       source_imgs: [], //原图
       has_done: false,
-      carModel: "",
+      carModel: '',
       number: 0,
       title: '加载中',
       alertInfo: {
-        alert_title: "取消订单",
-        msg: "请确认是否已经与用户协商，且确认取消这个订单？\n",
+        alert_title: '取消订单',
+        msg: '请确认是否已经与用户协商，且确认取消这个订单？\n',
         comfirm: 0,
-        confirmText: '确认取消',
+        confirmText: '确认取消'
       },
       is_active: 0,
       //-------------------------------------------
@@ -392,25 +392,25 @@
       is_evaluate: 0, //评价内容
       //--------------------------------------------
       repeat_upload: false
-    }
+    };
     methods = {
       //--------------------------------------------
       callUser(e) {
-        let phone = e.currentTarget.dataset.phone
+        let phone = e.currentTarget.dataset.phone;
         wx.makePhoneCall({
           phoneNumber: phone, //此号码并非真实电话号码，仅用于测试
           success: function() {
-            console.log("拨打电话成功！")
+            console.log('拨打电话成功！');
           },
           fail: function() {
-            console.log("拨打电话失败！")
+            console.log('拨打电话失败！');
           }
-        })
+        });
       },
       //
       changeCarModel(e) {
-        this.carModel = e.detail.value
-        this.$apply()
+        this.carModel = e.detail.value;
+        this.$apply();
       },
       //--------------------------------------------
       previewImage(e) {
@@ -418,14 +418,14 @@
         wepy.previewImage({
           current: current, // 当前显示图片的http链接
           urls: [current] // 需要预览的图片http链接列表
-        })
+        });
       },
       getCarModel(e) {
-        this.carModel = e.detail.value
-        this.$apply()
+        this.carModel = e.detail.value;
+        this.$apply();
       },
       returnBack() {
-        wepy.navigateBack()
+        wepy.navigateBack();
       },
       // 上传图片
       choose(e) {
@@ -436,31 +436,31 @@
           sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
           success: function(res) {
             // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-            let tempFilePaths = res.tempFilePaths
-            let img_list = that.imgs
+            let tempFilePaths = res.tempFilePaths;
+            let img_list = that.imgs;
             for (let i = 0; i < tempFilePaths.length; i++) {
               if (img_list.length >= 9) {
-                that.imgs = img_list
-                return false
+                that.imgs = img_list;
+                return false;
               } else {
-                img_list.push(tempFilePaths[i])
-                that.$apply()
+                img_list.push(tempFilePaths[i]);
+                that.$apply();
               }
             }
-            that.imgs = img_list
-            that.number = img_list.length
-            that.$apply()
+            that.imgs = img_list;
+            that.number = img_list.length;
+            that.$apply();
           }
-        })
+        });
       },
       // 删除图片
       deleteImg(e) {
         let imgs = this.data.imgs;
         let index = e.currentTarget.dataset.index;
         imgs.splice(index, 1);
-        this.imgs = imgs
-        this.number = imgs.length
-        this.$apply()
+        this.imgs = imgs;
+        this.number = imgs.length;
+        this.$apply();
       },
       // 预览图片
       previewImg(e) {
@@ -473,53 +473,52 @@
           current: imgs[index],
           //所有图片
           urls: imgs
-        })
+        });
       },
       //上傳圖片
       async upload() {
-        let imgs = this.data.imgs
+        let imgs = this.data.imgs;
         if (!this.carModel) {
-          tip.error('车型不能为空')
-          return
+          tip.error('车型不能为空');
+          return;
         }
         if (imgs.length < 1) {
-          tip.error('图片少于1张')
-          return
+          tip.error('图片少于1张');
+          return;
         }
         wx.showLoading({
-          title: '程序加载中',
-        })
-        if(!this.repeat_upload){
+          title: '程序加载中'
+        });
+        if (!this.repeat_upload) {
           await this.uploadimg({
-            url: API_URL+'uploadcarimage/', //这里是你图片上传的接口
+            url: API_URL + 'uploadcarimage/', //这里是你图片上传的接口
             path: imgs //这里是选取的图片的地址数组
-          })
+          });
         }
-       
       },
       async cancelOrder() {
-        this.is_active = 1
+        this.is_active = 1;
       },
       async doWash() {
         const res = await api.updateorderstatus({
           query: {
             order_id: parseInt(this.order_id),
-            order_status: 2,
+            order_status: 2
           },
           method: 'POST'
         });
         if (res.data.status) {
-          this.has_done = true
-          await this.getorderdetails(this.order_id)
-          this.$apply()
+          this.has_done = true;
+          await this.getorderdetails(this.order_id);
+          this.$apply();
         } else {
-          tip.error(res.data.errmsg)
+          tip.error(res.data.errmsg);
         }
       }
-    }
+    };
     async uploadimg(data) {
-      this.repeat_upload = true
-      this.$apply()
+      this.repeat_upload = true;
+      this.$apply();
       let that = this,
         i = data.i ? data.i : 0, //当前上传的哪张图片
         success = data.success ? data.success : 0, //上传成功的个数
@@ -534,37 +533,39 @@
         formData: {
           number: i,
           carModel: this.carModel,
-          orderId: this.order_id,
+          orderId: this.order_id
         }, //这里是上传图片时一起上传的数据
-        success: (resp) => {
+        success: resp => {
           //这个图片执行完上传后，开始上传下一张
           i++;
           //需要对返回的数据进行json序列化处理
-          let res = JSON.parse(resp.data)
+          let res = JSON.parse(resp.data);
           if (resp.statusCode == 200 && res.status > 0) {
-            success++ //图片上传成功，图片上传成功的变量+1
+            success++; //图片上传成功，图片上传成功的变量+1
           } else {
-            fail++
-            console.log('第' + i + "张上传失败")
-            tip.error("图片上传出错")
-            return
+            fail++;
+            console.log('第' + i + '张上传失败');
+            tip.error('图片上传出错');
+            return;
           }
           //这里可能有BUG，失败也会执行这里,所以这里应该是后台返回过来的状态码为成功时，这里的success才+1
         },
-        fail: (res) => {
+        fail: res => {
           fail++; //图片上传失败，图片上传失败的变量+1
-          console.log('第' + i + "上传失败")
+          console.log('第' + i + '上传失败');
           //console.log('fail:'+i+"fail:"+fail);
         },
         complete: () => {
-          if (i == data.path.length) { //当图片传完时，停止调用
+          if (i == data.path.length) {
+            //当图片传完时，停止调用
             //console.log('执行完毕');
             //console.log('成功：'+success+" 失败："+fail);
             //完成订单
             if (success == that.data.imgs.length) {
-              this.servicedone()
+              this.servicedone();
             }
-          } else { //若图片还没有传完，则继续调用函数
+          } else {
+            //若图片还没有传完，则继续调用函数
             if (!fail) {
               data.i = i;
               data.success = success;
@@ -576,11 +577,11 @@
               that.uploadimg(data);
             } else {
               wx.showLoading({
-                title: '上传图片出错',
-              })
+                title: '上传图片出错'
+              });
               setTimeout(function() {
-                wx.hideLoading()
-              }, 2000)
+                wx.hideLoading();
+              }, 2000);
             }
           }
         }
@@ -594,70 +595,70 @@
           appId: APPID
         },
         method: 'POST'
-      })
+      });
       if (res.data.status) {
-        tip.success("确认完成")
-        wepy.navigateBack()
+        tip.success('确认完成');
+        wepy.navigateBack();
       } else {
-        tip.error(res.data.errmsg)
-        wepy.navigateBack()
+        tip.error(res.data.errmsg);
+        wepy.navigateBack();
       }
     }
     async getorderdetails(order_id) {
       const res = await api.getorderdetails({
         query: {
-          order_id: parseInt(order_id),
+          order_id: parseInt(order_id)
         },
         method: 'POST'
-      })
-      this.order_detail = res.data.data[0]
+      });
+      this.order_detail = res.data.data[0];
       if (this.order_detail.image_list.length >= 1) {
-        this.imgs = this.order_detail.thumbnail_image_list
-        this.source_imgs = this.order_detail.image_list
-        this.number = this.order_detail.image_list.length
+        this.imgs = this.order_detail.thumbnail_image_list;
+        this.source_imgs = this.order_detail.image_list;
+        this.number = this.order_detail.image_list.length;
       }
-      let order_status = this.order_detail.order_status
+      let order_status = this.order_detail.order_status;
       if (order_status > 1 && order_status < 5) {
-        this.has_done = true
+        this.has_done = true;
       }
-      this.evaluate_service = this.order_detail.commit_rank
-      this.evaluate_artisan = this.order_detail.artisan_rank
-      this.comment = this.order_detail.comment
-      this.carModel = this.order_detail.car_model
-      this.is_evaluate = this.order_detail.is_evaluate
+      this.evaluate_service = this.order_detail.commit_rank;
+      this.evaluate_artisan = this.order_detail.artisan_rank;
+      this.comment = this.order_detail.comment;
+      this.carModel = this.order_detail.car_model;
+      this.is_evaluate = this.order_detail.is_evaluate;
       if (this.comment == '') {
-        this.comment = '暂无评论'
+        this.comment = '暂无评论';
       }
-      this.$apply()
+      this.$apply();
     }
     // events对象中所声明的函数为用于监听组件之间的通信与交互事件的事件处理函数
     events = {
-      'comfirmAction': async(comfirm) => {
+      comfirmAction: async comfirm => {
         if (comfirm == 1) {
           const res = await api.cancelorder({
             query: {
               orderId: parseInt(this.order_id),
-              appid: APPID,
+              appid: APPID
             },
             method: 'POST'
           });
           if (res.data.status) {
-            this.cancel = 1
-            this.$apply()
-            wepy.navigateBack()
-            tip.toast("取消成功")
+            this.cancel = 1;
+            this.$apply();
+            wepy.navigateBack();
+            tip.toast('取消成功');
           }
         }
-      },
+      }
     };
     async onLoad(option) {
-      this.order_id = option.order_id
-      await this.getorderdetails(this.order_id)
-      this.$apply()
+      this.order_id = option.order_id;
+      await this.getorderdetails(this.order_id);
+      this.$apply();
     }
     async onShow() {
-      this.number = this.imgs.length
-      this.$apply()
+      this.number = this.imgs.length;
+      this.$apply();
     }
   }
 </script>
