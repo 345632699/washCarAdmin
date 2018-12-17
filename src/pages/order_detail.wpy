@@ -1,200 +1,200 @@
 <style lang="less">
-  @import '../style/common.less'; //全局css
-  .btn(@bgColr, @borderColor: transparent) {
-    //按钮
-    background: @bgColr;
-    color: @txtColor;
-    border: 1px solid @borderColor;
-  }
-  page,
-  .page {
-    color: @txtColor;
-    .page-bd {
-      margin: 60rpx 26rpx 30rpx 24rpx;
-      background: @cellsBgColor;
-      box-shadow: 0 4rpx 8rpx 0 #000000;
-      border-radius: 12rpx;
-      .cells {
-        padding: 0 36rpx;
-        .cell {
-          border-bottom: 2rpx solid @cellsBorder;
-          padding: 48rpx 0 24rpx 0;
-          .betweenBox;
-          .cell-left {
-            padding: 14rpx 0 0 18rpx;
-            image {
-              width: 46rpx;
-              height: 46rpx;
-            }
+@import '../style/common.less'; //全局css
+.btn(@bgColr, @borderColor: transparent) {
+  //按钮
+  background: @bgColr;
+  color: @txtColor;
+  border: 1px solid @borderColor;
+}
+page,
+.page {
+  color: @txtColor;
+  .page-bd {
+    margin: 60rpx 26rpx 30rpx 24rpx;
+    background: @cellsBgColor;
+    box-shadow: 0 4rpx 8rpx 0 #000000;
+    border-radius: 12rpx;
+    .cells {
+      padding: 0 36rpx;
+      .cell {
+        border-bottom: 2rpx solid @cellsBorder;
+        padding: 48rpx 0 24rpx 0;
+        .betweenBox;
+        .cell-left {
+          padding: 14rpx 0 0 18rpx;
+          image {
+            width: 46rpx;
+            height: 46rpx;
           }
-          .cell-right {
-            width: 528rpx;
-            align-items: center;
-            display: flex;
-            .txt {
-              width: 510rpx;
-              .betweenBox;
-              flex-direction: column;
-              .title {
-                color: @txtColor;
-                font-size: 32rpx;
-                line-height: 44rpx;
-                padding-bottom: 8rpx;
-              }
-              .subtitle {
-                color: #9b9b9b;
-                font-size: @normalFontSize;
-                line-height: 34rpx;
-                .sub-item {
-                  .betweenBox;
-                  padding: 14rpx 0;
-                  &:first-child {
-                    padding-top: 20rpx;
-                  }
-                  &:last-child {
-                    padding-bottom: 0;
-                  }
-                }
-              }
-            }
-            .call-user {
-              min-width: 145rpx;
-              height: 55rpx;
-              margin-right: 20rpx;
-              font-size: 20rpx;
-              .btn(@normalBtnBgColor);
-            }
-            .skip {
-              width: 30rpx;
-              height: 30rpx;
-            }
-            .rating {
-              display: flex;
-              align-items: center;
-              justify-content: flex-start;
-              padding: 10rpx 20rpx 30rpx 20rpx;
-              width: 100%;
-              .title {
-                font-size: 32rpx;
-                line-height: 44rpx;
-                margin-right: 30rpx;
-              }
-            }
-          }
-          .cell-top {
-            width: 100%;
-            align-items: center;
+        }
+        .cell-right {
+          width: 528rpx;
+          align-items: center;
+          display: flex;
+          .txt {
+            width: 510rpx;
             .betweenBox;
-            image {
-              margin-left: 18rpx;
-              width: 46rpx;
-              height: 46rpx;
-            }
+            flex-direction: column;
             .title {
-              width: 528rpx;
               color: @txtColor;
               font-size: 32rpx;
               line-height: 44rpx;
+              padding-bottom: 8rpx;
             }
-          }
-          .cell-bottom {
-            .centerBox;
-            flex-wrap: wrap;
-            padding: 22rpx 20rpx 0;
-            image {
-              margin: 24rpx 24rpx 0 0;
-              width: 180rpx;
-              height: 180rpx;
-              &:nth-last-child(3n + 1) {
-                //3是计数器，1是偏移值
-                margin-right: 0;
-              }
-            }
-          }
-        }
-        .rate {
-          flex-direction: column;
-          .top {
-            width: 100%;
-            .betweenBox;
-          }
-          .bottom {
-            padding: 0 20rpx;
-            .comment {
-              .centerBox;
-              border-radius: 12rpx;
-              border: 2rpx solid #6d6e71;
-              padding: 14rpx 16rpx;
-              margin: 40rpx 0;
-              font-size: 24rpx;
+            .subtitle {
+              color: #9b9b9b;
+              font-size: @normalFontSize;
               line-height: 34rpx;
-              text {
-                color: #6d6e71;
-                width: 586rpx;
-              }
-            }
-          }
-        }
-        .add-photo {
-          flex-direction: column;
-          .top {
-            width: 100%;
-            .betweenBox;
-            .cell-right {
-              justify-content: space-between;
-              .title {
-                font-size: 32rpx;
-                line-height: 44rpx;
-              }
-              .count {
-                font-size: 24rpx;
-                line-height: 34rpx;
-              }
-            }
-          }
-          .bottom {
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            padding: 12rpx 0 24rpx 20rpx;
-            .photo {
-              margin: 24rpx 20rpx 0 0;
-              width: 180rpx;
-              height: 180rpx;
-              image {
-                width: 100%;
-                height: 100%;
-              }
-              .add {
-                width: 100%;
-                height: 100%;
-                margin-bottom: 0;
-                margin-right: 0;
-                background: #d8d8d8;
-                .centerBox;
-                image {
-                  width: 50rpx;
-                  height: 50rpx;
-                  .rotate(-45deg);
+              .sub-item {
+                .betweenBox;
+                padding: 14rpx 0;
+                &:first-child {
+                  padding-top: 20rpx;
+                }
+                &:last-child {
+                  padding-bottom: 0;
                 }
               }
             }
           }
+          .call-user {
+            min-width: 145rpx;
+            height: 55rpx;
+            margin-right: 20rpx;
+            font-size: 20rpx;
+            .btn(@normalBtnBgColor);
+          }
+          .skip {
+            width: 30rpx;
+            height: 30rpx;
+          }
+          .rating {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 10rpx 20rpx 30rpx 20rpx;
+            width: 100%;
+            .title {
+              font-size: 32rpx;
+              line-height: 44rpx;
+              margin-right: 30rpx;
+            }
+          }
+        }
+        .cell-top {
+          width: 100%;
+          align-items: center;
+          .betweenBox;
+          image {
+            margin-left: 18rpx;
+            width: 46rpx;
+            height: 46rpx;
+          }
+          .title {
+            width: 528rpx;
+            color: @txtColor;
+            font-size: 32rpx;
+            line-height: 44rpx;
+          }
+        }
+        .cell-bottom {
+          .centerBox;
+          flex-wrap: wrap;
+          padding: 22rpx 20rpx 0;
+          image {
+            margin: 24rpx 24rpx 0 0;
+            width: 180rpx;
+            height: 180rpx;
+            &:nth-last-child(3n + 1) {
+              //3是计数器，1是偏移值
+              margin-right: 0;
+            }
+          }
         }
       }
-      .pay-btn {
-        padding: 60rpx 46rpx 72rpx;
-        .nomal-btn {
-          .longBtn(@normalBtnBgColor, @normalBtnBorderColor);
-          margin-bottom: 24rpx;
+      .rate {
+        flex-direction: column;
+        .top {
+          width: 100%;
+          .betweenBox;
         }
-        .cancel-btn {
-          .longBtn(@cancelBtnBgColor, @cancelBtnBgColor);
-          margin-bottom: 24rpx;
+        .bottom {
+          padding: 0 20rpx;
+          .comment {
+            .centerBox;
+            border-radius: 12rpx;
+            border: 2rpx solid #6d6e71;
+            padding: 14rpx 16rpx;
+            margin: 40rpx 0;
+            font-size: 24rpx;
+            line-height: 34rpx;
+            text {
+              color: #6d6e71;
+              width: 586rpx;
+            }
+          }
+        }
+      }
+      .add-photo {
+        flex-direction: column;
+        .top {
+          width: 100%;
+          .betweenBox;
+          .cell-right {
+            justify-content: space-between;
+            .title {
+              font-size: 32rpx;
+              line-height: 44rpx;
+            }
+            .count {
+              font-size: 24rpx;
+              line-height: 34rpx;
+            }
+          }
+        }
+        .bottom {
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+          padding: 12rpx 0 24rpx 20rpx;
+          .photo {
+            margin: 24rpx 20rpx 0 0;
+            width: 180rpx;
+            height: 180rpx;
+            image {
+              width: 100%;
+              height: 100%;
+            }
+            .add {
+              width: 100%;
+              height: 100%;
+              margin-bottom: 0;
+              margin-right: 0;
+              background: #d8d8d8;
+              .centerBox;
+              image {
+                width: 50rpx;
+                height: 50rpx;
+                .rotate(-45deg);
+              }
+            }
+          }
         }
       }
     }
+    .pay-btn {
+      padding: 60rpx 46rpx 72rpx;
+      .nomal-btn {
+        .longBtn(@normalBtnBgColor, @normalBtnBorderColor);
+        margin-bottom: 24rpx;
+      }
+      .cancel-btn {
+        .longBtn(@cancelBtnBgColor, @cancelBtnBgColor);
+        margin-bottom: 24rpx;
+      }
+    }
   }
+}
 </style>
 <template>
   <view class="page">
@@ -347,318 +347,313 @@
 </template>
 
 <script>
-  import wepy from 'wepy';
-  import util from '../utils/util';
-  import tip from '../utils/tip';
-  import {
-    SYSTEM_INFO,
-    SEL_CLASS_CODE,
-    APPID,
-    API_URL
-  } from '../utils/constant';
-  import Alert from '../components/myAlert';
-  import api from '../api/api';
-  import Rate from '../components/rate';
-  export default class OrderDetail extends wepy.page {
-    config = {
-      navigationBarTitleText: '预约详情'
-    };
-    components = {
-      alert: Alert,
-      rate1: Rate,
-      rate2: Rate
-    };
-    data = {
-      order_id: 0,
-      order_detail: {},
-      imgs: [],
-      source_imgs: [], //原图
-      has_done: false,
-      carModel: '',
-      number: 0,
-      title: '加载中',
-      alertInfo: {
-        alert_title: '取消订单',
-        msg: '请确认是否已经与用户协商，且确认取消这个订单？\n',
-        comfirm: 0,
-        confirmText: '确认取消'
-      },
-      is_active: 0,
-      //-------------------------------------------
-      //！！这里需要后台返回该订单的评价数据 来赋值
-      evaluate_service: 0, //服务
-      evaluate_artisan: 0, //技工
-      comment: '', //评价内容
-      is_evaluate: 0, //评价内容
-      //--------------------------------------------
-      repeat_upload: false
-    };
-    methods = {
-      //--------------------------------------------
-      callUser(e) {
-        let phone = e.currentTarget.dataset.phone;
-        wx.makePhoneCall({
-          phoneNumber: phone, //此号码并非真实电话号码，仅用于测试
-          success: function() {
-            console.log('拨打电话成功！');
-          },
-          fail: function() {
-            console.log('拨打电话失败！');
-          }
-        });
-      },
-      //
-      changeCarModel(e) {
-        this.carModel = e.detail.value;
-        this.$apply();
-      },
-      //--------------------------------------------
-      previewImage(e) {
-        let current = e.target.dataset.src;
-        wepy.previewImage({
-          current: current, // 当前显示图片的http链接
-          urls: [current] // 需要预览的图片http链接列表
-        });
-      },
-      getCarModel(e) {
-        this.carModel = e.detail.value;
-        this.$apply();
-      },
-      returnBack() {
-        wepy.navigateBack();
-      },
-      // 上传图片
-      choose(e) {
-        let that = this;
-        wx.chooseImage({
-          // count: 1, // 默认9
-          sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-          sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-          success: function(res) {
-            // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-            let tempFilePaths = res.tempFilePaths;
-            let img_list = that.imgs;
-            for (let i = 0; i < tempFilePaths.length; i++) {
-              if (img_list.length >= 9) {
-                that.imgs = img_list;
-                return false;
-              } else {
-                img_list.push(tempFilePaths[i]);
-                that.$apply();
-              }
-            }
-            that.imgs = img_list;
-            that.number = img_list.length;
-            that.$apply();
-          }
-        });
-      },
-      // 删除图片
-      deleteImg(e) {
-        let imgs = this.data.imgs;
-        let index = e.currentTarget.dataset.index;
-        imgs.splice(index, 1);
-        this.imgs = imgs;
-        this.number = imgs.length;
-        this.$apply();
-      },
-      // 预览图片
-      previewImg(e) {
-        //获取当前图片的下标
-        let index = e.currentTarget.dataset.index;
-        //所有图片
-        let imgs = this.data.source_imgs;
-        wx.previewImage({
-          //当前显示图片
-          current: imgs[index],
-          //所有图片
-          urls: imgs
-        });
-      },
-      //上傳圖片
-      async upload() {
-        let imgs = this.data.imgs;
-        if (!this.carModel) {
-          tip.error('车型不能为空');
-          return;
-        }
-        if (imgs.length < 1) {
-          tip.error('图片少于1张');
-          return;
-        }
-        wx.showLoading({
-          title: '程序加载中'
-        });
-        if (!this.repeat_upload) {
-          await this.uploadimg({
-            url: API_URL + 'uploadcarimage/', //这里是你图片上传的接口
-            path: imgs //这里是选取的图片的地址数组
-          });
-        }
-      },
-      async cancelOrder() {
-        this.is_active = 1;
-      },
-      async doWash() {
-        const res = await api.updateorderstatus({
-          query: {
-            order_id: parseInt(this.order_id),
-            order_status: 2
-          },
-          method: 'POST'
-        });
-        if (res.data.status) {
-          this.has_done = true;
-          await this.getorderdetails(this.order_id);
-          this.$apply();
-        } else {
-          tip.error(res.data.errmsg);
-        }
-      }
-    };
-    async uploadimg(data) {
-      this.repeat_upload = true;
-      this.$apply();
-      let that = this,
-        i = data.i ? data.i : 0, //当前上传的哪张图片
-        success = data.success ? data.success : 0, //上传成功的个数
-        fail = data.fail ? data.fail : 0; //上传失败的个数
-      wx.uploadFile({
-        url: data.url,
-        filePath: data.path[i],
-        name: 'carImage', //这里根据自己的实际情况改
-        header: {
-          'content-type': 'application/json'
-        }, // 设置请求的 header
-        formData: {
-          number: i,
-          carModel: this.carModel,
-          orderId: this.order_id
-        }, //这里是上传图片时一起上传的数据
-        success: resp => {
-          //这个图片执行完上传后，开始上传下一张
-          i++;
-          //需要对返回的数据进行json序列化处理
-          let res = JSON.parse(resp.data);
-          if (resp.statusCode == 200 && res.status > 0) {
-            success++; //图片上传成功，图片上传成功的变量+1
-          } else {
-            fail++;
-            console.log('第' + i + '张上传失败');
-            tip.error('图片上传出错');
-            return;
-          }
-          //这里可能有BUG，失败也会执行这里,所以这里应该是后台返回过来的状态码为成功时，这里的success才+1
+import wepy from 'wepy';
+import util from '../utils/util';
+import tip from '../utils/tip';
+import { SYSTEM_INFO, SEL_CLASS_CODE, APPID, API_URL } from '../utils/constant';
+import Alert from '../components/myAlert';
+import api from '../api/api';
+import Rate from '../components/rate';
+export default class OrderDetail extends wepy.page {
+  config = {
+    navigationBarTitleText: '预约详情'
+  };
+  components = {
+    alert: Alert,
+    rate1: Rate,
+    rate2: Rate
+  };
+  data = {
+    order_id: 0,
+    order_detail: {},
+    imgs: [],
+    source_imgs: [], //原图
+    has_done: false,
+    carModel: '',
+    number: 0,
+    title: '加载中',
+    alertInfo: {
+      alert_title: '取消订单',
+      msg: '请确认是否已经与用户协商，且确认取消这个订单？\n',
+      comfirm: 0,
+      confirmText: '确认取消'
+    },
+    is_active: 0,
+    //-------------------------------------------
+    //！！这里需要后台返回该订单的评价数据 来赋值
+    evaluate_service: 0, //服务
+    evaluate_artisan: 0, //技工
+    comment: '', //评价内容
+    is_evaluate: 0, //评价内容
+    //--------------------------------------------
+    repeat_upload: false
+  };
+  methods = {
+    //--------------------------------------------
+    callUser(e) {
+      let phone = e.currentTarget.dataset.phone;
+      wx.makePhoneCall({
+        phoneNumber: phone, //此号码并非真实电话号码，仅用于测试
+        success: function() {
+          console.log('拨打电话成功！');
         },
-        fail: res => {
-          fail++; //图片上传失败，图片上传失败的变量+1
-          console.log('第' + i + '上传失败');
-          //console.log('fail:'+i+"fail:"+fail);
-        },
-        complete: () => {
-          if (i == data.path.length) {
-            //当图片传完时，停止调用
-            //console.log('执行完毕');
-            //console.log('成功：'+success+" 失败："+fail);
-            //完成订单
-            if (success == that.data.imgs.length) {
-              this.servicedone();
-            }
-          } else {
-            //若图片还没有传完，则继续调用函数
-            if (!fail) {
-              data.i = i;
-              data.success = success;
-              data.fail = fail;
-              wx.showLoading({
-                title: '正在上传' + i + '/' + that.number + '张',
-                mask: true
-              });
-              that.uploadimg(data);
-            } else {
-              wx.showLoading({
-                title: '上传图片出错'
-              });
-              setTimeout(function() {
-                wx.hideLoading();
-              }, 2000);
-            }
-          }
+        fail: function() {
+          console.log('拨打电话失败！');
         }
       });
-    }
-    async servicedone() {
-      const res = await api.servicedone({
+    },
+    //
+    changeCarModel(e) {
+      this.carModel = e.detail.value;
+      this.$apply();
+    },
+    //--------------------------------------------
+    previewImage(e) {
+      let current = e.target.dataset.src;
+      wepy.previewImage({
+        current: current, // 当前显示图片的http链接
+        urls: [current] // 需要预览的图片http链接列表
+      });
+    },
+    getCarModel(e) {
+      this.carModel = e.detail.value;
+      this.$apply();
+    },
+    returnBack() {
+      wepy.navigateBack();
+    },
+    // 上传图片
+    choose(e) {
+      let that = this;
+      wx.chooseImage({
+        // count: 1, // 默认9
+        sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+        sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+        success: function(res) {
+          // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+          let tempFilePaths = res.tempFilePaths;
+          let img_list = that.imgs;
+          for (let i = 0; i < tempFilePaths.length; i++) {
+            if (img_list.length >= 9) {
+              that.imgs = img_list;
+              return false;
+            } else {
+              img_list.push(tempFilePaths[i]);
+              that.$apply();
+            }
+          }
+          that.imgs = img_list;
+          that.number = img_list.length;
+          that.$apply();
+        }
+      });
+    },
+    // 删除图片
+    deleteImg(e) {
+      let imgs = this.data.imgs;
+      let index = e.currentTarget.dataset.index;
+      imgs.splice(index, 1);
+      this.imgs = imgs;
+      this.number = imgs.length;
+      this.$apply();
+    },
+    // 预览图片
+    previewImg(e) {
+      //获取当前图片的下标
+      let index = e.currentTarget.dataset.index;
+      //所有图片
+      let imgs = this.data.source_imgs;
+      wx.previewImage({
+        //当前显示图片
+        current: imgs[index],
+        //所有图片
+        urls: imgs
+      });
+    },
+    //上傳圖片
+    async upload() {
+      let imgs = this.data.imgs;
+      if (!this.carModel) {
+        tip.error('车型不能为空');
+        return;
+      }
+      if (imgs.length < 1) {
+        tip.error('图片少于1张');
+        return;
+      }
+      wx.showLoading({
+        title: '程序加载中'
+      });
+      if (!this.repeat_upload) {
+        await this.uploadimg({
+          url: API_URL + 'uploadcarimage/', //这里是你图片上传的接口
+          path: imgs //这里是选取的图片的地址数组
+        });
+      }
+    },
+    async cancelOrder() {
+      this.is_active = 1;
+    },
+    async doWash() {
+      const res = await api.updateorderstatus({
         query: {
-          orderId: parseInt(this.order_id),
-          carModel: this.carModel,
-          appId: APPID
+          order_id: parseInt(this.order_id),
+          order_status: 2
         },
         method: 'POST'
       });
       if (res.data.status) {
-        tip.success('确认完成');
-        wepy.navigateBack();
+        this.has_done = true;
+        await this.getorderdetails(this.order_id);
+        this.$apply();
       } else {
         tip.error(res.data.errmsg);
-        wepy.navigateBack();
       }
     }
-    async getorderdetails(order_id) {
-      const res = await api.getorderdetails({
-        query: {
-          order_id: parseInt(order_id)
-        },
-        method: 'POST'
-      });
-      this.order_detail = res.data.data[0];
-      if (this.order_detail.image_list.length >= 1) {
-        this.imgs = this.order_detail.thumbnail_image_list;
-        this.source_imgs = this.order_detail.image_list;
-        this.number = this.order_detail.image_list.length;
-      }
-      let order_status = this.order_detail.order_status;
-      if (order_status > 1 && order_status < 5) {
-        this.has_done = true;
-      }
-      this.evaluate_service = this.order_detail.commit_rank;
-      this.evaluate_artisan = this.order_detail.artisan_rank;
-      this.comment = this.order_detail.comment;
-      this.carModel = this.order_detail.car_model;
-      this.is_evaluate = this.order_detail.is_evaluate;
-      if (this.comment == '') {
-        this.comment = '暂无评论';
-      }
-      this.$apply();
-    }
-    // events对象中所声明的函数为用于监听组件之间的通信与交互事件的事件处理函数
-    events = {
-      comfirmAction: async comfirm => {
-        if (comfirm == 1) {
-          const res = await api.cancelorder({
-            query: {
-              orderId: parseInt(this.order_id),
-              appid: APPID
-            },
-            method: 'POST'
-          });
-          if (res.data.status) {
-            this.cancel = 1;
-            this.$apply();
-            wepy.navigateBack();
-            tip.toast('取消成功');
+  };
+  async uploadimg(data) {
+    this.repeat_upload = true;
+    this.$apply();
+    let that = this,
+      i = data.i ? data.i : 0, //当前上传的哪张图片
+      success = data.success ? data.success : 0, //上传成功的个数
+      fail = data.fail ? data.fail : 0; //上传失败的个数
+    wx.uploadFile({
+      url: data.url,
+      filePath: data.path[i],
+      name: 'carImage', //这里根据自己的实际情况改
+      header: {
+        'content-type': 'application/json'
+      }, // 设置请求的 header
+      formData: {
+        number: i,
+        carModel: this.carModel,
+        orderId: this.order_id
+      }, //这里是上传图片时一起上传的数据
+      success: resp => {
+        //这个图片执行完上传后，开始上传下一张
+        i++;
+        //需要对返回的数据进行json序列化处理
+        let res = JSON.parse(resp.data);
+        if (resp.statusCode == 200 && res.status > 0) {
+          success++; //图片上传成功，图片上传成功的变量+1
+        } else {
+          fail++;
+          console.log('第' + i + '张上传失败');
+          tip.error('图片上传出错');
+          return;
+        }
+        //这里可能有BUG，失败也会执行这里,所以这里应该是后台返回过来的状态码为成功时，这里的success才+1
+      },
+      fail: res => {
+        fail++; //图片上传失败，图片上传失败的变量+1
+        console.log('第' + i + '上传失败');
+        //console.log('fail:'+i+"fail:"+fail);
+      },
+      complete: () => {
+        if (i == data.path.length) {
+          //当图片传完时，停止调用
+          //console.log('执行完毕');
+          //console.log('成功：'+success+" 失败："+fail);
+          //完成订单
+          if (success == that.data.imgs.length) {
+            this.servicedone();
+          }
+        } else {
+          //若图片还没有传完，则继续调用函数
+          if (!fail) {
+            data.i = i;
+            data.success = success;
+            data.fail = fail;
+            wx.showLoading({
+              title: '正在上传' + i + '/' + that.number + '张',
+              mask: true
+            });
+            that.uploadimg(data);
+          } else {
+            wx.showLoading({
+              title: '上传图片出错'
+            });
+            setTimeout(function() {
+              wx.hideLoading();
+            }, 2000);
           }
         }
       }
-    };
-    async onLoad(option) {
-      this.order_id = option.order_id;
-      await this.getorderdetails(this.order_id);
-      this.$apply();
-    }
-    async onShow() {
-      this.number = this.imgs.length;
-      this.$apply();
+    });
+  }
+  async servicedone() {
+    const res = await api.servicedone({
+      query: {
+        orderId: parseInt(this.order_id),
+        carModel: this.carModel,
+        appId: APPID
+      },
+      method: 'POST'
+    });
+    if (res.data.status) {
+      tip.success('确认完成');
+      wepy.navigateBack();
+    } else {
+      tip.error(res.data.errmsg);
+      wepy.navigateBack();
     }
   }
+  async getorderdetails(order_id) {
+    const res = await api.getorderdetails({
+      query: {
+        order_id: parseInt(order_id)
+      },
+      method: 'POST'
+    });
+    this.order_detail = res.data.data[0];
+    if (this.order_detail.image_list.length >= 1) {
+      this.imgs = this.order_detail.thumbnail_image_list;
+      this.source_imgs = this.order_detail.image_list;
+      this.number = this.order_detail.image_list.length;
+    }
+    let order_status = this.order_detail.order_status;
+    if (order_status > 1 && order_status < 5) {
+      this.has_done = true;
+    }
+    this.evaluate_service = this.order_detail.commit_rank;
+    this.evaluate_artisan = this.order_detail.artisan_rank;
+    this.comment = this.order_detail.comment;
+    this.carModel = this.order_detail.car_model;
+    this.is_evaluate = this.order_detail.is_evaluate;
+    if (this.comment == '') {
+      this.comment = '暂无评论';
+    }
+    this.$apply();
+  }
+  // events对象中所声明的函数为用于监听组件之间的通信与交互事件的事件处理函数
+  events = {
+    comfirmAction: async comfirm => {
+      if (comfirm == 1) {
+        const res = await api.cancelorder({
+          query: {
+            orderId: parseInt(this.order_id),
+            appid: APPID
+          },
+          method: 'POST'
+        });
+        if (res.data.status) {
+          this.cancel = 1;
+          this.$apply();
+          wepy.navigateBack();
+          tip.toast('取消成功');
+        }
+      }
+    }
+  };
+  async onLoad(option) {
+    this.order_id = option.order_id;
+    await this.getorderdetails(this.order_id);
+    this.$apply();
+  }
+  async onShow() {
+    this.number = this.imgs.length;
+    this.$apply();
+  }
+}
 </script>

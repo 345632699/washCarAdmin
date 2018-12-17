@@ -1,176 +1,151 @@
 <style lang="less">
-@import '../style/common.less';
-.page{
-  @cardHeight: 374rpx; //顶部div高
-  color: @titleColor;
-
-  .card {
-    height: @cardHeight;
-
-    .card-blur {
+  @import '../style/common.less';
+  .page {
+    @cardHeight: 374rpx; //顶部div高
+    color: @titleColor;
+    .card {
       height: @cardHeight;
-      .blur;
-    }
-
-    .card-content {
-      height: 254rpx;
-      width: 618rpx;
-      position: absolute;
-      top: 0;
-      .betweenBox;
-      flex-wrap: wrap;
-      margin: 60rpx 66rpx 80rpx;
-
-      .column {
-        flex-basis: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+      .card-blur {
+        height: @cardHeight;
+        .blur;
       }
-
-      .left{
-        .user-name{
-          color: @txtColor;
-          font-size: 40rpx;
-          line-height: 56rpx;
-        }
-
-        .date{
-          color: @txtColor;
-          font-size: 28rpx;
-          line-height: 40rpx;
-        }
-      }
-
-      .right{
-        .book-info{
-          text{
-            display: block;
-            color: #9B9B9B;
-            font-size: 24rpx;
-            line-height: 35rpx;
-          }
-        }
-
-        .sign{
-          height: 48rpx;
-          width: 140rpx;
-          border-radius: 12rpx;
-          .centerBox;
-
-          image{
-            height: 34rpx;
-            width: 34rpx;
-            padding-right: 10rpx;
-          }
-
-          text{
-            font-size: 24rpx;
-            line-height: 34rpx;
-            color: @titleColor;
-          }
-        }
-      }
-    }
-  }
-
-  .weui-tab {
-    .weui-navbar {
-      border-bottom: 0;
-      box-shadow: none;
-      
-      .weui-navbar__item {
-        color: @txtColor;
-        font-weight: 400;
-
-        .weui-navbar__title {
-          font-size: 32rpx;
-          line-height: 44rpx;
-        }
-      }
-
-      .weui-bar__item_on {
-        color: @txtColor;
-      }
-
-      .weui-navbar__slider {
-        width: 50px;
-        background: #C42B2B;
-        height: 4rpx;
-      }
-    }
-  }
-
-  .order {
-    .list{
-      padding-top: 40rpx;
-      .list-item{
-        //width: 616rpx;
-        margin: 0 24rpx 12rpx 26rpx;
-        border-radius: 16rpx;
-        background: #2E2E2E;
-        min-height: 200rpx;
-        .centerBox;
-
-        .avatar{
-          width: 116rpx;
-          height: 116rpx;
-          margin-right: 40rpx;
-        }
-
-        .right{
-          width: 455rpx;
-          .betweenBox;
+      .card-content {
+        height: 254rpx;
+        width: 618rpx;
+        position: absolute;
+        top: 0;
+        .betweenBox;
+        flex-wrap: wrap;
+        margin: 60rpx 66rpx 80rpx;
+        .column {
+          flex-basis: 100%;
+          display: flex;
+          justify-content: space-between;
           align-items: center;
-          flex-direction: column;
-
-          .top{
-            width: 100%;
-            .betweenBox;
-            align-items: center;
-
-            .name{
-              color: #FAFAFA;
-              font-size: 32rpx;
-              line-height: 44rpx;
-              margin-bottom: 12rpx;
-            }
-
-            .time{
-              margin-bottom: 26rpx;
-              color: #9B9B9B;
+        }
+        .left {
+          .user-name {
+            color: @txtColor;
+            font-size: 40rpx;
+            line-height: 56rpx;
+          }
+          .date {
+            color: @txtColor;
+            font-size: 28rpx;
+            line-height: 40rpx;
+          }
+        }
+        .right {
+          .book-info {
+            text {
+              display: block;
+              color: #9b9b9b;
               font-size: 24rpx;
-              line-height: 34rpx;
+              line-height: 35rpx;
             }
           }
-          
-          .bottom{
-            width: 100%;
-            .betweenBox;
-            align-items: center;
-
-            .car-num{
-              color: #9B9B9B;
-              font-size: 28rpx;
-              line-height: 40rpx;
+          .sign {
+            height: 48rpx;
+            width: 140rpx;
+            border-radius: 12rpx;
+            .centerBox;
+            image {
+              height: 34rpx;
+              width: 34rpx;
+              padding-right: 10rpx;
             }
-
-            .rate{
-              margin-bottom: 26rpx;
-              color: #9B9B9B;
+            text {
               font-size: 24rpx;
               line-height: 34rpx;
+              color: @titleColor;
             }
           }
         }
       }
     }
-
-    .no-data{
-      .no-data(60rpx);
+    .weui-tab {
+      .weui-navbar {
+        border-bottom: 0;
+        box-shadow: none;
+        .weui-navbar__item {
+          color: @txtColor;
+          font-weight: 400;
+          .weui-navbar__title {
+            font-size: 32rpx;
+            line-height: 44rpx;
+          }
+        }
+        .weui-bar__item_on {
+          color: @txtColor;
+        }
+        .weui-navbar__slider {
+          width: 50px;
+          background: #c42b2b;
+          height: 4rpx;
+        }
+      }
+    }
+    .order {
+      .list {
+        padding-top: 40rpx;
+        .list-item {
+          //width: 616rpx;
+          margin: 0 24rpx 12rpx 26rpx;
+          border-radius: 16rpx;
+          background: #2e2e2e;
+          min-height: 200rpx;
+          .centerBox;
+          .avatar {
+            width: 116rpx;
+            height: 116rpx;
+            margin-right: 40rpx;
+          }
+          .right {
+            width: 455rpx;
+            .betweenBox;
+            align-items: center;
+            flex-direction: column;
+            .top {
+              width: 100%;
+              .betweenBox;
+              align-items: center;
+              .name {
+                color: #fafafa;
+                font-size: 32rpx;
+                line-height: 44rpx;
+                margin-bottom: 12rpx;
+              }
+              .time {
+                margin-bottom: 26rpx;
+                color: #9b9b9b;
+                font-size: 24rpx;
+                line-height: 34rpx;
+              }
+            }
+            .bottom {
+              width: 100%;
+              .betweenBox;
+              align-items: center;
+              .car-num {
+                color: #9b9b9b;
+                font-size: 28rpx;
+                line-height: 40rpx;
+              }
+              .rate {
+                margin-bottom: 26rpx;
+                color: #9b9b9b;
+                font-size: 24rpx;
+                line-height: 34rpx;
+              }
+            }
+          }
+        }
+      }
+      .no-data {
+        .no-data(60rpx);
+      }
     }
   }
-}
 </style>
 <template>
   <view class="page">
@@ -189,21 +164,20 @@
             <text>本周预约：{{ homeInfo.week_number }}单</text>
           </view>
           <view class="sign" wx:if="{{ homeInfo.busy_status == 'busy' }}" style="background: #C42B2B">
-        <image src="../images/home/hot.png"></image>
+            <image src="../images/home/hot.png"></image>
             <text>火爆</text>
           </view>
           <view class="sign" wx:if="{{ homeInfo.busy_status == 'normal' }}" style="background: #F5A623">
-        <image src="../images/home/normal.png"></image>
+            <image src="../images/home/normal.png"></image>
             <text>正常</text>
           </view>
           <view class="sign" wx:if="{{ homeInfo.busy_status == 'free' }}" style="background: #8BA909">
-        <image src="../images/home/free.png"></image>
+            <image src="../images/home/free.png"></image>
             <text>空闲</text>
           </view>
         </view>
       </view>
     </view>
-
     <view class="weui-tab">
       <!-- 顶部 -->
       <view class="weui-navbar">
@@ -222,13 +196,15 @@
             <navigator class="list-item" wx:for="{{ orderList }}" wx:key="item" url="/pages/order_detail?order_id={{ item.order_id }}" hover-class="none">
               <image class="avatar" src="{{ item.avatarUrl }}"></image>
               <view class="right">
-                <view class="top">  
+                <view class="top">
                   <view class="name">{{ item.name }}</view>
                   <view class="time">{{ item.time }}</view>
                 </view>
-
                 <view class="bottom">
-                  <view class="car-num">{{ item.car_number }}</view>
+                  <view class="car-num" style="max-width:220rpx;">
+                    <text style="display:inline-block;width:220rpx;">{{ item.car_number }}</text>
+                    <text style="display:inline-block;width:220rpx;">套餐:{{ item.product_name }}</text>
+                  </view>
                   <view wx:if="{{ item.is_evaluate }}" class="rate">服务评分：{{ item.evaluation_service_rank }}</view>
                 </view>
               </view>
@@ -241,69 +217,59 @@
 </template>
 
 <script>
-import wepy from 'wepy'
-import util from '../utils/util'
-import Search from '../components/search'
-import Recharge from '../components/recharge'
-import {
-  SYSTEM_INFO,
-  SEL_CLASS_CODE
-} from '../utils/constant';
-import Tap from '../components/tap'
-import api from '../api/api'
-
-  const sliderWidth = 50 // 需要设置slider的宽度，用于计算中间位置
+  import wepy from 'wepy';
+  import util from '../utils/util';
+  import Search from '../components/search';
+  import Recharge from '../components/recharge';
+  import {
+    SYSTEM_INFO,
+    SEL_CLASS_CODE
+  } from '../utils/constant';
+  import Tap from '../components/tap';
+  import api from '../api/api';
+  const sliderWidth = 50; // 需要设置slider的宽度，用于计算中间位置
   export default class Home extends wepy.page {
     config = {
       navigationBarTitleText: '预约列表'
-    }
+    };
     components = {
-      search:Search,
-      recharge:Recharge,
-      tap:Tap,
-    }
-
+      search: Search,
+      recharge: Recharge,
+      tap: Tap
+    };
     data = {
-      tabs:["未完成","已完成"],
-      activeIndex: 0,//激活项
-      sliderOffset: 0,//x轴上转换的值
-      sliderLeft: 0,//距离左边的偏移值
-
+      tabs: ['未完成', '已完成'],
+      activeIndex: 0, //激活项
+      sliderOffset: 0, //x轴上转换的值
+      sliderLeft: 0, //距离左边的偏移值
       userInfo: {
         nickName: '加载中...'
       },
-
-      time:"上午好",
-
+      time: '上午好',
       orderList: [],
-      homeInfo:{
-        today_number:0,
-        week_number:0
+      homeInfo: {
+        today_number: 0,
+        week_number: 0
       },
-
       employee: {
-        name:wepy.getStorageSync('user_info').nickName
-      },
-    }
-
+        name: wepy.getStorageSync('user_info').nickName
+      }
+    };
     computed = {
-      now () {
+      now() {
         let date = new Date();
         let year = date.getFullYear();
         let month = date.getMonth() + 1;
         let strDate = date.getDate();
-
         if (month >= 1 && month <= 9) {
-          month = "0" + month;
+          month = '0' + month;
         }
         if (strDate >= 0 && strDate <= 9) {
-          strDate = "0" + strDate;
+          strDate = '0' + strDate;
         }
-
-        return `${year}年${month}月${strDate}日`
+        return `${year}年${month}月${strDate}日`;
       }
-    }
-
+    };
     methods = {
       async tabClick(e) {
         this.sliderOffset = e.currentTarget.offsetLeft;
@@ -311,7 +277,7 @@ import api from '../api/api'
         this.getorderlist(this.activeIndex);
         this.$apply();
       },
-      changeCate (e) {
+      changeCate(e) {
         let code = e.currentTarget.dataset.code;
         this.getTimeList(code);
         wepy.setStorageSync(SEL_CLASS_CODE, code);
@@ -324,97 +290,95 @@ import api from '../api/api'
           }
         }
       },
-      callbackStart(count){
-      },
-      recharge (e) {
-        this.recharge_active = 1
+      callbackStart(count) {},
+      recharge(e) {
+        this.recharge_active = 1;
       }
-    }
-
+    };
     async getorderlist(type) {
       //type 0 未完成 1已完成
       const res = await api.getorderlist({
         query: {
           employee_id: wepy.getStorageSync('userid'),
-          order_status:type
+          order_status: type
         },
         method: 'POST'
       });
-      this.orderList = res.data.data
-      this.$apply()
+      this.orderList = res.data.data;
+      this.$apply();
     }
-
-    async getorderoverview (employee_id,order_status = 0) {
+    async getorderoverview(employee_id, order_status = 0) {
       let myDate = new Date();
       let hour = myDate.getHours();
-      if (hour > 12){
-        this.time = "下午好"
-        this.$apply()
+      if (hour > 12) {
+        this.time = '下午好';
+        this.$apply();
       }
       // let order_status = wepy.getStorageSync('activeIndex') ? wepy.getStorageSync('activeIndex') : 0;
       // console.log(order_status)
       const res = await api.getmerchantmainpage({
         query: {
           employee_id: employee_id,
-          order_status:order_status
+          order_status: order_status
         },
         method: 'POST'
       });
-      this.homeInfo = res.data.data[0]
-      wepy.setStorageSync('homeInfo',this.homeInfo)
-      if (this.homeInfo){
-        wepy.setStorageSync('is_root',this.homeInfo.is_root)
-        this.orderList = this.homeInfo.order_list
+      this.homeInfo = res.data.data[0];
+      wepy.setStorageSync('homeInfo', this.homeInfo);
+      if (this.homeInfo) {
+        wepy.setStorageSync('is_root', this.homeInfo.is_root);
+        this.orderList = this.homeInfo.order_list;
       }
-      this.$apply()
-    //   if (!res.data.status > 0){
-    //     wepy.setStorageSync('userid','')
-    //     await this.$parent.getAuth()
-    //     await this.getorderoverview(wepy.getStorageSync('userid'))
-    //   }
+      this.$apply();
+      //   if (!res.data.status > 0){
+      //     wepy.setStorageSync('userid','')
+      //     await this.$parent.getAuth()
+      //     await this.getorderoverview(wepy.getStorageSync('userid'))
+      //   }
     }
-
     events = {
       //type 0 未完成 1已完成
-      'getorderlist': async (type) => {
+      getorderlist: async type => {
         const res = await api.getorderlist({
           query: {
             employee_id: wepy.getStorageSync('userid'),
-            order_status:type
+            order_status: type
           },
           method: 'POST'
         });
-        this.orderList = res.data.data
-        this.$apply()
-      },
-    }
-
+        this.orderList = res.data.data;
+        this.$apply();
+      }
+    };
     async onLoad() {
       let that = this;
       wx.getSystemInfo({
-        success: function (res) {
-          that.sliderLeft = (res.windowWidth / that.tabs.length - sliderWidth) / 2;
-          that.sliderOffset = res.windowWidth / that.tabs.length * that.activeIndex;
+        success: function(res) {
+          that.sliderLeft =
+            (res.windowWidth / that.tabs.length - sliderWidth) / 2;
+          that.sliderOffset =
+            (res.windowWidth / that.tabs.length) * that.activeIndex;
         }
       });
-
       // let systemInfo = await wx.getStorageSync(SYSTEM_INFO);
       // this.windowHeight = systemInfo.windowHeight;
       // 初始化页面的参数
       // wepy.setStorageSync('activeIndex',0);
       // this.$apply()
     }
-
-    async onShow() {  
-      if (!wepy.getStorageSync('userid')){
-        await this.$parent.getAuth()
-        this.userInfo = wepy.getStorageSync('user_info')
-        await this.getorderoverview(wepy.getStorageSync('userid'))
-        this.$apply()
-      }else{
-        this.userInfo = wepy.getStorageSync('user_info')
-        await this.getorderoverview(wepy.getStorageSync('userid'),this.activeIndex)
-        this.$apply()
+    async onShow() {
+      if (!wepy.getStorageSync('userid')) {
+        await this.$parent.getAuth();
+        this.userInfo = wepy.getStorageSync('user_info');
+        await this.getorderoverview(wepy.getStorageSync('userid'));
+        this.$apply();
+      } else {
+        this.userInfo = wepy.getStorageSync('user_info');
+        await this.getorderoverview(
+          wepy.getStorageSync('userid'),
+          this.activeIndex
+        );
+        this.$apply();
       }
       // this.getorderlist(this.activeIndex);
     }

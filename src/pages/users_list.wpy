@@ -27,6 +27,7 @@ Page,
     padding-top: 40rpx;
 
     .no-data{
+    .no-data{
       .no-data(40rpx);
     }
 

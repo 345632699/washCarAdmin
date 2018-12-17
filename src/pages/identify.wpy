@@ -434,6 +434,7 @@ export default class Identify extends wepy.page {
     }
 
     this.adminFlag = this.employee.is_root > 0 ? true : false
+    this.is_root = this.employee.is_root
 
     this.jobList.forEach((item,index) => {
         if (item == this.employee.position) {
